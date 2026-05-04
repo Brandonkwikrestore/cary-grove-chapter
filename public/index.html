@@ -222,8 +222,8 @@ body{font-family:var(--fb);background:var(--off);color:var(--text);min-height:10
 .suc h2{font-family:var(--fh);font-size:20px;font-weight:700;color:var(--navy);margin-bottom:7px}
 .suc p{color:var(--text-l);line-height:1.6;font-size:14px;max-width:320px;margin:0 auto 20px}
 .suc-details{background:var(--off);border-radius:8px;padding:13px;margin-bottom:18px;text-align:left}
-.dr{display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-size:13px;border-bottom:1px solid var(--gray-l)}
-.dr:last-child{border-bottom:none}
+.drow{display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-size:13px;border-bottom:1px solid var(--gray-l)}
+.drow:last-child{border-bottom:none}
 .dl{color:var(--gray);font-weight:600}.dv{color:var(--navy);font-weight:700}
 
 /* LOADING */
@@ -1314,9 +1314,9 @@ function submitAttendance() {
         hideAttForm();
         _lastSubmit.attendance = {date:date, loggedBy:document.getElementById('att_loggedBy').value||'Member', records:records, guests:guests};
         document.getElementById('attSucD').innerHTML = `
-          <div class="dr"><span class="dl">Date</span><span class="dv">${fmtDate(date)}</span></div>
-          <div class="dr"><span class="dl">Members Present</span><span class="dv" style="color:var(--green)">${presentCount} of ${members.length}</span></div>
-          <div class="dr"><span class="dl">Guests</span><span class="dv">${guests.length}</span></div>`;
+          <div class="drow"><span class="dl">Date</span><span class="dv">${fmtDate(date)}</span></div>
+          <div class="drow"><span class="dl">Members Present</span><span class="dv" style="color:var(--green)">${presentCount} of ${members.length}</span></div>
+          <div class="drow"><span class="dl">Guests</span><span class="dv">${guests.length}</span></div>`;
         document.getElementById('attSuc').style.display = 'block';
       } else alert('Error saving. Please try again.');
     },
@@ -1350,10 +1350,10 @@ function submitTimeLog() {
         hideTLForm();
         _lastSubmit.timelog = {meetingDate:date, calledToOrder:fmtTime(document.getElementById('tl_order').value), adjournedAt:fmtTime(adj), membersTimed:timedMembers.size+' of '+members.length, quorumMet:pillState['quorum']||'—', notes:document.getElementById('tl_notes').value, loggedBy:document.getElementById('tl_loggedBy').value||'Member'};
         document.getElementById('tlSucD').innerHTML = `
-          <div class="dr"><span class="dl">Date</span><span class="dv">${fmtDate(date)}</span></div>
-          <div class="dr"><span class="dl">Called to Order</span><span class="dv">${fmtTime(document.getElementById('tl_order').value)}</span></div>
-          <div class="dr"><span class="dl">Adjourned</span><span class="dv">${fmtTime(adj)}</span></div>
-          <div class="dr"><span class="dl">Members Timed</span><span class="dv">${timedMembers.size} of ${members.length}</span></div>`;
+          <div class="drow"><span class="dl">Date</span><span class="dv">${fmtDate(date)}</span></div>
+          <div class="drow"><span class="dl">Called to Order</span><span class="dv">${fmtTime(document.getElementById('tl_order').value)}</span></div>
+          <div class="drow"><span class="dl">Adjourned</span><span class="dv">${fmtTime(adj)}</span></div>
+          <div class="drow"><span class="dl">Members Timed</span><span class="dv">${timedMembers.size} of ${members.length}</span></div>`;
         document.getElementById('tlSuc').style.display = 'block';
       } else alert('Error saving.');
     },
