@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1a2f5e">
+<title>Attendance Log — AmSpirit Cary-Grove</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1a2f5e;--navy-d:#0f1d3c;--navy-l:#2a4580;
+  --red:#c8102e;--green:#2e7d32;--green-l:#e8f5e9;
+  --amber:#b45309;--amber-l:#fff8e1;--purple:#7c3aed;--purple-l:#ede9fe;
+  --white:#fff;--off:#f5f7fa;--gray:#6b7280;--gray-l:#e8ecf0;
+  --text:#1f2937;--text-l:#4b5563;
+  --sh:0 4px 24px rgba(26,47,94,.12);
+  --fh:'Montserrat',sans-serif;--fb:'Source Sans 3',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--fb);background:var(--off);color:var(--text);min-height:100vh;padding-bottom:80px}
+.hdr{background:linear-gradient(135deg,var(--navy-d) 0%,var(--navy) 60%,var(--navy-l) 100%);
+  padding:14px 16px;display:flex;align-items:center;gap:10px;
+  box-shadow:0 2px 16px rgba(0,0,0,.25);position:sticky;top:0;z-index:100}
+.logo{width:38px;height:38px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lam{font-family:var(--fh);font-weight:800;color:var(--navy);font-size:10px;line-height:1}
+.lsp{font-family:var(--fh);font-weight:800;color:var(--red);font-size:10px;line-height:1}
+.hdr-t h1{font-family:var(--fh);font-size:13px;font-weight:700;color:#fff;line-height:1.2}
+.hdr-t p{font-size:11px;color:rgba(255,255,255,.7);margin-top:1px}
+.back-link{margin-left:auto;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);
+  color:rgba(255,255,255,.9);font-family:var(--fh);font-size:10px;font-weight:700;
+  padding:5px 10px;border-radius:14px;text-decoration:none;white-space:nowrap}
+.wrap{max-width:680px;margin:0 auto;padding:18px 13px 40px}
+.page-title{font-family:var(--fh);font-size:20px;font-weight:800;color:var(--navy);margin-bottom:4px}
+.page-sub{font-size:13px;color:var(--text-l);margin-bottom:18px;line-height:1.5}
+
+/* FILTER BAR */
+.filter-bar{background:var(--white);border-radius:12px;padding:14px;margin-bottom:16px;
+  box-shadow:var(--sh);display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap}
+.filter-f{display:flex;flex-direction:column;gap:4px;flex:1;min-width:130px}
+.filter-f label{font-size:10px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.5px}
+.filter-f input,.filter-f select{border:1.5px solid var(--gray-l);border-radius:7px;padding:7px 10px;
+  font-size:13px;font-family:var(--fb);background:var(--off);color:var(--text);width:100%}
+.filter-f input:focus,.filter-f select:focus{outline:none;border-color:var(--navy)}
+.filter-btn{padding:8px 16px;border-radius:8px;background:var(--navy);color:#fff;
+  border:none;font-family:var(--fh);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+
+/* SUMMARY CHIPS */
+.summary-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.sc{background:var(--white);border-radius:10px;padding:10px 14px;box-shadow:var(--sh);flex:1;min-width:80px;text-align:center}
+.sc-num{font-family:var(--fh);font-size:20px;font-weight:800;color:var(--navy)}
+.sc-lbl{font-size:10px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
+.sc.green .sc-num{color:var(--green)}
+.sc.red .sc-num{color:var(--red)}
+.sc.amber .sc-num{color:var(--amber)}
+
+/* MEETING CARDS */
+.meeting-card{background:var(--white);border-radius:14px;margin-bottom:12px;
+  box-shadow:var(--sh);overflow:hidden}
+.mc-header{display:flex;align-items:center;gap:12px;padding:14px 16px;
+  cursor:pointer;user-select:none;border-left:4px solid var(--navy)}
+.mc-date{font-family:var(--fh);font-size:14px;font-weight:800;color:var(--navy);flex:1}
+.mc-meta{font-size:11px;color:var(--gray);margin-top:1px}
+.mc-chips{display:flex;gap:6px;flex-wrap:wrap}
+.mc-chip{padding:3px 8px;border-radius:10px;font-family:var(--fh);font-size:10px;font-weight:700}
+.mc-chip.green{background:var(--green-l);color:var(--green)}
+.mc-chip.red{background:#fff0f0;color:#c62828}
+.mc-chip.amber{background:var(--amber-l);color:var(--amber)}
+.mc-chip.purple{background:var(--purple-l);color:var(--purple)}
+.mc-arrow{color:var(--gray);font-size:18px;transition:transform .2s;flex-shrink:0}
+.mc-body{display:none;border-top:1px solid var(--gray-l)}
+.mc-body.open{display:block}
+
+/* MEMBER ROWS */
+.att-table{width:100%;border-collapse:collapse;font-size:13px}
+.att-table th{font-family:var(--fh);font-size:10px;font-weight:700;color:var(--navy);
+  text-transform:uppercase;letter-spacing:.4px;padding:8px 12px;
+  border-bottom:2px solid var(--gray-l);text-align:left;background:var(--off)}
+.att-table td{padding:8px 12px;border-bottom:1px solid var(--gray-l)}
+.att-table tr:last-child td{border-bottom:none}
+.att-table tr:hover td{background:var(--off)}
+.status-tag{display:inline-block;padding:2px 8px;border-radius:8px;
+  font-family:var(--fh);font-size:10px;font-weight:700}
+.st-present{background:var(--green-l);color:var(--green)}
+.st-absent{background:#fff0f0;color:#c62828}
+.st-excused{background:var(--amber-l);color:var(--amber)}
+.st-sub{background:var(--purple-l);color:var(--purple)}
+.st-unknown{background:var(--gray-l);color:var(--gray)}
+
+/* GUEST SECTION */
+.guests-section{padding:10px 14px;background:var(--off);border-top:1px solid var(--gray-l)}
+.guests-label{font-family:var(--fh);font-size:10px;font-weight:700;color:var(--navy);
+  text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.guest-pill{display:inline-block;background:var(--white);border:1px solid var(--gray-l);
+  border-radius:20px;padding:3px 10px;font-size:12px;margin:2px;color:var(--text-l)}
+
+/* LOADING / EMPTY */
+.loading{text-align:center;padding:40px;color:var(--gray)}
+.spin{display:inline-block;width:28px;height:28px;border:3px solid var(--gray-l);
+  border-top-color:var(--navy);border-radius:50%;animation:sp .7s linear infinite;margin-bottom:8px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.empty-state{text-align:center;padding:40px 20px;background:var(--white);
+  border-radius:14px;box-shadow:var(--sh)}
+.empty-icon{font-size:36px;margin-bottom:10px}
+.empty-title{font-family:var(--fh);font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.empty-sub{font-size:13px;color:var(--gray)}
+.foot{text-align:center;padding:12px;font-size:11px;color:var(--gray);
+  border-top:1px solid var(--gray-l);background:var(--white);position:fixed;bottom:0;left:0;right:0}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="logo"><div><div class="lam">Am</div><div class="lsp">Spirit</div></div></div>
+  <div class="hdr-t"><h1>Attendance Log</h1><p>AmSpirit Cary-Grove</p></div>
+  <a href="index.html" class="back-link">← Portal</a>
+</header>
+
+<div class="wrap">
+  <div class="page-title">📋 Attendance Log</div>
+  <div class="page-sub">Tap any meeting to expand the full attendance record.</div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <div class="filter-f">
+      <label>From</label>
+      <input type="date" id="filterFrom">
+    </div>
+    <div class="filter-f">
+      <label>To</label>
+      <input type="date" id="filterTo">
+    </div>
+    <button class="filter-btn" onclick="loadAttendance()">🔍 Search</button>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-chips" id="summaryChips" style="display:none">
+    <div class="sc"><div class="sc-num" id="sumMeetings">0</div><div class="sc-lbl">Meetings</div></div>
+    <div class="sc green"><div class="sc-num" id="sumPresent">0</div><div class="sc-lbl">Avg Present</div></div>
+    <div class="sc red"><div class="sc-num" id="sumAbsent">0</div><div class="sc-lbl">Avg Absent</div></div>
+    <div class="sc amber"><div class="sc-num" id="sumGuests">0</div><div class="sc-lbl">Total Guests</div></div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="meetingsList">
+    <div class="loading"><div class="spin"></div><br>Loading attendance records…</div>
+  </div>
+</div>
+
+<footer class="foot">AmSpirit Business Connections · Cary-Grove Chapter</footer>
+
+<script>
+var _supa = supabase.createClient(
+  'https://tlcaeddeytsjgojyogjc.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRsY2FlZGRleXRzamdvanlvZ2pjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwMDQ2OTQsImV4cCI6MjA5MTU4MDY5NH0.yxrxU4dflAGa9Qngxz6UXH6emFe7mxO-v5BsFDRzzQE'
+);
+var CHAPTER_ID = 'a137cf6c-ac7d-4b9e-bbf3-8f6f2e1e2c92';
+var activeCard = null;
+
+window.onload = function(){
+  var today = new Date();
+  var thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(today.getDate() - 30);
+  document.getElementById('filterTo').value = today.toISOString().split('T')[0];
+  document.getElementById('filterFrom').value = thirtyDaysAgo.toISOString().split('T')[0];
+  loadAttendance();
+};
+
+function fmtDate(iso){
+  if(!iso) return '';
+  return new Date(iso+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+}
+function fmtDateShort(iso){
+  if(!iso) return '';
+  return new Date(iso+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+}
+
+function loadAttendance(){
+  var from = document.getElementById('filterFrom').value;
+  var to = document.getElementById('filterTo').value;
+  var list = document.getElementById('meetingsList');
+  list.innerHTML = '<div class="loading"><div class="spin"></div><br>Loading…</div>';
+  document.getElementById('summaryChips').style.display = 'none';
+
+  var query = _supa.from('attendance').select('*')
+    .eq('chapter_id', CHAPTER_ID)
+    .order('meeting_date', {ascending:false});
+  if(from) query = query.gte('meeting_date', from);
+  if(to)   query = query.lte('meeting_date', to);
+
+  query.then(function(r){
+    if(r.error){ list.innerHTML='<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-title">Error loading records</div><div class="empty-sub">'+r.error.message+'</div></div>'; return; }
+    var rows = r.data||[];
+    if(!rows.length){
+      list.innerHTML='<div class="empty-state"><div class="empty-icon">📋</div><div class="empty-title">No records found</div><div class="empty-sub">Try expanding the date range or submit attendance from the portal.</div></div>';
+      return;
+    }
+
+    // Summary stats
+    var totalPresent=0, totalAbsent=0, totalGuests=0;
+    rows.forEach(function(row){
+      var records = parseRecords(row.records);
+      var guests  = parseRecords(row.guests);
+      records.forEach(function(m){ if((m.status||'').toLowerCase()==='present') totalPresent++; else if((m.status||'').toLowerCase()==='absent') totalAbsent++; });
+      totalGuests += guests.length;
+    });
+    document.getElementById('sumMeetings').textContent = rows.length;
+    document.getElementById('sumPresent').textContent  = rows.length ? Math.round(totalPresent/rows.length) : 0;
+    document.getElementById('sumAbsent').textContent   = rows.length ? Math.round(totalAbsent/rows.length) : 0;
+    document.getElementById('sumGuests').textContent   = totalGuests;
+    document.getElementById('summaryChips').style.display = 'flex';
+
+    // Build cards
+    list.innerHTML = rows.map(function(row, idx){
+      var records = parseRecords(row.records);
+      var guests  = parseRecords(row.guests);
+      var present=0,absent=0,excused=0,sub=0;
+      records.forEach(function(m){
+        var s=(m.status||'').toLowerCase();
+        if(s==='present') present++;
+        else if(s==='absent') absent++;
+        else if(s==='excused') excused++;
+        else if(s==='sub') sub++;
+      });
+      return '<div class="meeting-card">'
+        +'<div class="mc-header" onclick="toggleCard('+idx+')" id="mch_'+idx+'">'
+        +'<div>'
+          +'<div class="mc-date">'+fmtDate(row.meeting_date)+'</div>'
+          +'<div class="mc-meta">Logged by '+( row.logged_by||'SAA')+(guests.length?' · '+guests.length+' guest'+(guests.length>1?'s':''):'')+'</div>'
+        +'</div>'
+        +'<div class="mc-chips">'
+          +(present?'<div class="mc-chip green">✓ '+present+'</div>':'')
+          +(absent?'<div class="mc-chip red">✗ '+absent+'</div>':'')
+          +(excused?'<div class="mc-chip amber">~ '+excused+'</div>':'')
+          +(sub?'<div class="mc-chip purple">⇄ '+sub+'</div>':'')
+        +'</div>'
+        +'<div class="mc-arrow" id="mca_'+idx+'">›</div>'
+        +'</div>'
+        +'<div class="mc-body" id="mcb_'+idx+'">'
+        +buildMemberTable(records)
+        +(guests.length ? buildGuestSection(guests) : '')
+        +'</div>'
+        +'</div>';
+    }).join('');
+  }).catch(function(e){ list.innerHTML='<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-title">Connection error</div><div class="empty-sub">'+e+'</div></div>'; });
+}
+
+function parseRecords(val){
+  if(!val) return [];
+  if(Array.isArray(val)) return val;
+  try{ return JSON.parse(val); }catch(e){ return []; }
+}
+
+function buildMemberTable(records){
+  if(!records.length) return '<div style="padding:12px;color:var(--gray);font-size:13px;text-align:center">No member records</div>';
+  var html = '<table class="att-table"><thead><tr><th>Member</th><th>Company</th><th>Status</th><th>Notes</th></tr></thead><tbody>';
+  records.forEach(function(m){
+    var s=(m.status||'Not Logged').toLowerCase().replace(' ','');
+    var tagClass = s==='present'?'st-present':s==='absent'?'st-absent':s==='excused'?'st-excused':s==='sub'?'st-sub':'st-unknown';
+    html+='<tr>'
+      +'<td style="font-weight:600">'+(m.name||m.memberName||'—')+'</td>'
+      +'<td style="color:var(--gray);font-size:12px">'+(m.company||'')+'</td>'
+      +'<td><span class="status-tag '+tagClass+'">'+(m.status||'Not Logged')+'</span></td>'
+      +'<td style="color:var(--gray);font-size:12px">'+(m.notes||'')+'</td>'
+      +'</tr>';
+  });
+  html+='</tbody></table>';
+  return html;
+}
+
+function buildGuestSection(guests){
+  var html='<div class="guests-section"><div class="guests-label">👋 Guests ('+guests.length+')</div>';
+  guests.forEach(function(g){
+    html+='<span class="guest-pill">'+(g.name||g.guestName||'Guest')+(g.invitedBy?' — invited by '+g.invitedBy:'')+'</span>';
+  });
+  html+='</div>';
+  return html;
+}
+
+function toggleCard(idx){
+  var body  = document.getElementById('mcb_'+idx);
+  var arrow = document.getElementById('mca_'+idx);
+  var isOpen = body.classList.contains('open');
+  // Close previous
+  if(activeCard !== null && activeCard !== idx){
+    var pb = document.getElementById('mcb_'+activeCard);
+    var pa = document.getElementById('mca_'+activeCard);
+    if(pb) pb.classList.remove('open');
+    if(pa) pa.style.transform='';
+  }
+  body.classList.toggle('open',!isOpen);
+  arrow.style.transform = isOpen?'':'rotate(90deg)';
+  activeCard = isOpen ? null : idx;
+  if(!isOpen) setTimeout(function(){ document.getElementById('mch_'+idx).scrollIntoView({behavior:'smooth',block:'start'}); },50);
+}
+</script>
+</body>
+</html>

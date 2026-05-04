@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1a2f5e">
+<title>You're Invited — AmSpirit Cary-Grove</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1a2f5e;--navy-d:#0f1d3c;--navy-l:#2a4580;
+  --red:#c8102e;--gold:#d4a017;
+  --green:#2e7d32;--green-l:#e8f5e9;
+  --white:#fff;--off:#f5f7fa;--gray:#6b7280;--gray-l:#e8ecf0;
+  --text:#1f2937;--text-l:#4b5563;
+  --sh:0 4px 24px rgba(26,47,94,.12);
+  --fh:'Montserrat',sans-serif;--fb:'Source Sans 3',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--off);color:var(--text);min-height:100vh;padding-bottom:60px}
+
+/* HERO */
+.hero{
+  background:linear-gradient(150deg,var(--navy-d) 0%,var(--navy) 55%,#1e3a6e 100%);
+  padding:48px 20px 56px;text-align:center;position:relative;overflow:hidden
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 70% 20%,rgba(200,16,46,.15) 0%,transparent 60%);
+}
+.hero::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:44px;
+  background:var(--off);clip-path:ellipse(55% 100% at 50% 100%);
+}
+.hero-badge{
+  display:inline-block;background:rgba(212,160,23,.2);border:1px solid rgba(212,160,23,.4);
+  color:var(--gold);font-family:var(--fh);font-size:10px;font-weight:700;
+  padding:5px 14px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;
+  margin-bottom:18px;position:relative;
+}
+.brand{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px;position:relative}
+.brand-am{font-family:var(--fh);font-weight:900;color:#fff;font-size:38px;letter-spacing:-1px}
+.brand-sp{font-family:var(--fh);font-weight:900;color:var(--red);font-size:38px;font-style:italic;letter-spacing:-1px}
+.hero h1{font-family:var(--fh);font-size:22px;font-weight:700;color:rgba(255,255,255,.9);
+  line-height:1.3;position:relative;margin-bottom:8px}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.65);position:relative;line-height:1.6}
+
+/* WHAT TO EXPECT */
+.wrap{max-width:640px;margin:0 auto;padding:28px 16px 20px}
+
+.section-label{font-family:var(--fh);font-size:10px;font-weight:700;color:var(--navy);
+  text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px;opacity:.6}
+
+.expect-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+@media(max-width:420px){.expect-grid{grid-template-columns:1fr}}
+.expect-card{background:var(--white);border-radius:12px;padding:14px;box-shadow:var(--sh);
+  display:flex;gap:10px;align-items:flex-start}
+.expect-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;
+  justify-content:center;font-size:17px;flex-shrink:0}
+.expect-title{font-family:var(--fh);font-size:11px;font-weight:700;color:var(--navy);margin-bottom:2px}
+.expect-desc{font-size:11px;color:var(--text-l);line-height:1.5}
+
+/* AGENDA PREVIEW */
+.agenda-card{background:var(--white);border-radius:14px;padding:18px;margin-bottom:20px;box-shadow:var(--sh)}
+.agenda-title{font-family:var(--fh);font-size:13px;font-weight:700;color:var(--navy);
+  margin-bottom:12px;display:flex;align-items:center;gap:7px}
+.agenda-row{display:flex;align-items:center;gap:10px;padding:7px 0;
+  border-bottom:1px solid var(--gray-l);font-size:12px}
+.agenda-row:last-child{border-bottom:none}
+.agenda-time{color:var(--gray);font-weight:600;min-width:44px;font-size:11px}
+.agenda-item{color:var(--text);line-height:1.4;flex:1}
+.agenda-item.highlight{font-weight:700;color:var(--navy)}
+.agenda-dot{width:7px;height:7px;border-radius:50%;background:var(--gray-l);flex-shrink:0}
+.agenda-dot.red{background:var(--red)}
+.agenda-dot.navy{background:var(--navy)}
+
+/* RSVP FORM */
+.rsvp-card{background:var(--white);border-radius:14px;padding:20px;box-shadow:var(--sh);
+  border-top:4px solid var(--red);margin-bottom:20px}
+.rsvp-title{font-family:var(--fh);font-size:16px;font-weight:800;color:var(--navy);margin-bottom:4px}
+.rsvp-sub{font-size:13px;color:var(--text-l);margin-bottom:18px;line-height:1.5}
+.field{display:flex;flex-direction:column;gap:4px;margin-bottom:13px}
+.field label{font-size:10px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.5px}
+.field input,.field textarea,.field select{
+  border:1.5px solid var(--gray-l);border-radius:8px;padding:9px 12px;
+  font-size:14px;font-family:var(--fb);color:var(--text);background:var(--off);width:100%
+}
+.field input:focus,.field textarea:focus,.field select:focus{
+  outline:none;border-color:var(--navy);background:var(--white)
+}
+.field textarea{resize:vertical;min-height:70px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:420px){.field-row{grid-template-columns:1fr}}
+
+.pill-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:4px}
+.pill{flex:1;min-width:100px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--gray-l);
+  background:var(--white);text-align:center;cursor:pointer;transition:all .15s;
+  font-size:12px;font-family:var(--fb);font-weight:600;color:var(--text-l)}
+.pill:hover:not(.active){border-color:var(--navy)}
+.pill.active{background:var(--navy);border-color:var(--navy);color:#fff}
+
+.submit-btn{
+  width:100%;padding:14px;border-radius:10px;background:var(--red);color:#fff;
+  border:none;font-family:var(--fh);font-size:14px;font-weight:700;cursor:pointer;
+  transition:all .2s;letter-spacing:.3px;margin-top:4px
+}
+.submit-btn:hover{background:#a00e25;transform:translateY(-1px);box-shadow:0 4px 14px rgba(200,16,46,.3)}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+/* SUCCESS */
+.success{display:none;background:var(--white);border-radius:14px;padding:36px 24px;
+  text-align:center;box-shadow:var(--sh);border-top:4px solid var(--green)}
+.suc-circle{width:60px;height:60px;border-radius:50%;background:var(--green-l);
+  display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 16px}
+.suc-h2{font-family:var(--fh);font-size:20px;font-weight:800;color:var(--navy);margin-bottom:8px}
+.suc-p{font-size:13px;color:var(--text-l);line-height:1.7;margin-bottom:20px}
+.suc-detail{background:var(--off);border-radius:10px;padding:14px;text-align:left;margin-bottom:20px}
+.suc-row{display:flex;justify-content:space-between;padding:5px 0;font-size:13px;
+  border-bottom:1px solid var(--gray-l)}
+.suc-row:last-child{border-bottom:none}
+.suc-label{color:var(--gray);font-weight:600}
+.suc-val{color:var(--navy);font-weight:700}
+
+/* LOADING */
+.ld{display:none;position:fixed;inset:0;background:rgba(26,47,94,.55);z-index:999;
+  align-items:center;justify-content:center;flex-direction:column;gap:11px}
+.ld.on{display:flex}
+.spin{width:36px;height:36px;border:4px solid rgba(255,255,255,.3);
+  border-top-color:#fff;border-radius:50%;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.ld p{color:#fff;font-family:var(--fh);font-weight:600;font-size:13px}
+
+.foot{text-align:center;padding:10px;font-size:11px;color:var(--gray)}
+</style>
+</head>
+<body>
+
+<div class="ld" id="ld"><div class="spin"></div><p>Saving your RSVP…</p></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">You're Invited</div>
+  <div class="brand"><span class="brand-am">Am</span><span class="brand-sp">Spirit</span></div>
+  <h1 id="heroHeadline">You've been personally invited<br>to our chapter meeting</h1>
+  <div class="hero-sub">Cary–Fox River Grove · Every Tuesday · Networking 11:45 AM · Meeting 12:00 – 1:15 PM</div>
+</div>
+
+<div class="wrap">
+
+  <!-- WHAT TO EXPECT -->
+  <div class="section-label">What to expect</div>
+  <div class="expect-grid">
+    <div class="expect-card">
+      <div class="expect-icon" style="background:#fff0f0">🤝</div>
+      <div><div class="expect-title">Real referrals</div><div class="expect-desc">Members actively pass warm introductions to each other every week — not just networking</div></div>
+    </div>
+    <div class="expect-card">
+      <div class="expect-icon" style="background:#e8f5e9">⏱</div>
+      <div><div class="expect-title">90 minutes, structured</div><div class="expect-desc">A tight 16-segment agenda that respects your time — starts and ends on the dot</div></div>
+    </div>
+    <div class="expect-card">
+      <div class="expect-icon" style="background:#eff4ff">👋</div>
+      <div><div class="expect-title">You're a guest</div><div class="expect-desc">No pressure, no pitch. Come, meet the group, and see if it feels like the right fit</div></div>
+    </div>
+    <div class="expect-card">
+      <div class="expect-icon" style="background:#fff8e1">📍</div>
+      <div><div class="expect-title">255 Briargate Rd</div><div class="expect-desc">Cary, IL 60013 · Networking starts at 11:45 — meeting begins at 12:00 PM sharp</div></div>
+    </div>
+  </div>
+
+  <!-- AGENDA PREVIEW -->
+  <div class="agenda-card">
+    <div class="agenda-title">📋 Meeting at a glance</div>
+    <div class="agenda-row"><div class="agenda-dot navy"></div><div class="agenda-time">11:45</div><div class="agenda-item">Arrive &amp; open networking — your host will introduce you around</div></div>
+    <div class="agenda-row"><div class="agenda-dot red"></div><div class="agenda-time">12:00</div><div class="agenda-item highlight">Meeting called to order</div></div>
+    <div class="agenda-row"><div class="agenda-dot"></div><div class="agenda-time">12:05</div><div class="agenda-item">Guest introductions — you'll have a moment to say hello</div></div>
+    <div class="agenda-row"><div class="agenda-dot navy"></div><div class="agenda-time">12:15</div><div class="agenda-item">Member commercials — 30-second introductions from each member</div></div>
+    <div class="agenda-row"><div class="agenda-dot red"></div><div class="agenda-time">12:20</div><div class="agenda-item highlight">Member spotlight — a 10-minute deep dive on one member's business</div></div>
+    <div class="agenda-row"><div class="agenda-dot"></div><div class="agenda-time">12:35</div><div class="agenda-item">Education segment — a 5-minute professional development topic</div></div>
+    <div class="agenda-row"><div class="agenda-dot navy"></div><div class="agenda-time">12:45</div><div class="agenda-item">Referrals &amp; announcements — members pass referrals publicly</div></div>
+    <div class="agenda-row"><div class="agenda-dot red"></div><div class="agenda-time">1:15</div><div class="agenda-item highlight">Adjourned on time</div></div>
+  </div>
+
+  <!-- RSVP FORM -->
+  <div class="rsvp-card" id="rsvpForm">
+    <div class="rsvp-title">Reserve your seat 👇</div>
+    <div class="rsvp-sub">Let us know you're coming so your host can introduce you to the right people.</div>
+
+    <div class="field-row">
+      <div class="field"><label>First Name *</label><input type="text" id="r_first" placeholder="First"></div>
+      <div class="field"><label>Last Name *</label><input type="text" id="r_last" placeholder="Last"></div>
+    </div>
+    <div class="field"><label>Business / Company *</label><input type="text" id="r_company" placeholder="Your company name"></div>
+    <div class="field"><label>Your Role / Title</label><input type="text" id="r_title" placeholder="e.g. Owner, Sales Manager"></div>
+    <div class="field-row">
+      <div class="field"><label>Email Address *</label><input type="email" id="r_email" placeholder="you@example.com"></div>
+      <div class="field"><label>Phone Number</label><input type="tel" id="r_phone" placeholder="(555) 000-0000"></div>
+    </div>
+    <div class="field">
+      <label>Which Tuesday are you attending? *</label>
+      <input type="date" id="r_date">
+    </div>
+    <div class="field">
+      <label>Who invited you?</label>
+      <select id="r_invitedBy">
+        <option value="">— Select a member —</option>
+        <option>Traci Emond</option>
+        <option>Jakob Kolodziej</option>
+        <option>Vicki Genz</option>
+        <option>Ryan Johnson</option>
+        <option>Sean Fergus</option>
+        <option>Jeremy Juhl</option>
+        <option>Tim Matta</option>
+        <option>Dr. Brett Rappenecker</option>
+        <option>Dan Kern</option>
+        <option>Brandon Bynum</option>
+        <option>Scot Bemus</option>
+        <option>Jim Heim</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>What are you hoping to get out of visiting?</label>
+      <div class="pill-row" id="goalPills">
+        <div class="pill" onclick="selPill(this,'goal')" data-val="More referrals">More referrals</div>
+        <div class="pill" onclick="selPill(this,'goal')" data-val="Build my network">Build my network</div>
+        <div class="pill" onclick="selPill(this,'goal')" data-val="Grow my business">Grow my business</div>
+        <div class="pill" onclick="selPill(this,'goal')" data-val="Just exploring">Just exploring</div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Anything else we should know?</label>
+      <textarea id="r_notes" placeholder="Special questions, dietary needs, or anything that would help us make your visit great…"></textarea>
+    </div>
+
+    <button class="submit-btn" onclick="submitRSVP()">Confirm My RSVP →</button>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success" id="rsvpSuccess">
+    <div class="suc-circle">✓</div>
+    <div class="suc-h2">You're confirmed!</div>
+    <div class="suc-p">We're looking forward to having you. Your host will reach out before Tuesday to answer any questions. Plan to arrive by 11:45 for open networking — the meeting kicks off at 12:00 PM sharp.</div>
+    <div class="suc-detail" id="sucDetail"></div>
+    <div style="background:#fff8e1;border-radius:10px;padding:14px;text-align:left">
+      <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;color:#b45309;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">📍 Where to go</div>
+      <div style="font-size:13px;color:#374151;line-height:1.7">255 Briargate Rd · Cary, IL 60013<br>Tuesdays · Networking 11:45 AM · Meeting 12:00 – 1:15 PM</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="foot">AmSpirit Business Connections · Cary–Fox River Grove Chapter</div>
+
+<script>
+var _supa = supabase.createClient(
+  'https://tlcaeddeytsjgojyogjc.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRsY2FlZGRleXRzamdvanlvZ2pjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwMDQ2OTQsImV4cCI6MjA5MTU4MDY5NH0.yxrxU4dflAGa9Qngxz6UXH6emFe7mxO-v5BsFDRzzQE'
+);
+var CHAPTER_ID = 'a137cf6c-ac7d-4b9e-bbf3-8f6f2e1e2c92';
+var goalVal = '';
+
+// Pre-fill invited_by from URL param
+window.onload = function(){
+  var params = new URLSearchParams(window.location.search);
+  var inv = params.get('invited_by') || params.get('by') || '';
+  if(inv){
+    // Match to dropdown
+    var sel = document.getElementById('r_invitedBy');
+    for(var i=0;i<sel.options.length;i++){
+      if(sel.options[i].value.toLowerCase().indexOf(inv.toLowerCase()) >= 0){
+        sel.selectedIndex = i; break;
+      }
+    }
+    // Update headline
+    document.getElementById('heroHeadline').innerHTML =
+      inv + ' personally invited you<br>to our chapter meeting';
+  }
+  // Default date to next Tuesday
+  var d = new Date();
+  var day = d.getDay();
+  var diff = day <= 2 ? 2 - day : 9 - day;
+  d.setDate(d.getDate() + diff);
+  document.getElementById('r_date').value = d.toISOString().split('T')[0];
+};
+
+function selPill(el, group){
+  document.querySelectorAll('#goalPills .pill').forEach(function(p){ p.classList.remove('active'); });
+  el.classList.add('active');
+  goalVal = el.dataset.val;
+}
+
+function fmtDate(iso){
+  if(!iso) return '';
+  return new Date(iso+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+}
+
+function submitRSVP(){
+  var first = document.getElementById('r_first').value.trim();
+  var last  = document.getElementById('r_last').value.trim();
+  var co    = document.getElementById('r_company').value.trim();
+  var email = document.getElementById('r_email').value.trim();
+  var date  = document.getElementById('r_date').value;
+  if(!first||!last){ alert('Please enter your name.'); return; }
+  if(!co){ alert('Please enter your company name.'); return; }
+  if(!email){ alert('Please enter your email address.'); return; }
+  if(!date){ alert('Please select which Tuesday you\'re attending.'); return; }
+
+  document.querySelector('.submit-btn').disabled = true;
+  document.getElementById('ld').classList.add('on');
+
+  var record = {
+    chapter_id: CHAPTER_ID,
+    guest_name: first + ' ' + last,
+    company: co,
+    title: document.getElementById('r_title').value.trim(),
+    email: email,
+    phone: document.getElementById('r_phone').value.trim(),
+    visit_date: date,
+    logged_by: document.getElementById('r_invitedBy').value || 'Self-RSVP',
+    membership_interest: goalVal || 'Not specified',
+    follow_up: document.getElementById('r_notes').value.trim(),
+    source: 'rsvp'
+  };
+
+  _supa.from('guests').insert([record]).then(function(res){
+    document.getElementById('ld').classList.remove('on');
+    if(res.error){
+      alert('Something went wrong saving your RSVP. Please try again or contact your host.');
+      document.querySelector('.submit-btn').disabled = false;
+      return;
+    }
+    document.getElementById('rsvpForm').style.display = 'none';
+    var inv = document.getElementById('r_invitedBy').value;
+    document.getElementById('sucDetail').innerHTML =
+      '<div class="suc-row"><span class="suc-label">Name</span><span class="suc-val">'+first+' '+last+'</span></div>'+
+      '<div class="suc-row"><span class="suc-label">Company</span><span class="suc-val">'+co+'</span></div>'+
+      '<div class="suc-row"><span class="suc-label">Date</span><span class="suc-val">'+fmtDate(date)+'</span></div>'+
+      (inv ? '<div class="suc-row"><span class="suc-label">Invited by</span><span class="suc-val">'+inv+'</span></div>' : '');
+    document.getElementById('rsvpSuccess').style.display = 'block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }).catch(function(){
+    document.getElementById('ld').classList.remove('on');
+    alert('Connection error. Please try again.');
+    document.querySelector('.submit-btn').disabled = false;
+  });
+}
+</script>
+</body>
+</html>

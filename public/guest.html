@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1a2f5e">
+<title>Welcome — AmSpirit Cary-Grove</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+var _supa = supabase.createClient(
+  'https://tlcaeddeytsjgojyogjc.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRsY2FlZGRleXRzamdvanlvZ2pjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwMDQ2OTQsImV4cCI6MjA5MTU4MDY5NH0.yxrxU4dflAGa9Qngxz6UXH6emFe7mxO-v5BsFDRzzQE'
+);
+var CHAPTER_ID = 'a137cf6c-ac7d-4b9e-bbf3-8f6f2e1e2c92';
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1a2f5e;--navy-d:#0f1d3c;--navy-l:#2a4580;
+  --red:#c8102e;--green:#2e7d32;--green-l:#e8f5e9;
+  --amber:#b45309;--amber-l:#fff8e1;--blue:#1565c0;--blue-l:#e3f2fd;
+  --white:#fff;--off:#f5f7fa;--gray:#6b7280;--gray-l:#e8ecf0;
+  --text:#1f2937;--text-l:#4b5563;
+  --sh:0 4px 24px rgba(26,47,94,.12);
+  --fh:'Montserrat',sans-serif;--fb:'Source Sans 3',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--off);color:var(--text);min-height:100vh;padding-bottom:40px}
+
+.hero{background:linear-gradient(135deg,var(--navy-d) 0%,var(--navy) 60%,var(--navy-l) 100%);
+  padding:32px 20px 48px;text-align:center;position:relative}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:32px;
+  background:var(--off);border-radius:32px 32px 0 0}
+.logo-am{font-family:var(--fh);font-weight:800;color:#fff;font-size:32px}
+.logo-sp{font-family:var(--fh);font-weight:800;color:#f4a261;font-size:32px;font-style:italic}
+.hero h1{font-family:var(--fh);font-size:22px;font-weight:800;color:#fff;margin-bottom:8px}
+.hero p{font-size:14px;color:rgba(255,255,255,.8);max-width:420px;margin:0 auto;line-height:1.6}
+
+.wrap{max-width:560px;margin:0 auto;padding:24px 16px}
+
+.card{background:var(--white);border-radius:14px;padding:20px;margin-bottom:16px;box-shadow:var(--sh)}
+.card-title{font-family:var(--fh);font-size:13px;font-weight:700;color:var(--navy);
+  margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--gray-l)}
+
+.f{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.f label{font-size:10px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.5px}
+.f label .req{color:var(--red)}
+.f input,.f select,.f textarea{border:1.5px solid var(--gray-l);border-radius:7px;padding:9px 12px;
+  font-size:15px;font-family:var(--fb);color:var(--text);background:var(--off);width:100%}
+.f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:var(--navy);background:var(--white)}
+.f textarea{resize:vertical;min-height:70px}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+@media(max-width:480px){.fr{grid-template-columns:1fr}}
+
+.pill-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:4px}
+.pill{flex:1;min-width:100px;padding:9px 10px;border-radius:8px;border:1.5px solid var(--gray-l);
+  background:var(--white);text-align:center;cursor:pointer;transition:all .15s;
+  font-size:12px;font-family:var(--fb);font-weight:600;color:var(--text-l)}
+.pill:hover:not(.active){border-color:var(--navy)}
+.pill.active{background:var(--blue-l);border-color:var(--blue);color:var(--blue)}
+
+.btn{width:100%;padding:14px;border-radius:10px;font-family:var(--fh);font-size:15px;
+  font-weight:700;cursor:pointer;border:none;background:var(--red);color:var(--white);
+  transition:all .2s;margin-top:4px}
+.btn:hover{background:#a00e25;transform:translateY(-1px)}
+
+/* SUCCESS */
+#successScreen{display:none}
+.suc-hero{background:linear-gradient(135deg,var(--navy-d),var(--navy));
+  border-radius:14px;padding:28px 20px;text-align:center;margin-bottom:16px}
+.suc-circle{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.15);
+  display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 14px}
+.suc-hero h2{font-family:var(--fh);font-size:20px;font-weight:800;color:#fff;margin-bottom:6px}
+.suc-hero p{font-size:13px;color:rgba(255,255,255,.8);line-height:1.6}
+
+/* AGENDA */
+.agenda-card{background:var(--white);border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:var(--sh)}
+.agenda-title{font-family:var(--fh);font-size:13px;font-weight:700;color:var(--navy);
+  margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--gray-l)}
+.agenda-item{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--gray-l);align-items:flex-start}
+.agenda-item:last-child{border-bottom:none}
+.agenda-time{font-family:var(--fh);font-size:10px;font-weight:700;color:var(--navy);
+  min-width:52px;padding-top:2px}
+.agenda-name{font-size:13px;font-weight:600;color:var(--text);line-height:1.4}
+.agenda-desc{font-size:11px;color:var(--gray);margin-top:2px;line-height:1.4}
+.agenda-badge{display:inline-block;background:var(--red);color:#fff;font-family:var(--fh);
+  font-size:9px;font-weight:700;padding:2px 6px;border-radius:8px;margin-left:6px;vertical-align:middle}
+
+/* WORKSHEET SECTION */
+.worksheet-card{background:var(--white);border-radius:14px;padding:18px;margin-bottom:14px;
+  box-shadow:var(--sh)}
+.worksheet-title{font-family:var(--fh);font-size:13px;font-weight:700;color:var(--navy);
+  margin-bottom:6px;display:flex;align-items:center;gap:7px}
+.worksheet-desc{font-size:13px;color:var(--text-l);line-height:1.6;margin-bottom:14px}
+
+/* MEMBERSHIP ALERT (hidden from guest — for member use after form submitted) */
+.mem-alert{background:var(--amber-l);border-radius:10px;padding:14px;margin-bottom:14px;
+  border-left:4px solid var(--amber);display:none}
+.mem-alert-title{font-family:var(--fh);font-size:11px;font-weight:700;color:var(--amber);
+  text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.mem-alert pre{font-size:12px;color:#7c4a00;white-space:pre-wrap;line-height:1.7;font-family:var(--fb)}
+.copy-btn{display:inline-block;background:var(--amber);color:#fff;border:none;
+  border-radius:6px;padding:7px 16px;font-family:var(--fh);font-size:11px;font-weight:700;
+  cursor:pointer;margin-top:8px}
+
+/* LOADING */
+.ld{display:none;position:fixed;inset:0;background:rgba(26,47,94,.6);z-index:999;
+  align-items:center;justify-content:center;flex-direction:column;gap:11px}
+.ld.on{display:flex}
+.spin{width:38px;height:38px;border:4px solid rgba(255,255,255,.3);border-top-color:#fff;
+  border-radius:50%;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.ld p{color:#fff;font-family:var(--fh);font-weight:600;font-size:13px}
+.info-box{background:var(--blue-l);border-radius:10px;padding:12px 14px;margin-bottom:14px;
+  font-size:13px;color:var(--blue);line-height:1.6}
+.info-box strong{color:var(--navy)}
+</style>
+</head>
+<body>
+<div class="ld" id="ld"><div class="spin"></div><p>Checking you in...</p></div>
+
+<!-- FORM VIEW -->
+<div id="formView">
+<div class="hero">
+  <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px">
+    <span class="logo-am">Am</span><span class="logo-sp">Spirit</span>
+  </div>
+  <h1>Welcome to Cary-Grove Chapter</h1>
+  <p>We're glad you're here. Please take a moment to check in so we can follow up after today's meeting.</p>
+</div>
+
+<div class="wrap">
+  <div class="info-box">
+    <strong>Today's Meeting</strong><br>
+    AmSpirit Business Connections - Cary-Grove Chapter<br>
+    255 Briargate Rd, Cary, IL 60013 - Tuesdays 11:45 AM to 1:15 PM
+  </div>
+
+  <div class="card">
+    <div class="card-title">Your Information</div>
+    <div class="fr">
+      <div class="f"><label>First Name <span class="req">*</span></label><input type="text" id="g_fname" placeholder="First name" autocomplete="given-name"></div>
+      <div class="f"><label>Last Name <span class="req">*</span></label><input type="text" id="g_lname" placeholder="Last name" autocomplete="family-name"></div>
+    </div>
+    <div class="f"><label>Business / Company <span class="req">*</span></label><input type="text" id="g_company" placeholder="Your company or employer" autocomplete="organization"></div>
+    <div class="f"><label>Your Title / Role</label><input type="text" id="g_title" placeholder="e.g. Owner, Sales Manager, Attorney" autocomplete="organization-title"></div>
+    <div class="fr">
+      <div class="f"><label>Email Address <span class="req">*</span></label><input type="email" id="g_email" placeholder="email@example.com" autocomplete="email"></div>
+      <div class="f"><label>Phone Number</label><input type="tel" id="g_phone" placeholder="(555) 000-0000" autocomplete="tel"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Your Business</div>
+    <div class="f"><label>Industry / Category <span class="req">*</span></label>
+      <select id="g_industry">
+        <option value="">Select your industry</option>
+        <option>Accounting / CPA</option><option>Architecture / Design</option>
+        <option>Banking / Finance</option><option>Chiropractic / Healthcare</option>
+        <option>Commercial Real Estate</option><option>Construction / Contracting</option>
+        <option>Consulting</option><option>Dental</option>
+        <option>Financial Planning / Wealth Management</option>
+        <option>Home Services / Maintenance</option><option>HR / Staffing</option>
+        <option>Insurance</option><option>IT / Technology</option>
+        <option>Legal / Attorney</option><option>Marketing / Advertising</option>
+        <option>Mortgage / Lending</option><option>Photography / Videography</option>
+        <option>Printing / Signage</option><option>Real Estate</option>
+        <option>Restoration / Remediation</option><option>Roofing / Exterior</option>
+        <option>Title Services</option><option>Other</option>
+      </select>
+    </div>
+    <div class="f"><label>How did you hear about us?</label>
+      <select id="g_source">
+        <option value="">Select one</option>
+        <option>Invited by a member</option><option>LinkedIn</option>
+        <option>Facebook</option><option>Google search</option>
+        <option>Chamber of Commerce</option><option>Another networking event</option>
+        <option>Word of mouth</option><option>Other</option>
+      </select>
+    </div>
+    <div class="f"><label>Who invited you today?</label>
+      <select id="g_invitedBy">
+        <option value="">Select a member (if applicable)</option>
+        <option>Traci Emond - Guild Mortgage</option>
+        <option>Jakob Kolodziej - Comparion Insurance</option>
+        <option>Vicki Genz - New View Group / Realty One</option>
+        <option>Ryan Johnson - Pink Roofing</option>
+        <option>Sean Fergus - Law Offices of Sean P Fergus</option>
+        <option>Jeremy Juhl - Rieke Office Interiors</option>
+        <option>Theresa Lustig - Old Republic Title</option>
+        <option>Tim Matta - Edward Jones</option>
+        <option>Dr. Brett Rappenecker - Horizon Chiropractic</option>
+        <option>Dan Kern - Ace Handyman Services</option>
+        <option>Brandon Bynum - ServiceMaster KWIK Restore</option>
+        <option>Scot Bemus - FastSigns</option>
+        <option>I found it on my own</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Your Interest</div>
+    <div class="f"><label>What are you most hoping to get from today?</label>
+      <div class="pill-row" id="interestPills">
+        <div class="pill" onclick="selPill(this,'interest')" data-val="New business connections">New connections</div>
+        <div class="pill" onclick="selPill(this,'interest')" data-val="Learn about referral networking">Learn networking</div>
+        <div class="pill" onclick="selPill(this,'interest')" data-val="Explore membership">Explore membership</div>
+        <div class="pill" onclick="selPill(this,'interest')" data-val="Find specific professionals">Find professionals</div>
+      </div>
+    </div>
+    <div class="f"><label>Best time to follow up with you</label>
+      <div class="pill-row" id="followupPills">
+        <div class="pill" onclick="selPill(this,'followup')" data-val="Morning (8-11 AM)">Morning</div>
+        <div class="pill" onclick="selPill(this,'followup')" data-val="Midday (11 AM-1 PM)">Midday</div>
+        <div class="pill" onclick="selPill(this,'followup')" data-val="Afternoon (1-5 PM)">Afternoon</div>
+        <div class="pill" onclick="selPill(this,'followup')" data-val="Anytime">Anytime</div>
+      </div>
+    </div>
+    <div class="f"><label>Anything else you'd like us to know?</label>
+      <textarea id="g_notes" placeholder="Business challenges, goals, specific connections you're looking for..."></textarea>
+    </div>
+  </div>
+
+  <button class="btn" onclick="submitGuest()">Check In to Today's Meeting</button>
+</div>
+</div><!-- formView -->
+
+<!-- SUCCESS VIEW — shown after submit -->
+<div id="successScreen">
+<div class="hero">
+  <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px">
+    <span class="logo-am">Am</span><span class="logo-sp">Spirit</span>
+  </div>
+  <h1>You're checked in!</h1>
+  <p>Welcome to the Cary-Grove Chapter. Here's today's agenda and a worksheet to help you make the most of the meeting.</p>
+</div>
+
+<div class="wrap">
+
+  <!-- TODAY'S AGENDA -->
+  <div class="agenda-card">
+    <div class="agenda-title">Today's Meeting Agenda</div>
+    <div class="agenda-item">
+      <div class="agenda-time">11:30</div>
+      <div><div class="agenda-name">Open Networking</div><div class="agenda-desc">Mingle, exchange cards, meet the members before the formal meeting begins</div></div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-time">11:45</div>
+      <div><div class="agenda-name">Call to Order</div><div class="agenda-desc">President opens the meeting and reviews chapter announcements</div></div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-time">11:50</div>
+      <div><div class="agenda-name">Officer Reports</div><div class="agenda-desc">VP, Secretary, Treasurer, and Membership Chair give brief updates</div></div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-time">12:00</div>
+      <div><div class="agenda-name">60-Second Commercials</div><div class="agenda-desc">Every member delivers a focused introduction — who they serve and what a great referral looks like</div></div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-time">12:20</div>
+      <div>
+        <div class="agenda-name">Member Spotlight <span class="agenda-badge">10 min</span></div>
+        <div class="agenda-desc">One member presents their business in depth — this is where you learn who to refer and when</div>
+      </div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-time">12:30</div>
+      <div>
+        <div class="agenda-name">Education Segment <span class="agenda-badge">5 min</span></div>
+        <div class="agenda-desc">A short lesson on referral skills or business development you can use this week</div>
+      </div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-time">12:35</div>
+      <div><div class="agenda-name">Referral Bucket</div><div class="agenda-desc">Members pass warm referrals to each other — the core activity of the chapter</div></div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-time">12:45</div>
+      <div><div class="agenda-name">Guest Introductions</div><div class="agenda-desc">Guests are introduced and given a moment to share what they do</div></div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-time">12:55</div>
+      <div><div class="agenda-name">Closing &amp; Announcements</div><div class="agenda-desc">President closes the formal meeting — members stay for networking</div></div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-time">1:15</div>
+      <div><div class="agenda-name">Adjourn</div><div class="agenda-desc">Meeting ends — feel free to stay and connect with members</div></div>
+    </div>
+  </div>
+
+  <!-- REFERRAL ECOSYSTEM WORKSHEET -->
+  <div class="worksheet-card">
+    <div class="worksheet-title">Referral Partner Ecosystem Worksheet</div>
+    <div class="worksheet-desc">Use this worksheet to identify which professionals in this room could be great referral partners for your business — and how you can be a referral partner for them.</div>
+    <iframe
+      id="worksheetFrame"
+      src="https://form.jotform.com/260700990333049"
+      style="width:100%;min-height:600px;border:none;border-radius:8px"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <!-- MEMBER DIRECTORY LINK -->
+  <div class="worksheet-card" style="text-align:center">
+    <div class="worksheet-title">👥 Meet the Members</div>
+    <div class="worksheet-desc">Tap below to browse every member's digital business card — see what they do, how to reach them, and what situations to refer them for.</div>
+    <a href="directory.html"
+      style="display:inline-block;background:#1a2f5e;color:#fff;font-family:'Montserrat',sans-serif;
+      font-size:13px;font-weight:700;padding:12px 24px;border-radius:9px;text-decoration:none;letter-spacing:.3px">
+      Open Member Directory →
+    </a>
+  </div>
+
+  <!-- MEMBERSHIP CHAIR ALERT — visible only to member who is viewing page on behalf of guest -->
+  <div class="mem-alert" id="memAlert">
+    <div class="mem-alert-title">Membership Chair Alert — Copy and send to Ryan Johnson (ryan@pinkroofing.com)</div>
+    <pre id="memAlertText"></pre>
+    <button class="copy-btn" onclick="copyMemAlert()">Copy Notification</button>
+  </div>
+
+</div>
+</div><!-- successScreen -->
+
+<script>
+var pillState = {};
+var _guestData = {};
+
+function selPill(el, group) {
+  var container = document.getElementById(group + 'Pills');
+  if(container) container.querySelectorAll('.pill').forEach(function(p){ p.classList.remove('active'); });
+  el.classList.add('active');
+  pillState[group] = el.dataset.val;
+}
+
+function showLD(){ document.getElementById('ld').classList.add('on'); }
+function hideLD(){ document.getElementById('ld').classList.remove('on'); }
+
+function todayLong() {
+  return new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+}
+
+function copyMemAlert() {
+  var text = document.getElementById('memAlertText').textContent;
+  navigator.clipboard.writeText(text).then(function(){
+    alert('Notification copied! Send to Ryan Johnson at ryan@pinkroofing.com');
+  }).catch(function(){
+    alert('Please manually select and copy the text above.');
+  });
+}
+
+function submitGuest() {
+  var fname = document.getElementById('g_fname').value.trim();
+  var lname = document.getElementById('g_lname').value.trim();
+  var company = document.getElementById('g_company').value.trim();
+  var email = document.getElementById('g_email').value.trim();
+  var industry = document.getElementById('g_industry').value;
+
+  if(!fname || !lname){ alert('Please enter your first and last name.'); return; }
+  if(!company){ alert('Please enter your company or business name.'); return; }
+  if(!email){ alert('Please enter your email address.'); return; }
+  if(!industry){ alert('Please select your industry.'); return; }
+
+  var fullName = fname + ' ' + lname;
+  var invitedBy = document.getElementById('g_invitedBy').value;
+  var invitedByName = invitedBy ? invitedBy.split(' - ')[0] : '';
+  var visitDate = new Date().toISOString().split('T')[0];
+  var phone = document.getElementById('g_phone').value;
+  var title = document.getElementById('g_title').value;
+  var source = document.getElementById('g_source').value;
+  var notes = document.getElementById('g_notes').value;
+  var interest = pillState['interest'] || '';
+  var followup = pillState['followup'] || '';
+
+  // Store for the membership alert
+  _guestData = {
+    fullName: fullName, company: company, title: title,
+    email: email, phone: phone, industry: industry,
+    invitedBy: invitedBy, source: source,
+    interest: interest, followup: followup, notes: notes
+  };
+
+  showLD();
+
+  _supa.from('guests').insert({
+    chapter_id: CHAPTER_ID,
+    visit_date: visitDate,
+    logged_by: invitedByName || 'Self',
+    guest_name: fullName,
+    company: company,
+    title: title,
+    email: email,
+    phone: phone,
+    membership_interest: interest,
+    follow_up: followup,
+    outcome: 'In pipeline'
+  }).then(function(r) {
+    hideLD();
+    if(r.error){ alert('Error saving your information: ' + r.error.message); return; }
+    showSuccess();
+  }).catch(function(e) {
+    hideLD();
+    alert('Unexpected error: ' + e.message);
+  });
+}
+
+function showSuccess() {
+  // Hide form, show success
+  document.getElementById('formView').style.display = 'none';
+  document.getElementById('successScreen').style.display = 'block';
+  window.scrollTo({top: 0, behavior: 'smooth'});
+
+  // Build membership chair alert text (hidden on page, revealed by URL param ?member=1)
+  var alertText =
+    'Subject: New Guest Check-In - ' + todayLong() + '\n\n'
+    + 'To: ryan@pinkroofing.com\n\n'
+    + 'Hi Ryan,\n\n'
+    + 'A new guest just checked in at today\'s meeting. Here are their details:\n\n'
+    + 'Name: ' + _guestData.fullName + '\n'
+    + 'Company: ' + _guestData.company + '\n'
+    + 'Title: ' + (_guestData.title || 'Not provided') + '\n'
+    + 'Industry: ' + _guestData.industry + '\n'
+    + 'Email: ' + _guestData.email + '\n'
+    + 'Phone: ' + (_guestData.phone || 'Not provided') + '\n'
+    + 'Invited By: ' + (_guestData.invitedBy || 'Self / walk-in') + '\n'
+    + 'How They Heard: ' + (_guestData.source || 'Not provided') + '\n'
+    + 'Interest: ' + (_guestData.interest || 'Not selected') + '\n'
+    + 'Best Follow-Up Time: ' + (_guestData.followup || 'Not selected') + '\n'
+    + 'Notes: ' + (_guestData.notes || 'None') + '\n\n'
+    + 'This guest has been saved to the Supabase guests table.\n\n'
+    + '- AmSpirit Portal (automated)';
+
+  document.getElementById('memAlertText').textContent = alertText;
+
+  // Show the membership alert only if URL has ?member=1
+  // This way guests never see it, but a member viewing the page can add ?member=1
+  var params = new URLSearchParams(window.location.search);
+  if(params.get('member') === '1') {
+    document.getElementById('memAlert').style.display = 'block';
+  }
+}
+</script>
+</body>
+</html>

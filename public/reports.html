@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1a2f5e">
+<title>Reports — AmSpirit Cary-Grove</title>
+
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script>
+const _supa = supabase.createClient(
+  'https://tlcaeddeytsjgojyogjc.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRsY2FlZGRleXRzamdvanlvZ2pjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwMDQ2OTQsImV4cCI6MjA5MTU4MDY5NH0.yxrxU4dflAGa9Qngxz6UXH6emFe7mxO-v5BsFDRzzQE'
+);
+const CHAPTER_ID = 'a137cf6c-ac7d-4b9e-bbf3-8f6f2e1e2c92';
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1a2f5e;--navy-d:#0f1d3c;--navy-l:#2a4580;
+  --red:#c8102e;--green:#2e7d32;--green-l:#e8f5e9;
+  --amber:#b45309;--amber-l:#fff8e1;--blue:#1565c0;--blue-l:#e3f2fd;
+  --white:#fff;--off:#f5f7fa;--gray:#6b7280;--gray-l:#e8ecf0;
+  --text:#1f2937;--text-l:#4b5563;
+  --sh:0 4px 24px rgba(26,47,94,.12);
+  --fh:'Montserrat',sans-serif;--fb:'Source Sans 3',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--fb);background:var(--off);color:var(--text);min-height:100vh;padding-bottom:80px}
+.hdr{background:linear-gradient(135deg,var(--navy-d) 0%,var(--navy) 60%,var(--navy-l) 100%);
+  padding:16px 18px 12px;display:flex;align-items:center;gap:11px;
+  box-shadow:0 2px 16px rgba(0,0,0,.25);position:sticky;top:0;z-index:100}
+.logo{width:44px;height:44px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lam{font-family:var(--fh);font-weight:800;color:var(--navy);font-size:11px;line-height:1}
+.lsp{font-family:var(--fh);font-weight:800;color:var(--red);font-size:11px;line-height:1}
+.hdr-t h1{font-family:var(--fh);font-size:14px;font-weight:700;color:var(--white);line-height:1.2}
+.hdr-t p{font-size:11px;color:rgba(255,255,255,.7);margin-top:2px}
+.back-link{margin-left:auto;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);
+  color:rgba(255,255,255,.9);font-family:var(--fh);font-size:10px;font-weight:700;padding:5px 10px;
+  border-radius:14px;text-decoration:none;white-space:nowrap}
+.wrap{max-width:680px;margin:0 auto;padding:18px 13px 40px}
+
+/* SIGN IN */
+#signInScreen{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:100vh;padding:24px;background:linear-gradient(135deg,var(--navy-d),var(--navy))}
+.si-card{background:var(--white);border-radius:18px;padding:36px 28px;max-width:360px;width:100%;text-align:center}
+.si-logo{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:8px}
+.si-am{font-family:var(--fh);font-weight:800;color:var(--navy);font-size:28px}
+.si-sp{font-family:var(--fh);font-weight:800;color:var(--red);font-size:28px;font-style:italic}
+.si-card h2{font-family:var(--fh);font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.si-card p{font-size:13px;color:var(--gray);margin-bottom:28px}
+.si-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:13px 20px;
+  border-radius:10px;border:1.5px solid var(--gray-l);background:var(--white);cursor:pointer;
+  font-family:var(--fh);font-size:14px;font-weight:700;color:var(--text);transition:all .2s}
+.si-btn:hover{border-color:var(--navy)}
+.si-btn svg{width:20px;height:20px;flex-shrink:0}
+
+/* GUEST FOLLOW-UP TRACKER */
+.tracker-card{background:var(--white);border-radius:14px;padding:18px;margin-bottom:18px;box-shadow:var(--sh);border-top:4px solid var(--navy)}
+.tracker-head{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.tracker-head h2{font-family:var(--fh);font-size:15px;font-weight:800;color:var(--navy)}
+.tracker-sub{font-size:12px;color:var(--gray);margin-bottom:14px}
+.tracker-summary{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.ts-chip{flex:1;min-width:80px;background:var(--off);border-radius:10px;padding:10px 12px;text-align:center}
+.ts-num{font-family:var(--fh);font-size:22px;font-weight:800}
+.ts-lbl{font-size:10px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.4px;margin-top:1px}
+.ts-chip.green .ts-num{color:var(--green)}
+.ts-chip.red .ts-num{color:#c62828}
+.ts-chip.amber .ts-num{color:var(--amber)}
+.tracker-table{width:100%;border-collapse:collapse;font-size:12px}
+.tracker-table th{font-family:var(--fh);font-size:10px;font-weight:700;color:var(--navy);
+  text-transform:uppercase;letter-spacing:.4px;padding:6px 8px;border-bottom:2px solid var(--gray-l);text-align:left}
+.tracker-table td{padding:9px 8px;border-bottom:1px solid var(--gray-l);vertical-align:middle}
+.tracker-table tr:last-child td{border-bottom:none}
+.tracker-table tr:hover td{background:var(--off)}
+.tag{display:inline-block;padding:3px 9px;border-radius:12px;font-size:10px;font-weight:700;font-family:var(--fh)}
+.tag.green{background:var(--green-l);color:var(--green)}
+.tag.red{background:#fff0f0;color:#c62828}
+.tag.amber{background:var(--amber-l);color:var(--amber)}
+.tag.blue{background:var(--blue-l);color:var(--blue)}
+.tracker-empty{text-align:center;padding:24px;color:var(--gray);font-size:13px}
+.refresh-btn{background:none;border:1.5px solid var(--gray-l);border-radius:7px;padding:5px 12px;
+  font-family:var(--fh);font-size:11px;font-weight:700;color:var(--gray);cursor:pointer;margin-left:auto}
+.refresh-btn:hover{border-color:var(--navy);color:var(--navy)}
+
+/* REPORT CARDS */
+.report-card{background:var(--white);border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:var(--sh)}
+.rc-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--gray-l)}
+.rc-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.rc-title{font-family:var(--fh);font-size:14px;font-weight:700;color:var(--navy)}
+.rc-desc{font-size:11px;color:var(--gray);margin-top:2px}
+
+/* FILTERS */
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+@media(max-width:420px){.filters{grid-template-columns:1fr}}
+.f{display:flex;flex-direction:column;gap:4px}
+.f label{font-size:10px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.5px}
+.f input,.f select{border:1.5px solid var(--gray-l);border-radius:7px;padding:8px 10px;font-size:13px;
+  font-family:var(--fb);background:var(--off);color:var(--text)}
+.f input:focus,.f select:focus{outline:none;border-color:var(--navy)}
+
+/* DOWNLOAD BUTTONS */
+.dl-row{display:flex;gap:9px;margin-top:12px}
+.dl-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:10px 14px;
+  border-radius:8px;font-family:var(--fh);font-size:12px;font-weight:700;cursor:pointer;border:none;
+  transition:all .2s}
+.dl-pdf{background:var(--red);color:var(--white)}
+.dl-pdf:hover{background:var(--red-d);transform:translateY(-1px)}
+.dl-word{background:var(--navy);color:var(--white)}
+.dl-word:hover{background:var(--navy-d);transform:translateY(-1px)}
+.dl-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+/* PREVIEW */
+.preview{margin-top:12px;background:var(--off);border-radius:8px;padding:13px;font-size:12px;
+  color:var(--text-l);line-height:1.7;display:none}
+.preview.show{display:block}
+.preview-title{font-family:var(--fh);font-size:11px;font-weight:700;color:var(--navy);
+  text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px}
+.preview table{width:100%;border-collapse:collapse;font-size:11px}
+.preview th{background:var(--navy);color:#fff;padding:5px 8px;text-align:left;font-family:var(--fh);font-size:10px}
+.preview td{padding:5px 8px;border-bottom:1px solid var(--gray-l)}
+.preview tr:nth-child(even) td{background:rgba(26,47,94,.04)}
+
+/* LOADING */
+.ld{display:none;position:fixed;inset:0;background:rgba(26,47,94,.6);z-index:999;
+  align-items:center;justify-content:center;flex-direction:column;gap:11px}
+.ld.on{display:flex}
+.spin{width:38px;height:38px;border:4px solid rgba(255,255,255,.3);border-top-color:#fff;
+  border-radius:50%;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.ld p{color:#fff;font-family:var(--fh);font-weight:600;font-size:13px}
+
+.foot{text-align:center;padding:12px;font-size:11px;color:var(--gray);
+  border-top:1px solid var(--gray-l);background:var(--white);position:fixed;bottom:0;left:0;right:0}
+.stat-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.chip{background:var(--navy);color:#fff;border-radius:20px;padding:4px 11px;
+  font-family:var(--fh);font-size:11px;font-weight:700}
+.chip span{color:rgba(255,255,255,.7);font-weight:400;margin-left:3px}
+</style>
+</head>
+<body>
+
+<div class="ld" id="ld"><div class="spin"></div><p id="ldMsg">Generating report…</p></div>
+
+<div id="signInScreen">
+  <div class="si-card">
+    <div class="si-logo"><span class="si-am">Am</span><span class="si-sp">Spirit</span></div>
+    <h2>Chapter Reports</h2>
+    <p>Enter the chapter access code to continue</p>
+    <div style="margin-bottom:14px">
+      <input type="password" id="codeInput" placeholder="Access code"
+        style="width:100%;border:1.5px solid #e8ecf0;border-radius:8px;padding:11px 14px;
+        font-size:15px;font-family:'Montserrat',sans-serif;text-align:center;letter-spacing:2px;
+        background:#f5f7fa;color:#1f2937"
+        onkeydown="if(event.key==='Enter')checkCode()">
+    </div>
+    <div id="codeError" style="color:#c8102e;font-size:12px;margin-bottom:10px;display:none">
+      Incorrect code. Please try again.
+    </div>
+    <button class="si-btn" onclick="checkCode()" style="background:#1a2f5e;color:#fff;border-color:#1a2f5e;justify-content:center">
+      Enter Reports →
+    </button>
+  </div>
+</div>
+
+<div id="mainApp" style="display:none">
+<header class="hdr">
+  <div class="logo"><div><div class="lam">Am</div><div class="lsp">Spirit</div></div></div>
+  <div class="hdr-t"><h1>AmSpirit Cary-Grove</h1><p>Chapter Reports</p></div>
+  <a href="index.html" class="back-link">← Portal</a>
+</header>
+
+<div class="wrap">
+
+<!-- ─── 0. GUEST FOLLOW-UP TRACKER ──────────────────────── -->
+<div class="tracker-card">
+  <div class="tracker-head">
+    <div style="font-size:22px">👋</div>
+    <h2>Guest Follow-Up Tracker</h2>
+    <button class="refresh-btn" onclick="loadTracker()">↻ Refresh</button>
+  </div>
+  <div class="tracker-sub">Guests from the last 30 days · Did the inviting member log a follow-up?</div>
+  <div class="tracker-summary" id="trackerSummary">
+    <div class="ts-chip green"><div class="ts-num" id="tCount">—</div><div class="ts-lbl">Guests</div></div>
+    <div class="ts-chip green"><div class="ts-num" id="tDone">—</div><div class="ts-lbl">Followed Up</div></div>
+    <div class="ts-chip red"><div class="ts-num" id="tPending">—</div><div class="ts-lbl">Pending</div></div>
+    <div class="ts-chip amber"><div class="ts-num" id="tInterested">—</div><div class="ts-lbl">Interested</div></div>
+  </div>
+  <div id="trackerTable"><div class="tracker-empty">Loading guest data…</div></div>
+</div>
+
+<!-- ─── 1. WEEKLY ATTENDANCE ─────────────────────────────── -->
+<div class="report-card">
+  <div class="rc-head">
+    <div class="rc-icon" style="background:#fff8e1">📋</div>
+    <div><div class="rc-title">Weekly Attendance Report</div>
+    <div class="rc-desc">Present / Absent / Excused / Sub — for Secretary submission</div></div>
+  </div>
+  <div class="filters">
+    <div class="f"><label>Meeting Date</label><input type="date" id="att_date"></div>
+    <div class="f"><label>Prepared By</label><input type="text" id="att_by" placeholder="Your name"></div>
+  </div>
+  <div id="att_chips" class="stat-chips"></div>
+  <div class="dl-row">
+    <button class="dl-btn dl-pdf" onclick="runReport('attendance','pdf')">📄 Download PDF</button>
+    <button class="dl-btn dl-word" onclick="runReport('attendance','word')">📝 Download Word</button>
+  </div>
+  <div class="preview" id="att_preview"></div>
+</div>
+
+<!-- ─── 2. MONTHLY REFERRAL PERFORMANCE ──────────────────── -->
+<div class="report-card">
+  <div class="rc-head">
+    <div class="rc-icon" style="background:#e8f5e9">🤝</div>
+    <div><div class="rc-title">Monthly Referral Performance Report</div>
+    <div class="rc-desc">Referrals given & received — Secretary's monthly submission</div></div>
+  </div>
+  <div class="filters">
+    <div class="f"><label>Month</label>
+      <select id="ref_month">
+        <option value="1">January</option><option value="2">February</option>
+        <option value="3">March</option><option value="4">April</option>
+        <option value="5">May</option><option value="6">June</option>
+        <option value="7">July</option><option value="8">August</option>
+        <option value="9">September</option><option value="10">October</option>
+        <option value="11">November</option><option value="12">December</option>
+      </select>
+    </div>
+    <div class="f"><label>Year</label>
+      <select id="ref_year"></select>
+    </div>
+  </div>
+  <div id="ref_chips" class="stat-chips"></div>
+  <div class="dl-row">
+    <button class="dl-btn dl-pdf" onclick="runReport('referrals','pdf')">📄 Download PDF</button>
+    <button class="dl-btn dl-word" onclick="runReport('referrals','word')">📝 Download Word</button>
+  </div>
+  <div class="preview" id="ref_preview"></div>
+</div>
+
+<!-- ─── 3. MEETING TIME LOG ───────────────────────────────── -->
+<div class="report-card">
+  <div class="rc-head">
+    <div class="rc-icon" style="background:#e3f2fd">⏱️</div>
+    <div><div class="rc-title">Meeting Time Log Report</div>
+    <div class="rc-desc">Start / end times, member commercials, over/under</div></div>
+  </div>
+  <div class="filters">
+    <div class="f"><label>From Date</label><input type="date" id="tl_from"></div>
+    <div class="f"><label>To Date</label><input type="date" id="tl_to"></div>
+  </div>
+  <div id="tl_chips" class="stat-chips"></div>
+  <div class="dl-row">
+    <button class="dl-btn dl-pdf" onclick="runReport('timelog','pdf')">📄 Download PDF</button>
+    <button class="dl-btn dl-word" onclick="runReport('timelog','word')">📝 Download Word</button>
+  </div>
+  <div class="preview" id="tl_preview"></div>
+</div>
+
+<!-- ─── 4. GUEST VISIT SUMMARY ───────────────────────────── -->
+<div class="report-card">
+  <div class="rc-head">
+    <div class="rc-icon" style="background:#eff4ff">👋</div>
+    <div><div class="rc-title">Guest Visit Summary</div>
+    <div class="rc-desc">All guests — interest level, outcome, follow-up status</div></div>
+  </div>
+  <div class="filters">
+    <div class="f"><label>From Date</label><input type="date" id="gv_from"></div>
+    <div class="f"><label>To Date</label><input type="date" id="gv_to"></div>
+  </div>
+  <div id="gv_chips" class="stat-chips"></div>
+  <div class="dl-row">
+    <button class="dl-btn dl-pdf" onclick="runReport('guests','pdf')">📄 Download PDF</button>
+    <button class="dl-btn dl-word" onclick="runReport('guests','word')">📝 Download Word</button>
+  </div>
+  <div class="preview" id="gv_preview"></div>
+</div>
+
+<!-- ─── 5. FULL MEMBER ACTIVITY SUMMARY ──────────────────── -->
+<div class="report-card">
+  <div class="rc-head">
+    <div class="rc-icon" style="background:#f3e5f5">📊</div>
+    <div><div class="rc-title">Full Member Activity Summary</div>
+    <div class="rc-desc">Attendance, referrals given/received, guests brought — per member</div></div>
+  </div>
+  <div class="filters">
+    <div class="f"><label>From Date</label><input type="date" id="ma_from"></div>
+    <div class="f"><label>To Date</label><input type="date" id="ma_to"></div>
+  </div>
+  <div id="ma_chips" class="stat-chips"></div>
+  <div class="dl-row">
+    <button class="dl-btn dl-pdf" onclick="runReport('activity','pdf')">📄 Download PDF</button>
+    <button class="dl-btn dl-word" onclick="runReport('activity','word')">📝 Download Word</button>
+  </div>
+  <div class="preview" id="ma_preview"></div>
+</div>
+
+</div><!-- wrap -->
+</div><!-- mainApp -->
+<footer class="foot">AmSpirit Business Connections · Cary-Grove Chapter · Reports</footer>
+
+<script>
+// ── AUTH (passcode gate) ─────────────────────────────────────
+var ACCESS_CODE = 'CARYGROVE2026';
+var CODE_KEY    = 'cg_reports_auth';
+var CODE_EXPIRY = 30 * 24 * 60 * 60 * 1000; // 30 days
+
+function checkCode(){
+  var val = document.getElementById('codeInput').value.trim().toUpperCase();
+  if(val === ACCESS_CODE){
+    localStorage.setItem(CODE_KEY, Date.now().toString());
+    showApp();
+  } else {
+    document.getElementById('codeError').style.display = 'block';
+    document.getElementById('codeInput').value = '';
+    document.getElementById('codeInput').focus();
+  }
+}
+
+function showApp(){
+  document.getElementById('signInScreen').style.display = 'none';
+  document.getElementById('mainApp').style.display = 'block';
+  initDates();
+}
+
+// Check stored auth on load
+(function(){
+  var stored = localStorage.getItem(CODE_KEY);
+  if(stored && (Date.now() - parseInt(stored)) < CODE_EXPIRY){
+    showApp();
+  } else {
+    document.getElementById('signInScreen').style.display = 'flex';
+    document.getElementById('mainApp').style.display = 'none';
+    setTimeout(function(){ document.getElementById('codeInput').focus(); }, 100);
+  }
+})();
+
+// ── INIT ──────────────────────────────────────────────────────
+function initDates(){
+  var now=new Date();
+  var iso=now.toISOString().split('T')[0];
+  var firstOfMonth=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-01';
+
+  document.getElementById('att_date').value=iso;
+  document.getElementById('tl_from').value=firstOfMonth;
+  document.getElementById('tl_to').value=iso;
+  document.getElementById('gv_from').value=firstOfMonth;
+  document.getElementById('gv_to').value=iso;
+  document.getElementById('ma_from').value=firstOfMonth;
+  document.getElementById('ma_to').value=iso;
+
+  // Current month
+  var sel=document.getElementById('ref_month');
+  sel.value=String(now.getMonth()+1);
+
+  // Years
+  var yr=document.getElementById('ref_year');
+  for(var y=now.getFullYear();y>=2023;y--){
+    var o=document.createElement('option');
+    o.value=y; o.textContent=y;
+    yr.appendChild(o);
+  }
+
+  // Auto-fill logged by from localStorage
+  var saved=localStorage.getItem('portal_name')||'';
+  if(saved) document.getElementById('att_by').value=saved;
+
+  // Load guest follow-up tracker
+  loadTracker();
+}
+
+// ── GUEST FOLLOW-UP TRACKER ──────────────────────────────────
+function loadTracker(){
+  var tbl=document.getElementById('trackerTable');
+  tbl.innerHTML='<div class="tracker-empty">Loading…</div>';
+
+  // 30-day window
+  var cutoff=new Date();
+  cutoff.setDate(cutoff.getDate()-30);
+  var cutoffISO=cutoff.toISOString().split('T')[0];
+
+  _supa.from('guests')
+    .select('*')
+    .eq('chapter_id', CHAPTER_ID)
+    .gte('visit_date', cutoffISO)
+    .order('visit_date', {ascending:false})
+    .then(function(res){
+      if(res.error){ tbl.innerHTML='<div class="tracker-empty">Error loading guests: '+res.error.message+'</div>'; return; }
+      var rows=res.data||[];
+      if(rows.length===0){
+        document.getElementById('tCount').textContent='0';
+        document.getElementById('tDone').textContent='0';
+        document.getElementById('tPending').textContent='0';
+        document.getElementById('tInterested').textContent='0';
+        tbl.innerHTML='<div class="tracker-empty">No guests in the last 30 days.</div>';
+        return;
+      }
+      var done=0, pending=0, interested=0;
+      rows.forEach(function(g){
+        var fu=(g.follow_up||g.followUp||'').trim();
+        var fuBy=(g.followed_up||g.followedUp||'').trim();
+        var hasFollowUp = fu.length>0 || /yes/i.test(fuBy);
+        if(hasFollowUp) done++; else pending++;
+        var mi=(g.membership_interest||g.membershipInterest||'').toLowerCase();
+        if(/very|interest/i.test(mi)||/yes/i.test(mi)) interested++;
+      });
+      document.getElementById('tCount').textContent=rows.length;
+      document.getElementById('tDone').textContent=done;
+      document.getElementById('tPending').textContent=pending;
+      document.getElementById('tInterested').textContent=interested;
+
+      var html='<table class="tracker-table"><thead><tr>'
+        +'<th>Guest</th><th>Date</th><th>Invited By</th><th>Interest</th><th>Follow-Up</th>'
+        +'</tr></thead><tbody>';
+      rows.forEach(function(g){
+        var fu=(g.follow_up||g.followUp||'').trim();
+        var fuBy=(g.followed_up||g.followedUp||'').trim();
+        var hasFollowUp = fu.length>0 || /yes/i.test(fuBy);
+        var mi=(g.membership_interest||g.membershipInterest||'');
+        var miTag='', miColor='blue';
+        if(/very|interest/i.test(mi)){ miTag='🔥 Interested'; miColor='green'; }
+        else if(/maybe/i.test(mi)){ miTag='🤔 Maybe'; miColor='amber'; }
+        else if(/not.a.fit/i.test(mi)||/not fit/i.test(mi)){ miTag='✗ Not a fit'; miColor='red'; }
+        else if(/return/i.test(mi)){ miTag='👋 Return'; miColor='blue'; }
+        else miTag=mi||'—';
+        html+='<tr>';
+        html+='<td><strong style="font-size:13px">'+(g.guest_name||g.guestName||'—')+'</strong>'
+          +'<div style="font-size:11px;color:var(--gray);margin-top:1px">'+(g.company||'')+'</div></td>';
+        html+='<td style="color:var(--text-l);font-size:12px">'+fmtDate(g.visit_date||g.visitDate||'')+'</td>';
+        html+='<td style="font-size:12px;font-weight:600">'+(g.logged_by||g.loggedBy||'—')+'</td>';
+        html+='<td><span class="tag '+miColor+'">'+(miTag||'—')+'</span></td>';
+        if(hasFollowUp){
+          html+='<td><span class="tag green">✓ Logged</span>'
+            +'<div style="font-size:10px;color:var(--gray);margin-top:2px;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+fu.replace(/"/g,"'")+'">'+
+            (fu.length>0 ? fu.substring(0,60)+(fu.length>60?'…':'') : '')+'</div></td>';
+        } else {
+          html+='<td><span class="tag red">⚠ Pending</span>'
+            +'<div style="font-size:10px;color:#c62828;margin-top:2px">Not logged yet</div></td>';
+        }
+        html+='</tr>';
+      });
+      html+='</tbody></table>';
+      tbl.innerHTML=html;
+    })
+    .catch(function(e){ tbl.innerHTML='<div class="tracker-empty">Could not load tracker.</div>'; });
+}
+
+// ── LOADING ───────────────────────────────────────────────────
+function showLD(msg){ document.getElementById('ld').classList.add('on'); document.getElementById('ldMsg').textContent=msg||'Generating report…'; }
+function hideLD(){ document.getElementById('ld').classList.remove('on'); }
+
+// ── HELPERS ───────────────────────────────────────────────────
+function fmtDate(iso){
+  if(!iso) return '—';
+  try{ return new Date(iso+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}); }
+  catch(e){ return iso; }
+}
+function toISO(d){ return d instanceof Date ? d.toISOString().split('T')[0] : (d&&d.toDate ? d.toDate().toISOString().split('T')[0] : d||''); }
+function monthName(m){ return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][m-1]||''; }
+
+function chips(id, data){
+  var el=document.getElementById(id);
+  if(!el) return;
+  el.innerHTML=data.map(function(c){
+    return '<div class="chip">'+c[0]+' <span>'+c[1]+'</span></div>';
+  }).join('');
+}
+
+// ── REPORT DISPATCHER ─────────────────────────────────────────
+function runReport(type, fmt){
+  // Guard: make sure jsPDF is available before attempting PDF
+  if(fmt==='pdf' && (!window.jspdf || !window.jspdf.jsPDF)){
+    alert('PDF library not loaded yet. Please wait a moment and try again, or use Word instead.');
+    return;
+  }
+  showLD('Loading data…');
+  var fetchers={
+    attendance: fetchAttendance,
+    referrals:  fetchReferrals,
+    timelog:    fetchTimeLogs,
+    guests:     fetchGuests,
+    activity:   fetchActivity,
+  };
+  fetchers[type](function(data){
+    hideLD();
+    if(!data || data.error){
+      alert('No data found for the selected period. Try a wider date range.');
+      return;
+    }
+    showLD('Building '+fmt.toUpperCase()+'…');
+    setTimeout(function(){
+      try{
+        if(fmt==='pdf') buildPDF(type, data);
+        else             buildWord(type, data);
+      } catch(e){ alert('Error generating report: '+e.message); }
+      hideLD();
+    }, 100);
+  });
+}
+
+function parseRecords(val) {
+  if (!val) return [];
+  if (Array.isArray(val)) return val;               // Firestore array of maps
+  try { return JSON.parse(val); } catch(e) { return []; } // legacy JSON string
+}
+function parseGuests(val) {
+  if (!val) return [];
+  if (Array.isArray(val)) return val;
+  try { return JSON.parse(val); } catch(e) { return []; }
+}
+
+// ── FIRESTORE QUERIES (simple get + client-side filter — no indexes needed) ──
+function fetchAttendance(cb){
+  var date=document.getElementById('att_date').value;
+  if(!date){ hideLD(); alert('Please select a meeting date.'); return; }
+  db.collection('attendance').where('meetingDate','==',date).get()
+    .then(function(snap){
+      if(snap.empty){
+        cb({date:date, by:document.getElementById('att_by').value||'SAA',
+            records:[], guests:[], generated:new Date().toLocaleDateString()});
+        return;
+      }
+      var d=snap.docs[0].data();
+      var records = parseRecords(d.records);
+      var guests  = parseGuests(d.guests);
+      cb({date:date, by:d.loggedBy||'SAA', records:records, guests:guests,
+          generated:new Date().toLocaleDateString()});
+    })
+    .catch(function(e){ hideLD(); alert('Firestore error: '+e.message); });
+}
+
+function fetchReferrals(cb){
+  var month=parseInt(document.getElementById('ref_month').value);
+  var year=parseInt(document.getElementById('ref_year').value);
+  var from=new Date(year,month-1,1).toISOString().split('T')[0];
+  var to=new Date(year,month,0).toISOString().split('T')[0];
+  // Fetch ALL referrals then filter client-side — avoids compound index
+  db.collection('referrals').get()
+    .then(function(snap){
+      var given=[], received=[];
+      snap.forEach(function(d){
+        var r=d.data();
+        var dt=r.date||'';
+        if(dt>=from && dt<=to){
+          if(r.type==='given') given.push(r);
+          else if(r.type==='received') received.push(r);
+        }
+      });
+      cb({month:monthName(month),year:year,given:given,received:received,
+          totalGiven:given.length,totalReceived:received.length,
+          generated:new Date().toLocaleDateString()});
+    })
+    .catch(function(e){ hideLD(); alert('Firestore error: '+e.message); });
+}
+
+function fetchTimeLogs(cb){
+  var from=document.getElementById('tl_from').value;
+  var to=document.getElementById('tl_to').value;
+  // Fetch all then filter — avoids orderBy + range index
+  db.collection('timeLogs').get()
+    .then(function(snap){
+      var logs=[];
+      snap.forEach(function(d){
+        var r=d.data();
+        var dt=r.meetingDate||'';
+        if(dt>=from && dt<=to) logs.push(r);
+      });
+      logs.sort(function(a,b){ return (a.meetingDate||'').localeCompare(b.meetingDate||''); });
+      cb({from:from,to:to,logs:logs,generated:new Date().toLocaleDateString()});
+    })
+    .catch(function(e){ hideLD(); alert('Firestore error: '+e.message); });
+}
+
+function fetchGuests(cb){
+  var from=document.getElementById('gv_from').value;
+  var to=document.getElementById('gv_to').value;
+  // Fetch all then filter — avoids orderBy + range index
+  db.collection('guests').get()
+    .then(function(snap){
+      var guests=[];
+      snap.forEach(function(d){
+        var r=d.data();
+        var dt=r.visitDate||'';
+        if(dt>=from && dt<=to) guests.push(r);
+      });
+      guests.sort(function(a,b){ return (a.visitDate||'').localeCompare(b.visitDate||''); });
+      var interest={interested:0,maybe:0,notFit:0,pipeline:0};
+      guests.forEach(function(g){
+        if(/very/i.test(g.membershipInterest)) interest.interested++;
+        else if(/maybe/i.test(g.membershipInterest)) interest.maybe++;
+        else if(/not/i.test(g.membershipInterest)) interest.notFit++;
+        else interest.pipeline++;
+      });
+      cb({from:from,to:to,guests:guests,stats:interest,generated:new Date().toLocaleDateString()});
+    })
+    .catch(function(e){ hideLD(); alert('Firestore error: '+e.message); });
+}
+
+function fetchActivity(cb){
+  var from=document.getElementById('ma_from').value;
+  var to=document.getElementById('ma_to').value;
+  var members=[
+    'Traci Emond','Jakob Kolodziej','Vicki Genz','Ryan Johnson','Sean Fergus',
+    'Jeremy Juhl','Theresa Lustig','Tim Matta','Dr. Brett Rappenecker','Dan Kern','Brandon Bynum'
+  ];
+  var attMap={}, givenMap={}, receivedMap={}, guestMap={};
+  members.forEach(function(m){ attMap[m]={p:0,a:0,e:0,s:0}; givenMap[m]=0; receivedMap[m]=0; guestMap[m]=0; });
+  var done=0;
+  function check(){ if(++done===4){
+    var rows=members.map(function(m){
+      var a=attMap[m];
+      return {name:m, present:a.p, absent:a.a, excused:a.e, sub:a.s,
+              given:givenMap[m]||0, received:receivedMap[m]||0, guests:guestMap[m]||0};
+    });
+    cb({from:from,to:to,rows:rows,generated:new Date().toLocaleDateString()});
+  }}
+
+  // All collections — fetch all, filter client-side
+  db.collection('attendance').get()
+    .then(function(s){
+      s.forEach(function(d){
+        var r=d.data();
+        if((r.meetingDate||'')>=from && (r.meetingDate||'')<=to){
+          var rec = parseRecords(r.records);
+          rec.forEach(function(m){
+            if(attMap[m.name]){
+              if(m.status==='Present') attMap[m.name].p++;
+              else if(m.status==='Absent') attMap[m.name].a++;
+              else if(m.status==='Excused') attMap[m.name].e++;
+              else if(m.status==='Sub') attMap[m.name].s++;
+            }
+          });
+        }
+      }); check();
+    }).catch(function(){ check(); });
+
+  db.collection('referrals').get()
+    .then(function(s){
+      s.forEach(function(d){
+        var r=d.data();
+        var dt=r.date||'';
+        if(dt>=from && dt<=to){
+          var n=r.loggedBy;
+          if(r.type==='given' && givenMap[n]!==undefined) givenMap[n]++;
+          if(r.type==='received' && receivedMap[n]!==undefined) receivedMap[n]++;
+        }
+      }); check();
+    }).catch(function(){ check(); });
+
+  // Count given and received separately then merge
+  db.collection('guests').get()
+    .then(function(s){
+      s.forEach(function(d){
+        var r=d.data();
+        if((r.visitDate||'')>=from && (r.visitDate||'')<=to){
+          var n=r.loggedBy;
+          if(guestMap[n]!==undefined) guestMap[n]++;
+        }
+      }); check();
+    }).catch(function(){ check(); });
+
+  // 4th counter — one-on-ones (not tracked per-member in activity yet, just complete the counter)
+  setTimeout(function(){ check(); }, 100);
+}
+
+// ── PDF BUILDER ───────────────────────────────────────────────
+function buildPDF(type, data){
+  var jsPDF = window.jspdf.jsPDF;
+  var doc = new jsPDF({orientation:'portrait', unit:'mm', format:'letter'});
+
+  var NAVY=[26,47,94], RED=[200,16,46], GRAY=[245,247,250], DARK=[31,41,55];
+  var pageW=215.9, margin=15, contentW=pageW-2*margin;
+
+  function header(title, subtitle){
+    doc.setFillColor(NAVY[0],NAVY[1],NAVY[2]);
+    doc.rect(0,0,pageW,28,'F');
+    doc.setTextColor(255,255,255);
+    doc.setFont('helvetica','bold');
+    doc.setFontSize(14);
+    doc.text('AmSpirit Business Connections — Cary-Grove Chapter', margin, 10);
+    doc.setFontSize(18);
+    doc.text(title, margin, 20);
+    doc.setFillColor(RED[0],RED[1],RED[2]);
+    doc.rect(0,28,pageW,4,'F');
+    doc.setTextColor(DARK[0],DARK[1],DARK[2]);
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(10);
+    doc.text(subtitle, margin, 40);
+    doc.text('Generated: '+data.generated, pageW-margin, 40, {align:'right'});
+    return 48;
+  }
+
+  function footer(){
+    var pages=doc.internal.getNumberOfPages();
+    for(var i=1;i<=pages;i++){
+      doc.setPage(i);
+      doc.setFillColor(NAVY[0],NAVY[1],NAVY[2]);
+      doc.rect(0,270,pageW,10,'F');
+      doc.setTextColor(255,255,255);
+      doc.setFontSize(8);
+      doc.text('AmSpirit Business Connections · Cary-Grove Chapter · Confidential', margin, 276);
+      doc.text('Page '+i+' of '+pages, pageW-margin, 276, {align:'right'});
+    }
+  }
+
+  if(type==='attendance'){
+    var y=header('Weekly Attendance Report', 'Meeting Date: '+fmtDate(data.date)+'  |  Logged By: '+(data.by||'—'));
+    var rows=data.records.map(function(r){
+      return [r.name, r.specialty||'', r.status||'Not Logged', r.notes||''];
+    });
+    if(rows.length===0) rows=[['No data recorded for this date','','','']];
+    doc.autoTable({
+      startY:y, margin:{left:margin,right:margin},
+      head:[['Member','Category','Status','Notes']],
+      body:rows,
+      headStyles:{fillColor:NAVY,textColor:[255,255,255],fontStyle:'bold',fontSize:9},
+      bodyStyles:{fontSize:9,textColor:DARK},
+      alternateRowStyles:{fillColor:GRAY},
+      columnStyles:{0:{cellWidth:55},1:{cellWidth:45},2:{cellWidth:30},3:{cellWidth:contentW-130}},
+    });
+    var finalY=doc.lastAutoTable.finalY+8;
+    // Guests
+    if(data.guests && data.guests.length>0){
+      doc.setFont('helvetica','bold'); doc.setFontSize(11);
+      doc.setTextColor(NAVY[0],NAVY[1],NAVY[2]);
+      doc.text('Guests Present', margin, finalY); finalY+=6;
+      var gRows=data.guests.map(function(g){ return [g.name||'—', g.invitedBy||'—']; });
+      doc.autoTable({
+        startY:finalY, margin:{left:margin,right:margin},
+        head:[['Guest Name','Invited By']],
+        body:gRows,
+        headStyles:{fillColor:NAVY,textColor:[255,255,255],fontStyle:'bold',fontSize:9},
+        bodyStyles:{fontSize:9,textColor:DARK},
+        alternateRowStyles:{fillColor:GRAY},
+      });
+    }
+    // Summary box
+    var p=data.records.filter(function(r){return r.status==='Present'}).length;
+    var a=data.records.filter(function(r){return r.status==='Absent'}).length;
+    var e=data.records.filter(function(r){return r.status==='Excused'}).length;
+    var s=data.records.filter(function(r){return r.status==='Sub'}).length;
+    var sy=doc.lastAutoTable ? doc.lastAutoTable.finalY+8 : finalY+8;
+    doc.setFillColor(NAVY[0],NAVY[1],NAVY[2]);
+    doc.roundedRect(margin,sy,contentW,20,2,2,'F');
+    doc.setTextColor(255,255,255); doc.setFont('helvetica','bold'); doc.setFontSize(9);
+    doc.text('SUMMARY: Present: '+p+'  Absent: '+a+'  Excused: '+e+'  Sub: '+s+'  Guests: '+(data.guests||[]).length, margin+5, sy+8);
+    doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(100,100,100);
+    doc.text('Submit to the Secretary within 24 hours of the meeting.', margin+5, sy+15);
+  }
+
+  else if(type==='referrals'){
+    var y=header('Monthly Referral Performance Report', data.month+' '+data.year+'  |  Total Given: '+data.totalGiven+'  |  Total Received: '+data.totalReceived);
+    if(data.given.length>0){
+      doc.setFont('helvetica','bold'); doc.setFontSize(11);
+      doc.setTextColor(NAVY[0],NAVY[1],NAVY[2]);
+      doc.text('Referrals Given', margin, y); y+=5;
+      var gRows=data.given.map(function(r){
+        return [r.loggedBy||'—', r.referredTo||'—', r.referredPerson||'—', r.outcome||'—'];
+      });
+      doc.autoTable({startY:y,margin:{left:margin,right:margin},
+        head:[['Given By','Given To','Person Referred','Outcome']],
+        body:gRows,
+        headStyles:{fillColor:[46,125,50],textColor:[255,255,255],fontStyle:'bold',fontSize:9},
+        bodyStyles:{fontSize:9,textColor:DARK},alternateRowStyles:{fillColor:GRAY}});
+      y=doc.lastAutoTable.finalY+10;
+    }
+    if(data.received.length>0){
+      doc.setFont('helvetica','bold'); doc.setFontSize(11);
+      doc.setTextColor(NAVY[0],NAVY[1],NAVY[2]);
+      doc.text('Referrals Received', margin, y); y+=5;
+      var rRows=data.received.map(function(r){
+        return [r.loggedBy||'—', r.referredBy||'—', r.referredPerson||'—', r.outcome||'—'];
+      });
+      doc.autoTable({startY:y,margin:{left:margin,right:margin},
+        head:[['Received By','Referred By','Person Referred','Outcome']],
+        body:rRows,
+        headStyles:{fillColor:NAVY,textColor:[255,255,255],fontStyle:'bold',fontSize:9},
+        bodyStyles:{fontSize:9,textColor:DARK},alternateRowStyles:{fillColor:GRAY}});
+    }
+    if(data.given.length===0 && data.received.length===0){
+      doc.setFont('helvetica','normal'); doc.setFontSize(11); doc.setTextColor(150,150,150);
+      doc.text('No referrals recorded for '+data.month+' '+data.year, margin, y+10);
+    }
+  }
+
+  else if(type==='timelog'){
+    var y=header('Meeting Time Log', fmtDate(data.from)+' through '+fmtDate(data.to)+'  |  '+data.logs.length+' meeting(s)');
+    if(data.logs.length>0){
+      var rows=data.logs.map(function(l){
+        return [fmtDate(l.meetingDate), l.calledToOrder||'—', l.adjournedAt||'—',
+                l.membersTimed||'—', l.quorumMet||'—', l.notes||''];
+      });
+      doc.autoTable({startY:y,margin:{left:margin,right:margin},
+        head:[['Date','Called to Order','Adjourned','Members Timed','Quorum','Notes']],
+        body:rows,
+        headStyles:{fillColor:NAVY,textColor:[255,255,255],fontStyle:'bold',fontSize:8},
+        bodyStyles:{fontSize:8,textColor:DARK},alternateRowStyles:{fillColor:GRAY},
+        columnStyles:{5:{cellWidth:40}}});
+    } else {
+      doc.setFont('helvetica','normal'); doc.setFontSize(11); doc.setTextColor(150,150,150);
+      doc.text('No time logs recorded for this period.', margin, y+10);
+    }
+  }
+
+  else if(type==='guests'){
+    var y=header('Guest Visit Summary', fmtDate(data.from)+' through '+fmtDate(data.to)+'  |  '+data.guests.length+' guest(s)');
+    if(data.guests.length>0){
+      var rows=data.guests.map(function(g){
+        return [g.guestName||'—', g.company||'—', fmtDate(g.visitDate),
+                g.membershipInterest||'—', g.outcome||'—', g.loggedBy||'—'];
+      });
+      doc.autoTable({startY:y,margin:{left:margin,right:margin},
+        head:[['Guest','Company','Visit Date','Interest','Outcome','Brought By']],
+        body:rows,
+        headStyles:{fillColor:NAVY,textColor:[255,255,255],fontStyle:'bold',fontSize:8},
+        bodyStyles:{fontSize:8,textColor:DARK},alternateRowStyles:{fillColor:GRAY}});
+    } else {
+      doc.setFont('helvetica','normal'); doc.setFontSize(11); doc.setTextColor(150,150,150);
+      doc.text('No guest visits recorded for this period.', margin, y+10);
+    }
+  }
+
+  else if(type==='activity'){
+    var y=header('Full Member Activity Summary', fmtDate(data.from)+' through '+fmtDate(data.to));
+    var rows=data.rows.map(function(r){
+      return [r.name, r.present, r.absent, r.excused, r.sub, r.given, r.received, r.guests];
+    });
+    doc.autoTable({startY:y,margin:{left:margin,right:margin},
+      head:[['Member','Pres','Abs','Exc','Sub','Ref Given','Ref Rec\'d','Guests']],
+      body:rows,
+      headStyles:{fillColor:NAVY,textColor:[255,255,255],fontStyle:'bold',fontSize:8},
+      bodyStyles:{fontSize:8,textColor:DARK},alternateRowStyles:{fillColor:GRAY},
+      columnStyles:{0:{cellWidth:55},1:{halign:'center'},2:{halign:'center'},
+        3:{halign:'center'},4:{halign:'center'},5:{halign:'center'},
+        6:{halign:'center'},7:{halign:'center'}}});
+    // Highlight members below 2 referrals/month
+    var sy=doc.lastAutoTable.finalY+8;
+    var below=data.rows.filter(function(r){ return r.given<2; });
+    if(below.length>0){
+      doc.setFillColor(255,248,225);
+      doc.roundedRect(margin,sy,contentW,below.length*6+10,2,2,'F');
+      doc.setTextColor(180,83,9); doc.setFont('helvetica','bold'); doc.setFontSize(9);
+      doc.text('⚠ Members below 2-referral monthly average:', margin+4, sy+7);
+      doc.setFont('helvetica','normal');
+      below.forEach(function(r,i){ doc.text('• '+r.name+' ('+r.given+' given)', margin+8, sy+14+(i*6)); });
+    }
+  }
+
+  footer();
+  var filename=type+'_report_'+new Date().toISOString().split('T')[0]+'.pdf';
+  doc.save(filename);
+}
+
+// ── WORD BUILDER ──────────────────────────────────────────────
+function buildWord(type, data){
+  var NAVY='#1a2f5e', RED='#c8102e';
+  var title='', subtitle='', tableHTML='', notesHTML='';
+
+  function th(cols){ return '<tr>'+cols.map(function(c){
+    return '<th style="background:'+NAVY+';color:#fff;padding:6px 8px;font-family:Arial;font-size:9pt;text-align:left;border:1px solid #ccc">'+c+'</th>';
+  }).join('')+'</tr>'; }
+
+  function tr(cells, idx){ return '<tr style="background:'+(idx%2===0?'#ffffff':'#f5f7fa')+'">'+cells.map(function(c){
+    return '<td style="padding:6px 8px;font-family:Arial;font-size:9pt;border:1px solid #e8ecf0;color:#1f2937">'+esc(String(c||'—'))+'</td>';
+  }).join('')+'</tr>'; }
+
+  function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  if(type==='attendance'){
+    title='Weekly Attendance Report';
+    subtitle='Meeting Date: '+fmtDate(data.date)+'  |  Logged By: '+(data.by||'—')+'  |  Generated: '+data.generated;
+    var p=data.records.filter(function(r){return r.status==='Present'}).length;
+    var a=data.records.filter(function(r){return r.status==='Absent'}).length;
+    var e=data.records.filter(function(r){return r.status==='Excused'}).length;
+    var s=data.records.filter(function(r){return r.status==='Sub'}).length;
+    notesHTML='<p style="font-family:Arial;font-size:10pt;background:'+NAVY+';color:#fff;padding:8px 12px;border-radius:4px"><b>SUMMARY:</b> Present: '+p+' | Absent: '+a+' | Excused: '+e+' | Sub: '+s+' | Guests: '+(data.guests||[]).length+'</p>';
+    tableHTML='<table style="width:100%;border-collapse:collapse">'+th(['Member','Category','Status','Notes'])
+      +data.records.map(function(r,i){ return tr([r.name,r.specialty||'',r.status||'Not Logged',r.notes||''],i); }).join('')
+      +'</table>';
+    if(data.guests&&data.guests.length>0){
+      tableHTML+='<br><h3 style="font-family:Arial;color:'+NAVY+'">Guests Present</h3>'
+        +'<table style="width:100%;border-collapse:collapse">'+th(['Guest Name','Invited By'])
+        +data.guests.map(function(g,i){ return tr([g.name,g.invitedBy||'—'],i); }).join('')
+        +'</table>';
+    }
+  }
+  else if(type==='referrals'){
+    title='Monthly Referral Performance Report';
+    subtitle=data.month+' '+data.year+'  |  Total Given: '+data.totalGiven+'  |  Total Received: '+data.totalReceived+'  |  Generated: '+data.generated;
+    tableHTML='<h3 style="font-family:Arial;color:'+NAVY+'">Referrals Given</h3>'
+      +'<table style="width:100%;border-collapse:collapse">'+th(['Given By','Given To','Person Referred','Outcome'])
+      +(data.given.length?data.given.map(function(r,i){ return tr([r.loggedBy,r.referredTo,r.referredPerson,r.outcome],i); }).join(''):'<tr><td colspan="4" style="padding:8px;font-family:Arial;font-size:9pt;color:#888">No referrals given this month</td></tr>')
+      +'</table><br>'
+      +'<h3 style="font-family:Arial;color:'+NAVY+'">Referrals Received</h3>'
+      +'<table style="width:100%;border-collapse:collapse">'+th(['Received By','Referred By','Person Referred','Outcome'])
+      +(data.received.length?data.received.map(function(r,i){ return tr([r.loggedBy,r.referredBy,r.referredPerson,r.outcome],i); }).join(''):'<tr><td colspan="4" style="padding:8px;font-family:Arial;font-size:9pt;color:#888">No referrals received this month</td></tr>')
+      +'</table>';
+  }
+  else if(type==='timelog'){
+    title='Meeting Time Log';
+    subtitle=fmtDate(data.from)+' through '+fmtDate(data.to)+'  |  '+data.logs.length+' meeting(s)  |  Generated: '+data.generated;
+    tableHTML='<table style="width:100%;border-collapse:collapse">'+th(['Date','Called to Order','Adjourned','Members Timed','Quorum','Notes'])
+      +(data.logs.length?data.logs.map(function(l,i){ return tr([fmtDate(l.meetingDate),l.calledToOrder,l.adjournedAt,l.membersTimed,l.quorumMet,l.notes],i); }).join(''):'<tr><td colspan="6" style="padding:8px;font-family:Arial;font-size:9pt;color:#888">No time logs for this period</td></tr>')
+      +'</table>';
+  }
+  else if(type==='guests'){
+    title='Guest Visit Summary';
+    subtitle=fmtDate(data.from)+' through '+fmtDate(data.to)+'  |  '+data.guests.length+' guest(s)  |  Generated: '+data.generated;
+    tableHTML='<table style="width:100%;border-collapse:collapse">'+th(['Guest','Company','Visit Date','Interest','Outcome','Brought By'])
+      +(data.guests.length?data.guests.map(function(g,i){ return tr([g.guestName,g.company,fmtDate(g.visitDate),g.membershipInterest,g.outcome,g.loggedBy],i); }).join(''):'<tr><td colspan="6" style="padding:8px;font-family:Arial;font-size:9pt;color:#888">No guest visits for this period</td></tr>')
+      +'</table>';
+  }
+  else if(type==='activity'){
+    title='Full Member Activity Summary';
+    subtitle=fmtDate(data.from)+' through '+fmtDate(data.to)+'  |  Generated: '+data.generated;
+    var below=data.rows.filter(function(r){ return r.given<2; });
+    tableHTML='<table style="width:100%;border-collapse:collapse">'+th(['Member','Present','Absent','Excused','Sub','Ref Given','Ref Rec\'d','Guests Brought'])
+      +data.rows.map(function(r,i){ return tr([r.name,r.present,r.absent,r.excused,r.sub,r.given,r.received,r.guests],i); }).join('')
+      +'</table>';
+    if(below.length>0){
+      notesHTML='<p style="font-family:Arial;font-size:10pt;background:#fff8e1;color:#b45309;padding:8px 12px;border-radius:4px;border-left:4px solid #b45309"><b>⚠ Members below 2-referral monthly average:</b> '+below.map(function(r){ return r.name+' ('+r.given+')'; }).join(', ')+'</p>';
+    }
+  }
+
+  var html='<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">'
+    +'<head><meta charset="utf-8"><title>'+title+'</title>'
+    +'<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>90</w:Zoom><w:DoNotOptimizeForBrowser/></w:WordDocument></xml><![endif]-->'
+    +'<style>@page{size:8.5in 11in;margin:.75in} body{font-family:Arial;font-size:10pt}</style></head><body>'
+    +'<table style="width:100%;background:'+NAVY+';margin-bottom:8px"><tr>'
+    +'<td style="padding:12px 16px"><p style="color:#fff;font-size:9pt;margin:0;font-family:Arial">AmSpirit Business Connections — Cary-Grove Chapter</p>'
+    +'<p style="color:#fff;font-size:16pt;font-weight:bold;margin:4px 0;font-family:Arial">'+title+'</p></td>'
+    +'<td style="padding:12px 16px;text-align:right;vertical-align:top"><p style="color:rgba(255,255,255,.7);font-size:8pt;margin:0;font-family:Arial">'+data.generated+'</p></td>'
+    +'</tr></table>'
+    +'<p style="font-family:Arial;font-size:9pt;color:#555;margin-bottom:12px">'+subtitle+'</p>'
+    +tableHTML
+    +(notesHTML?'<br>'+notesHTML:'')
+    +'<br><p style="font-family:Arial;font-size:8pt;color:#aaa;border-top:1px solid #eee;padding-top:6px">AmSpirit Business Connections · Cary-Grove Chapter · Confidential</p>'
+    +'</body></html>';
+
+  var blob=new Blob([html],{type:'application/msword'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url; a.download=type+'_report_'+new Date().toISOString().split('T')[0]+'.doc';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>

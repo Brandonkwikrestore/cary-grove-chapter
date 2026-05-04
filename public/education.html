@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1a2f5e">
+<title>Education Playbook — AmSpirit Cary-Grove</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1a2f5e;--navy-d:#0f1d3c;--navy-l:#2a4580;
+  --red:#c8102e;--green:#2e7d32;--green-l:#e8f5e9;
+  --teal:#00695c;--teal-l:#e0f2f1;
+  --amber:#b45309;--amber-l:#fff8e1;--blue:#1565c0;--blue-l:#e3f2fd;
+  --white:#fff;--off:#f5f7fa;--gray:#6b7280;--gray-l:#e8ecf0;
+  --text:#1f2937;--text-l:#4b5563;
+  --sh:0 4px 24px rgba(26,47,94,.12);
+  --fh:'Montserrat',sans-serif;--fb:'Source Sans 3',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--fb);background:var(--off);color:var(--text);min-height:100vh;padding-bottom:80px}
+.hdr{background:linear-gradient(135deg,var(--navy-d) 0%,var(--navy) 60%,var(--navy-l) 100%);
+  padding:14px 16px;display:flex;align-items:center;gap:10px;
+  box-shadow:0 2px 16px rgba(0,0,0,.25);position:sticky;top:0;z-index:100}
+.logo{width:38px;height:38px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lam{font-family:var(--fh);font-weight:800;color:var(--navy);font-size:10px;line-height:1}
+.lsp{font-family:var(--fh);font-weight:800;color:var(--red);font-size:10px;line-height:1}
+.hdr-t h1{font-family:var(--fh);font-size:13px;font-weight:700;color:#fff;line-height:1.2}
+.hdr-t p{font-size:11px;color:rgba(255,255,255,.7);margin-top:1px}
+.back-link{margin-left:auto;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);
+  color:rgba(255,255,255,.9);font-family:var(--fh);font-size:10px;font-weight:700;padding:5px 10px;
+  border-radius:14px;text-decoration:none;white-space:nowrap}
+.wrap{max-width:700px;margin:0 auto;padding:18px 13px 40px}
+.page-title{font-family:var(--fh);font-size:20px;font-weight:800;color:var(--navy);margin-bottom:4px}
+.page-sub{font-size:13px;color:var(--text-l);margin-bottom:20px;line-height:1.5}
+
+/* View Toggle */
+.view-toggle{display:flex;gap:8px;margin-bottom:18px}
+.vt-btn{flex:1;padding:10px;border-radius:8px;border:2px solid var(--gray-l);background:var(--white);
+  cursor:pointer;font-family:var(--fh);font-size:12px;font-weight:700;color:var(--text-l);transition:all .15s}
+.vt-btn.active{background:var(--navy);border-color:var(--navy);color:#fff}
+
+/* Week selector */
+.week-nav{background:var(--white);border-radius:14px;padding:14px;margin-bottom:14px;box-shadow:var(--sh);
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.wn-label{font-family:var(--fh);font-size:11px;font-weight:700;color:var(--navy);
+  text-transform:uppercase;letter-spacing:.5px;flex-shrink:0}
+.wn-select{flex:1;min-width:180px;border:1.5px solid var(--gray-l);border-radius:8px;
+  padding:8px 11px;font-family:var(--fb);font-size:13px;color:var(--text);background:var(--off);
+  cursor:pointer}
+.wn-select:focus{outline:none;border-color:var(--navy)}
+.wn-arrows{display:flex;gap:6px}
+.wn-btn{width:34px;height:34px;border-radius:8px;border:1.5px solid var(--gray-l);background:var(--white);
+  cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;
+  font-family:var(--fh);font-weight:700;color:var(--navy);transition:all .15s}
+.wn-btn:hover{border-color:var(--navy);background:var(--navy);color:#fff}
+
+/* Week card */
+.week-card{background:var(--white);border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:var(--sh)}
+.wc-header{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--gray-l)}
+.wc-num{width:44px;height:44px;border-radius:10px;background:var(--navy);color:#fff;
+  font-family:var(--fh);font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.wc-title{font-family:var(--fh);font-size:16px;font-weight:700;color:var(--navy)}
+.wc-obj{font-size:12px;color:var(--text-l);margin-top:2px;line-height:1.5}
+
+/* Member view */
+.member-view .wc-field{background:var(--off);border-radius:8px;padding:12px 14px;margin-bottom:8px}
+.member-view .wf-label{font-family:var(--fh);font-size:10px;font-weight:700;color:var(--navy);
+  text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.member-view .wf-content{font-size:13px;color:var(--text);line-height:1.7}
+
+/* Presenter view */
+.presenter-view .wc-field{background:var(--off);border-radius:8px;padding:12px 14px;margin-bottom:8px;
+  border-left:3px solid var(--navy)}
+.presenter-view .wc-field.script{border-left-color:var(--red);background:#fff5f5}
+.presenter-view .wc-field.takeaway{border-left-color:var(--green);background:var(--green-l)}
+.presenter-view .wf-label{font-family:var(--fh);font-size:10px;font-weight:700;color:var(--navy);
+  text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.presenter-view .wc-field.script .wf-label{color:var(--red)}
+.presenter-view .wc-field.takeaway .wf-label{color:var(--green)}
+.presenter-view .wf-content{font-size:13px;color:var(--text);line-height:1.7}
+.presenter-view .wc-field.script .wf-content{font-style:italic}
+
+/* Overview table (weeks 26-52) */
+.overview-table{border-radius:10px;overflow:hidden;box-shadow:var(--sh)}
+.ot-row{display:grid;grid-template-columns:50px 1fr 2fr;background:var(--white)}
+.ot-row:nth-child(even){background:var(--off)}
+.ot-row.header{background:var(--navy);font-family:var(--fh);font-size:11px;font-weight:700;color:#fff}
+.ot-cell{padding:9px 12px;font-size:12px;color:var(--text);border-bottom:1px solid var(--gray-l)}
+.ot-row.header .ot-cell{color:#fff;border-bottom:none;font-size:11px}
+.ot-cell.wk{font-family:var(--fh);font-weight:700;color:var(--navy);text-align:center}
+.ot-row.header .ot-cell.wk{color:#fff}
+
+/* Quarter header */
+.q-header{font-family:var(--fh);font-size:12px;font-weight:700;color:var(--navy);
+  text-transform:uppercase;letter-spacing:.5px;padding:10px 0 6px;margin-top:6px}
+
+.foot{text-align:center;padding:12px;font-size:11px;color:var(--gray);
+  border-top:1px solid var(--gray-l);background:var(--white);position:fixed;bottom:0;left:0;right:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="logo"><div><div class="lam">Am</div><div class="lsp">Spirit</div></div></div>
+  <div class="hdr-t"><h1>Education Playbook</h1><p>52-week curriculum · dual view</p></div>
+  <a href="scripts.html" class="back-link">← Back</a>
+</header>
+<div class="wrap">
+  <div class="page-title">🎓 Education Playbook</div>
+  <div class="page-sub">Browse all 52 weeks. Toggle Member View for topic overview only, or Presenter View for full script, teaching points, activity, and key takeaway.</div>
+
+  <div class="view-toggle">
+    <button class="vt-btn active" id="btnMember" onclick="setView('member')">👤 Member View</button>
+    <button class="vt-btn" id="btnPresenter" onclick="setView('presenter')">🎤 Presenter View</button>
+  </div>
+
+  <div class="week-nav">
+    <span class="wn-label">Week</span>
+    <select class="wn-select" id="weekSelect" onchange="showWeek(parseInt(this.value))"></select>
+    <div class="wn-arrows">
+      <button class="wn-btn" onclick="prevWeek()">‹</button>
+      <button class="wn-btn" onclick="nextWeek()">›</button>
+    </div>
+  </div>
+
+  <div id="weekDisplay"></div>
+
+  <div class="q-header" style="margin-top:20px">📊 Full Curriculum Overview — Weeks 11–52</div>
+  <div class="overview-table" id="overviewTable"></div>
+</div>
+<footer class="foot">AmSpirit Business Connections · Cary-Grove Chapter</footer>
+
+<script>
+var currentWeek = 1;
+var currentView = 'member';
+
+var WEEKS = [
+  {w:1, title:"The Purpose of the Chapter",
+   obj:"Help members understand why they are here: to serve as a professional referral sales force built on Know, Like, and Trust.",
+   script:"Every one of us is here because we believe that warm introductions are more powerful than cold calls. AmSpirit is not just a networking group — it is a structured referral sales force. The three pillars we operate from: Lead, Learn, and Listen. The framework underneath it all: Know, Like, and Trust.",
+   teaching:"The chapter operates on the premise that referral business is the highest quality business any professional can receive. Know: Members understand what you do. Like: Members genuinely want you to succeed. Trust: Members believe you will treat their contact well.",
+   trigger:"Any mention of a property purchase, damage, legal issue, financial question, or health concern — universal referral triggers touching multiple members at once.",
+   position:"\"I want to connect you with someone in my network who specializes in exactly that. They are incredibly professional and I know they will take great care of you.\"",
+   activity:"Partner up. Each person has 90 seconds to explain what they do in plain English. Partners then explain each other's business back.",
+   takeaway:"Every referral you give is a reflection of your reputation. Give generously and with care."},
+  {w:2, title:"Know, Like, Trust — The Referral Framework",
+   obj:"Help members understand and internalize the three-stage relationship model that drives referral behavior.",
+   script:"Know, Like, Trust. Before anyone refers us, they must move through these three stages — and you can't skip any of them. Know means they understand what you do. Like means they enjoy your company. Trust means they believe you will do right by the person they send your way. Your challenge: identify one member to Know better. Reach out this week for a one-on-one coffee.",
+   teaching:"Know is built through visibility. Like is built through genuine interest. Trust is the slow burn — built through consistency and follow-through. Weekly meetings compress that timeline dramatically.",
+   trigger:"\"I don't know who to call about that\" · \"My last contractor let me down\" · \"I really need someone reliable for…\" — invitations to bridge the Know gap.",
+   position:"\"I know exactly the right person for that. Let me personally introduce you — she is someone I trust completely.\"",
+   activity:"Three-person rounds: Person A talks for 60 seconds. Person B identifies one Know, one Like, one Trust observation. Rotate.",
+   takeaway:"You cannot rush trust — but you can accelerate it by showing up consistently and following through every single time."},
+  {w:3, title:"The P.O.W.E.R. Referral Mantra",
+   obj:"Introduce the P.O.W.E.R. framework as the chapter standard for how members give and receive referrals.",
+   script:"P is Personal — a referral is a personal endorsement, not a business card handoff. O is Opportunity — every referral represents a solution for your contact. W is Win — a win for all three people. E is Effective — follow up and make the connection happen. R is Respect — treat every referral with the gravity it deserves.",
+   teaching:"The P.O.W.E.R. mantra is a mindset shift. Personal: \"I personally recommend…\" carries more weight. Effective: call, text, or email within 48 hours. Respect: update the referring member on outcomes.",
+   trigger:"Listen for hesitation or doubt about a service provider. This is where a P.O.W.E.R. referral shines — you replace doubt with confidence.",
+   position:"\"I want to personally introduce you to someone who I know will handle this with complete professionalism. Can I make that connection for you?\"",
+   activity:"Role-play a referral hand-off. One person plays the referring member, one plays the prospect, one plays the chapter member being referred. Practice P.O.W.E.R. language. Switch roles.",
+   takeaway:"A referral given with P.O.W.E.R. is a gift that keeps giving — to all three people involved."},
+  {w:4, title:"Your 60-Second Pitch That Works",
+   obj:"Help members craft a clear, memorable, referral-focused 60-second introduction using the StoryBrand structure.",
+   script:"Most people waste their 60 seconds talking about themselves instead of making it easy for others to refer them. Use the StoryBrand model: Problem, Guide, Outcome. Lead with the client's experience, not your credentials.",
+   teaching:"The StoryBrand framework positions your client as the hero and you as the guide. Does your pitch lead with the client's pain? Does it describe a transformation? Does it name exactly who you serve?",
+   trigger:"\"I don't even know where to start with…\" — any expression of confusion, stress, or overwhelm related to your category.",
+   position:"\"You know, you just described exactly what one of my colleagues helps people through. Let me introduce you — she makes the whole process painless.\"",
+   activity:"Each member rewrites their 60-second pitch using Problem/Guide/Outcome. Share in groups of three. Listeners identify: what was the problem? Who would you refer to this person?",
+   takeaway:"Your pitch is not about you — it is a referral instruction manual for everyone in this room."},
+  {w:5, title:"Mastering First Impressions",
+   obj:"Teach members the science of first impressions and how to open conversations that build instant rapport.",
+   script:"People form a first impression in less than seven seconds. Three things you can do immediately: Lead with genuine warmth. Open your body posture. Use the person's name once in the first minute. These are authentic signals of genuine interest.",
+   teaching:"When your nonverbal communication matches your verbal message, people feel safe. The most powerful first impression tool: authentic curiosity. Ask a genuine question and actually listen.",
+   trigger:"A guest who seems uncomfortable is an opportunity for you to be the person who makes them feel welcome and seen.",
+   position:"\"I have to introduce you to our Realtor — she has the warmest way of making people feel completely at ease during one of the most stressful purchases of their life.\"",
+   activity:"Everyone mingles for 3 minutes. Rule: Use the other person's name, make genuine eye contact, and ask one question showing real curiosity. Debrief: What did it feel like to be on the receiving end?",
+   takeaway:"You are always sending signals. Make sure they say: I am interested in you, not just your business."},
+  {w:6, title:"The Art of the Listening Referral",
+   obj:"Train members to hear referral triggers in everyday conversations and respond naturally.",
+   script:"Most referrals are given after a conversation. Hearing is passive — listening is active. When you are truly listening, you are processing what the other person is experiencing and needing. Someone says \"Our roof has been leaking since the last storm.\" A person who is only hearing moves on. A person who is listening thinks: \"Ryan can help them.\"",
+   teaching:"The neuroscience of listening: when people feel truly heard, oxytocin is released — tied to bonding and trust. Four listening levels: Passive, Selective, Active, Empathic. Referral champions operate at level 4.",
+   trigger:"\"I've been meaning to…\" · \"We've been dealing with…\" · \"I'm not sure where to turn for…\" · \"I wish I knew someone who…\"",
+   position:"\"That sounds frustrating. I actually know someone who specializes in exactly that — and she is the kind of professional you can call on a Tuesday and actually reach.\"",
+   activity:"One member shares a challenge for 90 seconds. Listener must reflect back three things heard — without adding advice. Then identify any referral opportunity.",
+   takeaway:"The best referral professionals are not the loudest voices in the room. They are the best listeners."},
+  {w:7, title:"Power Partners — Your Inner Circle",
+   obj:"Help members identify their natural power partner relationships and learn how to activate them strategically.",
+   script:"There are connections where your businesses naturally feed each other regularly — Power Partners. When someone buys a home, they need a Realtor, mortgage professional, title company, insurance agent, and often a maintenance professional. Map your power partners: who regularly serves the same clients you serve, just at different moments in their journey?",
+   teaching:"Power partnerships multiply referral volume by creating systematic pipelines rather than random exchanges. The strongest are built on complementary timing, mutual respect, and shared values.",
+   trigger:"Any conversation with a member where your client journeys overlap. That overlap is the birthplace of a power partnership.",
+   position:"\"There are two people you absolutely need to know in this room. The way their businesses work together with mine, we can walk a client from start to finish with complete confidence.\"",
+   activity:"Power Partner Mapping: Draw your business in the center. Map every professional a client might need BEFORE, ALONGSIDE, and AFTER working with you. Match those roles to chapter members.",
+   takeaway:"One great Power Partnership can change your business. Invest in those relationships like they are your most valuable assets — because they are."},
+  {w:8, title:"Body Language & Confidence Cues",
+   obj:"Teach members how to project confidence and approachability through body language.",
+   script:"Three actionable body language cues: The eyebrow flash — a brief raise when making eye contact signals recognition and warmth. Hand visibility — keeping hands visible signals openness. The forward lean — leaning slightly toward a speaker says \"what you are saying matters to me.\"",
+   teaching:"Nonverbal communication drives a significant portion of how messages are received. The most damaging habits: checking your phone while someone talks, scanning the room over someone's shoulder, and failing to mirror.",
+   trigger:"Notice who seems disconnected at events. That person may be struggling to build connections. Introducing them warmly is a powerful form of social referral.",
+   position:"\"I want to introduce you to Tim — he is one of those people you immediately feel at ease with. His clients say the same thing.\"",
+   activity:"Two-person mirror exercise: Person A moves slowly — hand raise, lean, smile. Person B mirrors naturally. Notice: mirroring creates an unconscious feeling of connection.",
+   takeaway:"Your body is communicating constantly. Make sure it is telling the story you want people to believe about you."},
+  {w:9, title:"The One-on-One Meeting Strategy",
+   obj:"Teach members how to maximize one-on-one meetings to build referral relationships.",
+   script:"The most effective one-on-ones are explorations, not presentations. Use the 3x10 structure: First 10 minutes — listen to them fully. Second 10 minutes — share your own story. Last 10 minutes — identify concrete ways to help each other in the next 30 days.",
+   teaching:"One-on-ones dramatically accelerate Know, Like, Trust. The 3x3 structure: Know (what do you do?), Like (what do I appreciate about you?), Trust (what can I confidently promise about you?). Each stage requires active effort.",
+   trigger:"Before your next one-on-one, review the member's business. Come prepared with one specific referral or connection you could make for them.",
+   position:"\"I had coffee with our attorney last week and learned something directly relevant to what you're dealing with.\"",
+   activity:"Mini one-on-one: 5 minutes per pair. Listener asks only: \"Who is your ideal client this month and what would a perfect referral look like for you right now?\" Switch. No other talking.",
+   takeaway:"A one-on-one is not a meeting — it is an investment. Treat it like the highest-value hour in your week."},
+  {w:10, title:"Referral Etiquette — The Professional Standard",
+   obj:"Establish a clear chapter standard for how referrals should be given, received, and followed up on.",
+   script:"When you receive a referral: contact the person within 24 hours — no exceptions. Update the referring member within one week. Thank the person who gave it — regardless of whether it converts. When you give a referral: make a warm introduction, not just a name drop.",
+   teaching:"The referral loop has four steps: Give, Accept, Deliver, Report. Most are strong on Give and Accept but weak on Deliver and Report. Closing the loop is one of the most underused relationship builders.",
+   trigger:"When a referral does not convert, follow up anyway. Let the referring member know you made contact, what the outcome was, and that you appreciated the introduction.",
+   position:"\"When I refer someone to you, I tell them exactly what to expect: this person will call within 24 hours, listen first, and treat you like a priority.\"",
+   activity:"Referral Audit: Think of the last referral you received. Did you contact within 24 hours? Report back? Thank them? Self-score 1–3 on each. Share your honest score with your accountability partner.",
+   takeaway:"Referral etiquette is the quiet engine of referral volume. Master it, and the referrals will flow."}
+];
+
+var OVERVIEW = [];
+
+WEEKS = WEEKS.concat([
+  {w:11, title:"Referral Scripting",
+   obj:"Give members word-for-word language for five common referral scenarios so they never fumble the moment.",
+   script:"Most of us know when we should make a referral but freeze because we don't know what to say. Today we practice five scripts. Write these down. The goal is that these phrases become automatic — so when the trigger hits, the words are already there.",
+   teaching:"Script 1 — Soft introduction: 'I know someone who is really good at that — can I make a quick intro?' Script 2 — Warm text: 'Hey [member], I'm sending [name] your way — they've been dealing with [situation] and I told them you're the best.' Script 3 — Closing the loop: 'Just checking in — did [name] ever reach out? Wanted to make sure you got connected.' Script 4 — Declining gracefully: 'That's a bit outside my network but let me ask around.' Script 5 — The personal voucher: 'I've personally used this person and they treated me like I was their only client.'",
+   trigger:"\"I'm not sure who to call\" · \"Any recommendations?\" · \"Do you know anyone who...\" — each one is a scripted referral waiting to happen.",
+   position:"\"I have exactly the right person for that. Let me send you a quick intro — she'll take great care of you.\"",
+   activity:"Practice all five scripts in pairs. Switch roles after each. Time goal: each exchange under 60 seconds.",
+   takeaway:"The difference between a referral given and a referral missed is almost always just the words you had ready."},
+  {w:12, title:"Seasonal Opportunities",
+   obj:"Help members recognize the seasonal cycles that create natural spikes in referral demand for specific members.",
+   script:"Every month of the year has a built-in trigger calendar. Fall is financial review season — Tim and Traci both have natural conversations with clients preparing for year-end. Tax season drives estate planning and financial planning conversations. Spring home buying drives mortgage, real estate, title, and handyman. Storm season drives roofing and restoration. If you know whose season is peaking, you know who to think about first.",
+   teaching:"Seasonal mapping: January — financial planning, new year goals. March/April — home buying season begins, taxes. June/August — office refreshes, summer events. September/October — insurance renewals, financial reviews. November/December — year-end tax and estate planning, holiday signage.",
+   trigger:"News about weather events, tax deadlines, housing market reports, or office renovation announcements.",
+   position:"\"This time of year is actually perfect timing to introduce you to our mortgage specialist — she mentioned rates look favorable right now.\"",
+   activity:"Build a 12-month referral calendar as a group. Assign which members have peak seasons each month. Print and post.",
+   takeaway:"The most consistent referral givers are not more perceptive — they are better prepared."},
+  {w:13, title:"The Guest Experience",
+   obj:"Train members to create a memorable, comfortable, and referral-generating experience for every guest they bring.",
+   script:"Bringing a guest is one of the highest-value things you can do for this chapter. But the experience you create before, during, and after the meeting determines whether they join. Your job as the inviting member is not to sell them — it is to make them feel like they already belong.",
+   teaching:"Before: Tell them what to expect — agenda, energy, timing. During: Introduce them to at least three members personally. After: Follow up within 24 hours. The Membership Chair follows separately. Your role: stay their anchor in the room. The #1 reason guests don't return is that they felt like outsiders.",
+   trigger:"\"I've been looking for a group like this\" · \"My last networking group was a waste of time\" · \"I've been meaning to get more involved in the community.\"",
+   position:"\"I'd love to bring you as my personal guest. I'll be there the whole time — I'll introduce you around and make sure you get the most out of it.\"",
+   activity:"Role-play: One person is the guest. One is the inviting member. The room practices warm introductions using each member's name, company, and one personal fact.",
+   takeaway:"A guest who feels like they already belong will become a member. Your warmth is the membership application."},
+  {w:14, title:"Chapter Goals Review",
+   obj:"Give members a transparent look at chapter performance and re-energize commitment to the referral standard.",
+   script:"We run a business together. And like any business, we need to look at our numbers. Today we review where we stand on referrals given, attendance, and our membership target. No shame — just honesty and a plan to finish the month strong.",
+   teaching:"Pull up the Chapter Performance Report. Walk through: referrals given vs. target, attendance percentage, guest visits, one-on-ones completed. Identify the top three performing behaviors. Identify the gap. Ask: what is one thing each of us can do this week to move the number?",
+   trigger:"Members who are behind on referral targets may be struggling to identify opportunities — connect them with the Mentorship Chair.",
+   position:"Not applicable — this is an internal accountability session.",
+   activity:"Small groups of three: each person shares one referral opportunity they currently have but haven't acted on. The group helps them find the right member to refer to.",
+   takeaway:"The chapters that win are the ones that look at their numbers honestly and then do something about it."},
+  {w:15, title:"Member Spotlight Deep Dive — Traci Emond",
+   obj:"Give every member the precise language and scenarios needed to refer confidently to Traci Emond at Guild Mortgage.",
+   script:"This week we spend dedicated time so that every single one of you can close your eyes and say: I know exactly who Traci is, what she does, and when to call her. Traci Emond, Guild Mortgage. Her best client is someone buying a home, refinancing, or renting and starting to wonder if it's time to own. When you hear those triggers — you call Traci first.",
+   teaching:"Ideal clients: First-time homebuyers, move-up buyers, refinance candidates, investors. Power partners in this chapter: Vicki (Real Estate), Theresa (Title), Jakob (Insurance). Traci's differentiator: she walks clients through the process start to finish and is reachable. Referral etiquette: always give Traci a heads-up before the contact reaches out.",
+   trigger:"\"We're renting and thinking about buying\" · \"I keep hearing rates might go back down\" · \"We want to get pre-approved before we start looking\"",
+   position:"\"I want you to call Traci Emond. She is a mortgage specialist I trust completely — she will walk you through the whole thing and make it simple.\"",
+   activity:"Every member writes one person's name on a card — someone they know who could use Traci's services. Discuss. These become this week's referral action list.",
+   takeaway:"Traci's best referral is the one you give before the person even asks — because you were listening."},
+  {w:16, title:"Member Spotlight Deep Dive — Jakob Kolodziej",
+   obj:"Give every member the precise language and scenarios needed to refer confidently to Jakob Kolodziej at Comparion Insurance.",
+   script:"Jakob Kolodziej, Comparion Insurance. Most people don't think about their insurance until something goes wrong — or until their rates spike unexpectedly. Your job is to make sure they think of Jakob before that moment. He works with personal and commercial lines, and his differentiator is that he shops multiple carriers to find the right fit.",
+   teaching:"Ideal clients: Homeowners whose renewal is coming up, new car buyers, business owners who've never reviewed their commercial coverage, anyone whose rates just went up. Power partners: Vicki (homebuyers need insurance), Traci (closings require insurance), Ryan (roof claims involve insurance). Lead with savings — most people can save by switching.",
+   trigger:"\"My insurance renewal came and the price went up again\" · \"We just bought a new car\" · \"I started a business and I'm not sure what I need\"",
+   position:"\"Before your renewal hits — let me connect you with Jakob. He shops multiple carriers and he almost always saves people money.\"",
+   activity:"Two-minute exercise: every member identifies one person in their phone who has had a major life event in the last 6 months. Major life events always trigger insurance reviews. That's a warm lead for Jakob.",
+   takeaway:"Insurance referrals hide in every major life event. Once you know what to look for, you'll see them everywhere."},
+  {w:17, title:"Member Spotlight Deep Dive — Vicki Genz",
+   obj:"Give every member the precise language and scenarios to refer confidently to Vicki Genz at New View Group.",
+   script:"Vicki Genz, New View Group at Realty ONE Group. Real estate is the single largest referral category in this chapter because almost everyone knows someone who is thinking about buying or selling. Vicki's differentiator is her deep knowledge of the northwest suburbs and her ability to make the process feel manageable for her clients.",
+   teaching:"Ideal clients: Anyone buying, selling, or investing in residential real estate in the northwest suburbs. Power partners: Traci (mortgage), Theresa (title), Jakob (insurance), Dan (pre-sale prep), Brandon (damage remediation before listing). The best Vicki referral: anyone saying 'we're thinking about it' — she's great at the education stage, not just the transaction.",
+   trigger:"\"We've been thinking about selling\" · \"We want to find something bigger\" · \"What do you think about the housing market right now?\"",
+   position:"\"You need to call Vicki. She knows this market cold and she makes it completely non-stressful. I'll send you her info right now.\"",
+   activity:"Map the real estate referral ecosystem on a whiteboard: from 'thinking about moving' to 'settled in.' Identify every point where a chapter member plays a role.",
+   takeaway:"Real estate creates a referral chain through five members at once. Vicki is where that chain starts."},
+  {w:18, title:"Member Spotlight Deep Dive — Ryan Johnson",
+   obj:"Give every member the precise language and scenarios to refer confidently to Ryan Johnson at Pink Roofing.",
+   script:"Ryan Johnson, Pink Roofing. Roofing is one of those services where people wait too long because they don't know who to call. Your job is to make Ryan the name they call first — not after the damage gets worse. Ryan works residential and commercial, and he is particularly skilled with insurance claims.",
+   teaching:"Ideal clients: Homeowners with a roof 15+ years old, anyone with storm or hail damage, commercial building owners, anyone filing or thinking about an insurance claim on their roof. Power partners: Brandon (storm damage often needs both roofing and restoration), Jakob (insurance claim process), Vicki (pre-listing roof inspections). Ryan's strength: he handles the insurance process from estimate to approval.",
+   trigger:"\"We had that big hail storm and I haven't had anyone look at it\" · \"My roof is probably 20 years old\" · \"We're getting ready to sell and I know the roof is an issue\"",
+   position:"\"Before you list or file a claim — call Ryan Johnson at Pink Roofing. He'll do an inspection and he knows the insurance process front to back.\"",
+   activity:"Show of hands: who has driven past a neighbor's house and noticed a damaged roof? That's a referral. Practice the conversation you'd have to bring it up naturally.",
+   takeaway:"Ryan's best referral comes from someone paying attention. You don't have to be a roofer to know when a roof needs work."},
+  {w:19, title:"Member Spotlight Deep Dive — Sean Fergus",
+   obj:"Give every member the precise language and scenarios to refer confidently to Sean Fergus at the Law Offices of Sean P. Fergus.",
+   script:"Sean Fergus, Law Offices of Sean P. Fergus. The legal world feels inaccessible to most people — they wait until they absolutely must hire an attorney. Your role is to normalize the idea that having a relationship with an attorney is smart business, not a sign that something is wrong.",
+   teaching:"Ideal clients: Anyone starting or structuring a business, property buyers and sellers needing a closing attorney, anyone with a will or estate plan more than five years old, contract review for any business owner. Power partners: Vicki and Theresa (real estate closings), Tim (estate planning coordination). Sean's strength: he is practical, accessible, and explains things without jargon.",
+   trigger:"\"I'm starting a business and not sure what structure to use\" · \"My partner and I need to formalize things\" · \"I keep meaning to update my will\"",
+   position:"\"For that, you want an attorney — and I know exactly who to call. Sean Fergus is practical, responsive, and won't make you feel like you're bleeding money.\"",
+   activity:"Every member: identify one client or contact who is a business owner. Every business owner needs an attorney. That's a warm lead for Sean.",
+   takeaway:"Attorneys are not just for emergencies. Help Sean by changing that perception in your network."},
+  {w:20, title:"Member Spotlight Deep Dive — Jeremy Juhl",
+   obj:"Give every member the precise language and scenarios to refer confidently to Jeremy Juhl at Rieke Office Interiors.",
+   script:"Jeremy Juhl, Rieke Office Interiors. Every business eventually moves, expands, or needs to refresh its space. Jeremy's clients are companies that want their workspace to reflect who they are professionally. His work is often the first thing a client notices when they walk in the door.",
+   teaching:"Ideal clients: Any business signing a new lease, expanding into a larger space, going through a rebrand, or noticing their workspace feels dated and unprofessional. Power partners: Sean (business formation — new businesses need spaces), Brandon (water or fire damage often triggers a full renovation). Jeremy's differentiator: project management from design concept to final installation.",
+   trigger:"\"We just signed a lease on a new space\" · \"We're rebranding and our office doesn't match anymore\" · \"The conference room is embarrassing when clients come in\"",
+   position:"\"Before you start ordering furniture — talk to Jeremy at Rieke. He will save you time and money and the end result will look like a real company.\"",
+   activity:"Who in this room has a client who recently announced an office move or expansion? That announcement is a referral trigger. Practice the conversation.",
+   takeaway:"Office moves and expansions are public events — people announce them. That announcement is your referral cue."},
+  {w:21, title:"Member Spotlight Deep Dive — Theresa Lustig",
+   obj:"Give every member the precise language and scenarios to refer confidently to Theresa Lustig at Old Republic Title.",
+   script:"Theresa Lustig, Old Republic Title. Every real estate transaction needs a title company. Most buyers and sellers don't choose their own — they accept whoever the agent recommends. Your job is to make sure Theresa is the name being recommended. Vicki and Sean both work closely with Theresa — and the three of them together create a seamless transaction.",
+   teaching:"Ideal referral scenario: any real estate transaction in progress. Buyers, sellers, commercial deals, refinances with equity access. Theresa's differentiator: she closes on time, communicates proactively, and makes the closing table feel calm. Power partners: Vicki, Traci, Sean — any real estate transaction flows through all four.",
+   trigger:"\"We're under contract\" · \"We're supposed to close next month\" · \"I've never been through a closing before\"",
+   position:"\"Talk to Theresa Lustig at Old Republic Title. She handles the closing and she will make sure everything is organized and on time — no surprises.\"",
+   activity:"Walk through the life of a real estate transaction and map every touchpoint where Theresa's role is critical. Help members understand what she actually does day-to-day.",
+   takeaway:"Theresa is the anchor at the closing table. Every real estate referral you give to Vicki, Traci, or Sean should include her name."},
+  {w:22, title:"Member Spotlight Deep Dive — Tim Matta",
+   obj:"Give every member the precise language and scenarios to refer confidently to Tim Matta at Edward Jones.",
+   script:"Tim Matta, Edward Jones. Financial planning is the kind of thing people always intend to do but rarely start. Tim's clients are not always wealthy — they are people who want to make a plan and stick to it. The trigger is not a balance sheet. The trigger is a life event: a new job, a raise, a death in the family, a kid starting college.",
+   teaching:"Ideal clients: Someone who received an inheritance and doesn't know what to do with it; a 40- or 50-something who hasn't saved enough for retirement; a business owner with no succession plan; a new parent who just realized they have no life insurance or college fund. Power partners: Sean (estate planning coordination), Traci (homebuyers often need financial planning help). Tim's strength: he explains complex things simply and meets clients where they are.",
+   trigger:"\"I just got a new job with a 401k\" · \"My mom passed and I don't know what to do with what she left\" · \"We need to start thinking about college for the kids\"",
+   position:"\"That's a conversation for Tim Matta. He'll sit down with you, no pressure, and help you make sense of it. I trust him completely.\"",
+   activity:"Identify the life events in your network right now: inheritance, job change, new baby, divorce, retirement approaching. Each one is a warm Tim referral.",
+   takeaway:"Financial planning referrals come from life events, not bank balances. Pay attention to transitions."},
+  {w:23, title:"Member Spotlight Deep Dive — Dr. Brett Rappenecker",
+   obj:"Give every member the precise language and scenarios to refer confidently to Dr. Brett Rappenecker at Horizon Chiropractic.",
+   script:"Dr. Brett Rappenecker, Horizon Chiropractic. Chiropractic care is one of those services where the barrier is perception — people either think it's not for them, or they don't realize it can help with what they're dealing with. Your job is to lower that barrier. Brett treats back pain, neck pain, headaches, and post-accident recovery. His patients describe him as someone who actually listens.",
+   teaching:"Ideal patients: Anyone with chronic back or neck pain, desk workers with posture and headache issues, anyone in a car accident, athletes with repetitive stress. Power partners: Jakob (auto accident insurance), anyone who works with physical laborers (construction, landscaping, warehouse). Brett's differentiator: he explains the root cause rather than just treating symptoms.",
+   trigger:"\"My back has been killing me\" · \"I've had this headache for weeks\" · \"I was in a fender-bender and my neck has been stiff ever since\"",
+   position:"\"You should see Dr. Brett. He's not just about cracking backs — he'll actually figure out what's going on and explain it to you. I'd go to him before I'd go anywhere else.\"",
+   activity:"How many of you currently have someone in your life who has mentioned back or neck pain in the last month? Those are active referrals. Practice the handoff.",
+   takeaway:"Back pain is one of the most common complaints in the world. Brett is the most accessible solution you know."},
+  {w:24, title:"Member Spotlight Deep Dive — Dan Kern",
+   obj:"Give every member the precise language and scenarios to refer confidently to Dan Kern at Ace Handyman Services.",
+   script:"Dan Kern, Ace Handyman Services. Every homeowner has a list. Some of them have had the same items on that list for two years. Dan is the person who makes the list disappear. His clients don't just get tasks completed — they get the relief that comes from not having to think about it anymore.",
+   teaching:"Ideal clients: Homeowners with deferred maintenance, property managers with tenant turnovers, sellers preparing a home for listing, retirees who can no longer do the work themselves, new homeowners who've discovered a list of repairs. Power partners: Vicki (pre-listing prep), Ryan (roofing handoff for smaller repairs), Brandon (post-water-damage restoration touch-ups). Dan's differentiator: he shows up when he says he will.",
+   trigger:"\"My honey-do list is out of control\" · \"I can never find a handyman who actually shows up\" · \"We're thinking about selling and the house needs work\"",
+   position:"\"Call Dan Kern at Ace Handyman. He's the guy who actually shows up, does what he said, and charges a fair price. Rare.\"",
+   activity:"Every member: identify one homeowner in your network who mentioned a home project in the last three months. That's a Dan referral. Practice the intro text.",
+   takeaway:"The most common complaint about home services is reliability. Dan's reputation is built on showing up. That's your pitch."},
+  {w:25, title:"Member Spotlight Deep Dive — Brandon Bynum",
+   obj:"Give every member the precise language and scenarios to refer confidently to Brandon Bynum at ServiceMaster KWIK Restore.",
+   script:"Brandon Bynum, ServiceMaster KWIK Restore. Restoration is emergency services. When someone needs Brandon, they are in a stressful, often devastating situation. Your job is to make sure Brandon's name comes out of your mouth before they've finished describing the problem. Speed matters. He works directly with insurance companies to reduce the burden on the homeowner.",
+   teaching:"Ideal clients: Anyone with water, fire, storm, or mold damage — residential or commercial. Power partners: Ryan (storm damage), Jakob (insurance claims), Vicki and Traci (damaged properties affect transactions). Brandon's differentiator: he coordinates with the insurance adjuster so the client doesn't have to manage two conversations at once.",
+   trigger:"\"Our basement flooded\" · \"We had a pipe burst\" · \"There's mold in the bathroom we don't know what to do about\" · \"The storm took out part of the roof and water got in\"",
+   position:"\"Call Brandon Bynum right now. Before you call anyone else. He handles the insurance piece and he will get someone there fast.\"",
+   activity:"Discuss: What percentage of your clients are homeowners? If a storm hits this week, how many of them might need Brandon? Practice the emergency referral script.",
+   takeaway:"Brandon's referral is not a recommendation — it is an emergency resource. Make sure his number is in your phone."},
+  {w:26, title:"Member Spotlight Deep Dive — Scot Bemus",
+   obj:"Give every member the precise language and scenarios to refer confidently to Scot Bemus at FastSigns.",
+   script:"Scot Bemus, FastSigns. Every business needs to be seen — and most businesses underinvest in their visual presence. Scot does custom signs, vehicle wraps, trade show displays, banners, and marketing materials. His best referral is any business event, opening, or rebrand where visibility matters.",
+   teaching:"Ideal clients: Any business opening a new location, attending a trade show or community event, rebranding, needing a vehicle wrap, or running a seasonal promotion. Power partners: Jeremy (office moves often need signage), Sean (new business formations need branding), anyone with commercial clients. Scot's differentiator: he handles design and production in-house — faster turnaround, single point of contact.",
+   trigger:"\"We're opening a second location\" · \"We're going to a trade show next month\" · \"We redid our logo but haven't updated our signage\" · \"I want to wrap my work truck\"",
+   position:"\"Before you go anywhere else for signage — talk to Scot at FastSigns. He'll handle the design and the production and get it done faster than you'd expect.\"",
+   activity:"Who in this room has a client attending a trade show, opening a new location, or doing a rebrand this year? Those are immediate Scot referrals. Practice the conversation.",
+   takeaway:"Visibility is not optional for a growing business. Scot is the shortcut to looking professional without the run-around."},
+  {w:27, title:"Referral Mindset Shift",
+   obj:"Shift members from a scarcity mindset about referrals to an abundance mindset that generates more.",
+   script:"There is a myth that referrals are a finite resource — that if you give too many you will run out of trust, or run out of contacts to send. That is exactly backward. Every referral you give strengthens your reputation as a connector. The more you give, the more valuable you become to your network. Givers always gain.",
+   teaching:"The scarcity mindset: 'I only have a few people to refer, I better be careful.' The abundance mindset: 'Every conversation is a potential referral, and giving one costs me nothing.' Research on reciprocity: when you give without expecting anything back, social psychology says you will receive more over time. The chapter's top referral givers are almost always the top receivers.",
+   trigger:"\"I haven't been able to give many referrals lately\" — this is often a mindset issue, not a network issue. Dig into it.",
+   position:"\"You have more to offer than you think. The people who refer the most are not the ones with the biggest networks — they are the ones paying the most attention.\"",
+   activity:"Everyone writes down three people they spoke to this week. For each person, identify one member they could benefit from knowing. This exercise proves the abundance principle immediately.",
+   takeaway:"Referrals are not a finite resource. Your network regenerates every time you invest in it."},
+  {w:28, title:"Conversational Questions",
+   obj:"Give members high-value questions they can use in any conversation to uncover referral opportunities naturally.",
+   script:"The most powerful referral conversations don't start with a sales pitch. They start with a great question. A great question makes the other person feel heard, opens up their situation, and reveals what they need — including what you and your colleagues can provide.",
+   teaching:"High-value questions: 'What's the biggest challenge in your business right now?' · 'How's the house treating you?' · 'Any big plans coming up this year?' · 'Is there anything you've been putting off that's starting to feel urgent?' Each question is a door. Your job is to walk through it.",
+   trigger:"Any conversation that starts with small talk. The transition from 'How are you?' to 'What's going on?' is where referrals are born.",
+   position:"After the question reveals a need: 'You know, I know someone who handles that specifically. Let me connect you — I think it would be worth a 15-minute call.'",
+   activity:"Practice the transition: go from a social opener to a high-value question in 60 seconds. Do it three times with three different partners. The goal is naturalness, not scripts.",
+   takeaway:"The best referral professionals are not better salespeople. They are better question-askers."},
+  {w:29, title:"Handling Objections",
+   obj:"Prepare members to navigate hesitation gracefully when positioning a referral.",
+   script:"Sometimes when you position a referral, the person pushes back. 'I already have someone.' 'I'm not ready yet.' 'I don't want to bother anyone.' These are not rejections — they are starting points. Your job is not to overcome objections. It is to remove barriers.",
+   teaching:"Objection 1: 'I already have someone.' Response: 'Great — just keep [member name] in mind as a backup.' Objection 2: 'I'm not ready yet.' Response: 'No pressure — let me just make the intro so you have the contact when you are.' Objection 3: 'I don't want to be a bother.' Response: 'This is exactly what they do — it won't be a bother at all.' Always end with the door open, never closed.",
+   trigger:"Any hesitation in response to a referral positioning. Hesitation is not rejection — treat it as uncertainty.",
+   position:"\"No pressure at all — I'll just send you their contact and you can reach out when you're ready. That way you have it.\"",
+   activity:"Role-play: one person positions a referral, one person objects with one of the three objections above. Practice the responses until they feel natural.",
+   takeaway:"Objections are questions in disguise. Answer the question behind the objection and the referral usually moves forward."},
+  {w:30, title:"Telling Your Story",
+   obj:"Teach members to use personal client success stories as referral tools.",
+   script:"Data makes people think. Stories make people act. When you share a client story that matches someone's situation — without naming names — you lower resistance, create emotional connection, and make the referral feel inevitable rather than forced.",
+   teaching:"Story structure: Situation (who was the client and what were they dealing with?), Complication (what made it urgent or difficult?), Resolution (how did the member solve it?), Transformation (what changed for the client?). A two-minute story is worth ten data points.",
+   trigger:"When someone shares a problem that mirrors a client success story you already know — that story is the bridge.",
+   position:"\"Let me tell you what happened with a client of mine in a similar situation...\" — then deliver the story, then offer the referral.",
+   activity:"Each member prepares one client success story using the structure above. Share in groups of three. Rate: was the situation relatable? Was the transformation clear?",
+   takeaway:"Your best marketing asset is a story someone else can repeat. Help your colleagues tell yours."},
+  {w:31, title:"The Follow-Up Formula",
+   obj:"Install a consistent follow-up process that closes the loop on every referral given and received.",
+   script:"A referral without follow-up is a good intention that fades. The 48-hour rule: contact the person within 48 hours of receiving a referral — no exceptions. Update the referring member within one week. A single text saying 'I reached out, looks promising' is enough. Never let a referral die in silence.",
+   teaching:"The four follow-up moments: Hour 0 — thank the referring member the same day. Hour 48 — contact the person referred. Day 7 — update the referring member on the status. Day 30 — update again if the relationship is still developing. The reason most referral relationships fade: no one closed the loop.",
+   trigger:"Any referral received. The clock starts the moment it lands.",
+   position:"Not the focus of this session — the focus is what happens after the referral is given.",
+   activity:"Audit: every member identifies one referral they gave or received in the past 30 days. Did you close the loop? If not, send the text right now during this session.",
+   takeaway:"The follow-up is not extra credit. It is the whole game."},
+  {w:32, title:"Referral Champion Recognition",
+   obj:"Celebrate the chapter's top referral givers and reinforce the behaviors that drive results.",
+   script:"Today we celebrate the people in this room who are putting the chapter's values into action. Recognizing great behavior is not just good culture — it is the fastest way to replicate it. When someone gets recognized publicly for giving referrals, the people around them pay attention.",
+   teaching:"Pull the referral data. Who gave the most this month? Who has given consistently over time? Who gave their first referral? All three deserve recognition. Narrate the behavior — not just the number. 'Traci gave four referrals this month, all warm and qualified' is more powerful than 'Traci gave four.'",
+   trigger:"Monthly — build this into the agenda as a standing segment after the first full month.",
+   position:"\"The reason [name] gets so many referrals back is simple — look at what they give.\"",
+   activity:"Verbal appreciation round: every member names one other member who made them feel supported in the chapter this month. No duplicates.",
+   takeaway:"What gets recognized gets repeated. Make recognition a habit, not an afterthought."},
+  {w:33, title:"Your Digital Presence",
+   obj:"Help members understand how their LinkedIn and online presence supports or undermines their referral credibility.",
+   script:"When someone gets your name as a referral, the first thing they do is search for you. What they find either confirms the referral or creates doubt. Your digital presence is not separate from your referral reputation — it is part of it. Today we make sure they match.",
+   teaching:"LinkedIn minimum standard: professional headshot, clear headline with what you do for whom, a short summary with your referral trigger phrases, and recent activity. Check: is your profile discoverable? Does it match your 60-second commercial? Google your own name — what comes up?",
+   trigger:"Any time someone says 'let me look you up' — that is the moment your digital presence either earns or loses the referral.",
+   position:"\"I'll send you her LinkedIn — her profile tells you everything you need to know about what she does and how she works.\"",
+   activity:"Pair up and audit each other's LinkedIn profiles. Rate on three criteria: Does it say what you do clearly? Does it say who you help? Does it give me confidence to refer you?",
+   takeaway:"Your LinkedIn profile is your referral brochure. Make sure it earns the referral, not just the click."},
+  {w:34, title:"Cross-Chapter Visits",
+   obj:"Prepare members to maximize a visit to another AmSpirit chapter — before, during, and after.",
+   script:"A cross-chapter visit is not a field trip. It is a high-leverage opportunity to expand your referral network beyond this room. Done right, one visit to another chapter can generate two or three ongoing referral relationships with professionals you would never have met otherwise.",
+   teaching:"Before: Research the chapter's member list. Identify who is a power partner for your business. Prepare a focused 30-second commercial. During: Give your strongest commercial — rooms of people you have not met respond differently than familiar faces. After: Connect on LinkedIn the same day. Send a note. Schedule a one-on-one with anyone who felt like a fit.",
+   trigger:"AmSpirit events, new chapter launches, and any chapter that has a seat open in your category.",
+   position:"\"I visited the Barrington chapter last week and connected with a financial advisor who already sent me a referral. Cross-chapter visits work.\"",
+   activity:"Who in this room has not visited another chapter this year? Set the goal: one cross-chapter visit before the next session. Use the Cross-Chapter Visit Log in the portal.",
+   takeaway:"Your referral network does not end at the door of this chapter. Every AmSpirit chapter is an extension of your sales force."},
+  {w:35, title:"The Perfect Introduction",
+   obj:"Teach members the formula for making an introduction that creates an actual connection rather than an awkward email.",
+   script:"Most introductions fail — not because the people weren't a good fit, but because the introduction was weak. A great introduction explains why both people benefit, removes the burden of the first move, and sets the expectation for a quick response. Master this and your referrals convert at twice the rate.",
+   teaching:"The double opt-in introduction: before connecting two people, ask both if they want to be introduced. Three parts of a great intro email or text: Line 1 — who they are and why they are credible. Line 2 — why I thought of each of you specifically. Line 3 — I'll leave it to you two to connect. Copy both. Done.",
+   trigger:"Any time you are positioning a referral and the person says yes.",
+   position:"[The introduction itself is the position — model: 'Ryan, meet Sarah. Sarah has a roof that's been leaking since the storm last month and I told her you're the best person to call. Sarah, Ryan will take great care of you. I'll let you two connect from here.']",
+   activity:"Write a practice double opt-in introduction using a real referral scenario from this week. Read them aloud. Identify what works and what needs refining.",
+   takeaway:"A great introduction does the work of the first three conversations. Write it like it matters — because it does."},
+  {w:36, title:"Guest Conversion",
+   obj:"Give members the tools to help a guest make the decision to join the chapter.",
+   script:"Every guest who walks in this door has already cleared the biggest hurdle — they showed up. Our job from that moment is not to sell them on AmSpirit. Our job is to make it obvious that this is the room they should be in. The best conversion tool is not a brochure — it is the genuine warmth of every person in this chapter.",
+   teaching:"The conversion timeline: Meeting 1 — make them feel welcome and introduce them to two members personally. Within 24 hours — the inviting member follows up. Week 2 — Membership Chair reaches out with a personal note. Meeting 2 — invite them back explicitly. The decision to join almost always happens between Meeting 1 and Meeting 3.",
+   trigger:"Any guest who returns for a second visit is statistically likely to join. Prioritize your energy on them.",
+   position:"\"We'd love to have you back. I think you'd really enjoy being part of this group on a regular basis.\"",
+   activity:"Review the guest conversion checklist as a group. Assign follow-up ownership for any current guests in the pipeline.",
+   takeaway:"Guests do not join chapters. They join people. Be the person they want to join."},
+  {w:37, title:"Annual Goal Review",
+   obj:"Review chapter performance against annual goals and reset focus for the next 12 months.",
+   script:"Once a year, we step back from the weekly rhythm and look at the full picture. How many referrals did we give? How many members did we add? What was our attendance average? These numbers tell us something important — and so does the gap between where we are and where we said we wanted to be.",
+   teaching:"Pull the Chapter Performance Report. Key metrics: total referrals given and received, referral conversion rate (how many became closed business), average attendance percentage, net membership change, new guests hosted. Celebrate the wins specifically. Address the gaps without shame but with honesty.",
+   trigger:"Use this session to set next year's chapter referral goal. Make it specific: 'We will give X referrals this year as a chapter.'",
+   position:"Not applicable — this is an internal review session.",
+   activity:"Small groups: each group identifies one behavior change the chapter could make to improve its top metric. Report back and vote on the top suggestion.",
+   takeaway:"A chapter that reviews its performance honestly every year will outperform one that does not — every single time."},
+  {w:38, title:"Power Partner Deep Dive",
+   obj:"Map the chapter's most powerful referral clusters and strengthen the connections within them.",
+   script:"Some referral combinations in this chapter are so natural that they should be generating referrals almost automatically. Today we map them, name them, and talk about how to activate them more intentionally. The goal is not to force connections — it is to make the natural ones visible.",
+   teaching:"Map the clusters: Real estate cluster (Vicki, Traci, Theresa, Sean, Dan, Brandon, Ryan, Jakob). Business formation cluster (Sean, Tim, Scot, Jeremy). Health and property cluster (Brett, Dan, Brandon). Review: are the members within each cluster having regular one-on-ones? Are they referencing each other in their commercials?",
+   trigger:"Any member whose referral volume is low is usually missing an active power partner relationship.",
+   position:"Not a positioning exercise — this is an internal relationship audit.",
+   activity:"Each member identifies their single most valuable power partner in the chapter. Schedule a one-on-one with them before next Tuesday.",
+   takeaway:"Power partners are not created — they are discovered. Find yours and invest in them consistently."},
+  {w:39, title:"The Art of the Ask",
+   obj:"Teach members how to ask for referrals directly, confidently, and without discomfort.",
+   script:"Most people never ask for referrals directly because they are afraid of seeming needy. The truth is, a well-timed, specific ask is not desperate — it is professional. People want to help you. They just need you to tell them how.",
+   teaching:"The three elements of a great ask: Be specific ('I'm looking for homeowners in the 40-50 age range who haven't reviewed their insurance in a few years'), give a reason ('I've been focusing my practice there and I have a lot to offer that segment'), and make it easy ('If anyone comes to mind, just text me their name'). Never ask 'do you know anyone?' — that question creates a blank canvas.",
+   trigger:"One-on-one meetings, chapter meetings, and any conversation where someone has just acknowledged that your service is valuable.",
+   position:"\"If you know anyone going through [specific situation], I would be genuinely grateful for an introduction. I'd make sure they're well taken care of.\"",
+   activity:"Every member writes their specific ask using the three-element formula. Read them aloud. Identify what is too vague and sharpen it.",
+   takeaway:"You don't need permission to ask for referrals. You just need to ask the right way."},
+  {w:40, title:"Referral Recovery",
+   obj:"Give members the skills to handle a referral that went wrong while protecting the relationship.",
+   script:"Sometimes a referral does not go well. The service was disappointing. The communication broke down. The client was unhappy. When this happens, it is not the end of the referral relationship — but only if you handle it right. How you respond to a broken referral defines your reputation more than any win does.",
+   teaching:"Step 1 — Acknowledge: reach out to the referring member proactively. Do not wait for them to hear about it. Step 2 — Take responsibility for your part: 'I should have communicated better.' Step 3 — Repair the relationship with the client directly. Step 4 — Update the referring member on the resolution. The goal is not to look perfect — it is to demonstrate that your character holds up under pressure.",
+   trigger:"Any feedback that a referral did not go as expected.",
+   position:"Not a positioning conversation — this is a recovery conversation. The language is: 'I want to make this right. What would that look like for you?'",
+   activity:"Scenario-based discussion: A guest you invited to the chapter had a bad experience with a member's service and is no longer speaking to that member. What do you do? Walk through it.",
+   takeaway:"A referral relationship that survives a problem is stronger than one that was never tested."},
+  {w:41, title:"The 2-Referral Standard",
+   obj:"Help members understand why two referrals per month is the minimum — and give them the tools to consistently hit it.",
+   script:"Two referrals per month. That is the floor — not the ceiling. And yet for many members, it is the hardest commitment to keep consistently. Today we break down exactly where two referrals come from and make it impossible to say 'I didn't know who to refer to.'",
+   teaching:"Two referrals per month equals 24 referrals per year. If every member gives 24, the chapter gives nearly 300 referrals annually. Breaking it down: if you have one substantive conversation per day, five days a week — that's 20 conversations. Two referrals out of 20 conversations means a 10% referral rate. That is not high. It is entirely achievable.",
+   trigger:"Members who are consistently below standard are not bad connectors — they are usually not tracking their conversations and looking for triggers.",
+   position:"\"Two referrals a month is not the goal — it is the entry point. Once you start looking, you will find more than two.\"",
+   activity:"This week's challenge: log every substantive conversation you have. After each one, ask: was there a referral opportunity? At the next meeting, report back on your hit rate.",
+   takeaway:"Two referrals per month is not difficult. But it requires intention. Set the intention right now."},
+  {w:42, title:"Networking at Events",
+   obj:"Help members apply chapter skills at outside events: Chamber, community, and industry gatherings.",
+   script:"The skills you build here every Tuesday — listening for triggers, positioning referrals, making introductions — are designed for every professional interaction you have, not just this room. When you walk into a Chamber event or a community meeting with this training, you operate at a completely different level than almost everyone else in the room.",
+   teaching:"Before you go: research who will be there, identify your one conversation goal. During: lead with curiosity, not your card. Ask the high-value questions. Listen for triggers. After: connect on LinkedIn the same day, identify any referral opportunities for chapter members, and log any cross-chapter potential.",
+   trigger:"Chamber events, community meetings, industry associations, alumni networks, neighborhood events.",
+   position:"\"I'm in a professional referral group that meets every Tuesday. If you're ever looking for a referral partner in [their industry], I might be able to help.\"",
+   activity:"Role-play: you are at a Chamber event. Your partner plays a business owner you've just met. Practice the full cycle — opening, question, trigger identification, and positioning.",
+   takeaway:"This chapter is your training ground. The field is everywhere else."},
+  {w:43, title:"Your Referral Reputation",
+   obj:"Help members understand that their referral reputation is a business asset — and teach them how to protect and grow it.",
+   script:"Your referral reputation is what people say about you when you're not in the room. It is not just about the quality of your work — it is about how you treat the people who trusted you enough to send someone your way. One great experience amplifies a reputation. One bad experience travels twice as fast.",
+   teaching:"The three dimensions of referral reputation: Technical excellence (did you solve the problem?), Communication quality (did you keep people informed?), Gratitude and reciprocity (did you close the loop and say thank you?). You can be excellent at your work and still have a weak referral reputation if you fail on dimensions two and three.",
+   trigger:"Members who are not receiving referrals despite being competent professionals may have a reputation gap on dimensions two or three.",
+   position:"\"People refer you when they know exactly what to expect from you — and they know you will make them look good for the recommendation.\"",
+   activity:"Reputation audit: every member answers honestly — do you thank referring members the same day? Do you close the loop within a week? What is your reputation on dimensions two and three?",
+   takeaway:"Your referral reputation is your most valuable business asset. Guard it with the same care you give your work."},
+  {w:44, title:"The Referral Conversation — Full Practice",
+   obj:"Run a complete end-to-end referral conversation: trigger, position, introduce, follow up.",
+   script:"Today we put it all together. Every skill we have covered — listening for triggers, positioning referrals, making the introduction, and following up — gets practiced in one complete cycle. By the end of this session, every person in this room will have completed a full referral conversation from start to finish.",
+   teaching:"The cycle: Trigger (you hear it), Position ('I know someone who specializes in that'), Introduction (you make the warm connection), Follow-up (48-hour rule). The goal today is fluency — the cycle should feel like a natural conversation, not a procedure.",
+   trigger:"All of them — today is comprehensive practice.",
+   position:"Review all positioning scripts from the last 44 weeks. Members choose their strongest.",
+   activity:"Groups of three. Person A plays the contact with a need. Person B plays the chapter member. Person C plays the referred professional. Run the full cycle. Debrief: what worked? What felt forced?",
+   takeaway:"You have been building to this. The full referral cycle is now part of how you think, listen, and connect."},
+  {w:45, title:"Chapter Culture Review",
+   obj:"Examine what makes this chapter's culture distinctive and discuss how to protect and strengthen it.",
+   script:"Culture is not something you decide once. It is something you reinforce every week by the way you show up. The culture of this chapter — the warmth, the accountability, the genuine commitment to each other's success — is not an accident. It is the accumulated result of every person in this room choosing to show up at their best.",
+   teaching:"What to examine: How do we treat guests? How do we handle a member who is struggling? How do we celebrate wins? How do we address underperformance? Culture is revealed in the hard moments, not the easy ones. If the answer to any of these questions is 'we don't do that intentionally' — that is the work.",
+   trigger:"Declining attendance, dropping referral volume, or a guest who did not return without explanation — these are culture signals.",
+   position:"Not a positioning exercise — this is a reflection and recommitment session.",
+   activity:"Anonymous written reflection: what is one thing this chapter does well culturally? What is one thing we could do better? Collect, read aloud, discuss without attribution.",
+   takeaway:"Every person in this room is the culture. It is not something the officers manage — it is something everyone builds."},
+  {w:46, title:"Member Commercial Workshop",
+   obj:"Give every member live feedback on their 60-second commercial in a structured, supportive environment.",
+   script:"Your commercial is your referral instruction manual. If it is not generating referrals consistently, it needs work — and today we do that work together. This is not a critique session. It is a refinement session. Every commercial can be sharpened. By the end of today, every person in this room will leave with at least one specific improvement to make.",
+   teaching:"Evaluation criteria: Does the commercial name a specific problem? Does it describe who the ideal client is? Does it include a referral trigger phrase? Is it 30 seconds or under? Can you repeat it back from memory after hearing it once? Grade on all five. Most commercials fail on specificity and the trigger phrase.",
+   trigger:"Not applicable — this is an active workshop. Everyone participates.",
+   position:"The goal is that by the end of this session, every member's commercial earns a 'yes' to all five criteria.",
+   activity:"Every member delivers their commercial. The group rates on all five criteria. Immediate rewrite if any criterion fails. Second delivery follows the rewrite.",
+   takeaway:"Your commercial is a living document. Sharpen it every time the referrals stop flowing."},
+  {w:47, title:"New Member Integration",
+   obj:"Help the chapter accelerate a new member's first 90 days so they become referral contributors faster.",
+   script:"The first 90 days of a new member's experience determine whether they stay and thrive or quietly fade out. The chapter's role is not just to welcome them — it is to actively invest in their success. Every person in this room remembers what it felt like to be new. Use that memory to show up for the next person.",
+   teaching:"The 90-day integration checklist: Week 1 — meet with the Membership Chair and complete onboarding. Weeks 2-4 — complete one-on-ones with at least four members. Month 2 — deliver first referral. Month 3 — scheduled for a Member Spotlight. The Mentorship Chair is the primary resource for any new member who is struggling.",
+   trigger:"Any new member who has not given a referral by Week 6 needs a check-in from the Mentorship Chair — not judgment, just support.",
+   position:"\"The fastest way to receive referrals here is to start giving them. We'll help you figure out who in your network could benefit from someone in this room.\"",
+   activity:"Assign an unofficial mentor from the existing membership to every new member. The mentor's one job: help them give their first referral.",
+   takeaway:"The chapter gets stronger every time a new member gives their first referral. Help them get there faster."},
+  {w:48, title:"Annual Planning",
+   obj:"Set the chapter's education calendar, referral goals, and membership targets for the coming year.",
+   script:"The chapters that grow are the ones that plan. Today we build the education calendar for the next twelve months, set our referral target as a chapter, and identify any member seats we want to fill. Planning is not bureaucracy — it is respect for the potential of this group.",
+   teaching:"Education calendar structure: Months 1-3 foundational skills (weeks 1-13 curriculum), Months 4-6 member spotlights and relationship deepening, Months 7-9 skills workshops (commercial refinement, guest conversion, follow-up), Months 10-12 review and recognition. Referral target: current average referrals per member per month times 12. Add 20%.",
+   trigger:"End of year is the natural moment for this session — but it works any time the chapter feels like it lacks direction.",
+   position:"Not applicable — this is an internal planning session.",
+   activity:"Assign the education calendar to the Program Chair. Vote on the annual referral target. Identify the open seats to prioritize for the coming year.",
+   takeaway:"A chapter with a plan feels different from the inside. Set the plan today."},
+  {w:49, title:"Year in Review",
+   obj:"Celebrate the chapter's referral performance, major milestones, and individual contributors.",
+   script:"Before we reset and plan for the year ahead, we pause and recognize what this chapter accomplished. Every referral given this year was a vote of confidence in a colleague. Every guest hosted was an investment in our future. Every new member who joined extended our reach. None of it happened by accident — it happened because of the people in this room.",
+   teaching:"Pull the full-year chapter performance report. Present: total referrals given, total referrals received, estimated value of referred business, attendance average, new members added, guests hosted. Name specific moments: who gave the most? Who had the biggest growth arc? What was the chapter's best month and why?",
+   trigger:"Annual — this is the celebration session. Do not skip it. Recognition matters.",
+   position:"This session is the position. Every person in the room hears that their effort was seen.",
+   activity:"Award recognition in three categories: Most Referrals Given, Most Consistent (fewest misses), Most Improved. The awards are verbal — the impact is real.",
+   takeaway:"This chapter produced real results for real businesses this year. Remember that when Tuesday mornings feel like a commitment."},
+  {w:50, title:"The Best Referral I Ever Gave",
+   obj:"Share member stories about high-impact referrals to inspire the chapter and reinforce the behaviors behind them.",
+   script:"Some referrals change everything — for the person who received it, for the client who was helped, and for you as the person who made the connection. Today we hear those stories. They remind us why we do this and what is possible when we take it seriously.",
+   teaching:"Storytelling structure: Context (who was involved), Connection (how you recognized the trigger), Action (what you did), Outcome (what happened), Lesson (what the chapter can take from it). Keep each story to 90 seconds.",
+   trigger:"This session generates referral motivation better than any framework. Schedule it when energy is low.",
+   position:"Every story told today is a referral playbook for the person listening.",
+   activity:"Three to four members share their best referral story. Each story is followed by one clarifying question from the room. Identify the transferable lesson.",
+   takeaway:"Every person in this room has a story like this. Some of them just haven't happened yet."},
+  {w:51, title:"The Best Referral I Ever Received",
+   obj:"Share member stories about high-impact referrals received to build gratitude and reinforce relationship investment.",
+   script:"Last week we talked about giving. Today we talk about receiving. The best referrals we have ever received share something in common: they came from people who knew us well enough to say our name with complete confidence. That confidence is built here, every Tuesday, one conversation at a time.",
+   teaching:"Receiving a great referral is not luck. It is the output of months or years of showing up, following through, and being someone others can vouch for without hesitation. Every story shared today is a map of the relationship investments that made it possible.",
+   trigger:"This session pairs naturally with Week 50. Together they form a complete reflection on the value of the chapter.",
+   position:"\"Someone trusted you enough to put their reputation behind you. That is the highest professional compliment you can receive. Honor it.\"",
+   activity:"Three to four members share their best received referral story. Focus on: who gave it, what the relationship looked like before it happened, and what it meant for their business.",
+   takeaway:"The referral you receive next month is being built by the conversations you have this week."},
+  {w:52, title:"Why We Are Here",
+   obj:"Return to the chapter's foundational purpose. Recommit. Carry it forward.",
+   script:"Fifty-two weeks ago, we started with the same question: why are we here? The answer has not changed. We are here to build a professional referral sales force built on genuine relationships. We are here because warm introductions change businesses. We are here because the person to our left and to our right is invested in our success — and we are invested in theirs. That is rare. Do not take it for granted.",
+   teaching:"Return to Week 1's core framework: Know, Like, Trust. Ask: how has your ability to operate within this framework grown over the past year? What has changed in how you give referrals? What has changed in how you receive them? The growth in those answers is what this chapter is for.",
+   trigger:"The end of the year. The beginning of the next.",
+   position:"\"You are sitting in a room full of people who want you to win. So do. And help the person next to you do the same.\"",
+   activity:"Close the loop. Each member shares one person in the chapter who made a meaningful difference to their business this year. One name. One sentence. Every person gets named.",
+   takeaway:"This is why we are here. See you next Tuesday."}
+]);
+
+function setView(v) {
+  currentView = v;
+  document.getElementById('btnMember').classList.toggle('active', v === 'member');
+  document.getElementById('btnPresenter').classList.toggle('active', v === 'presenter');
+  renderWeek(currentWeek);
+}
+
+function showWeek(n) {
+  currentWeek = n;
+  renderWeek(n);
+}
+
+function prevWeek() {
+  if (currentWeek > 1) { currentWeek--; document.getElementById('weekSelect').value = currentWeek; renderWeek(currentWeek); }
+}
+
+function nextWeek() {
+  if (currentWeek < 52) { currentWeek++; document.getElementById('weekSelect').value = currentWeek; renderWeek(currentWeek); }
+}
+
+function renderWeek(n) {
+  var container = document.getElementById('weekDisplay');
+  var data = WEEKS[n - 1];
+  if (!data) { container.innerHTML = ''; return; }
+
+  var view = currentView;
+  var html = '<div class="week-card ' + view + '-view">';
+  html += '<div class="wc-header"><div class="wc-num">' + n + '</div><div><div class="wc-title">' + data.title + '</div><div class="wc-obj">' + data.obj + '</div></div></div>';
+
+  if (view === 'member') {
+    html += '<div class="wc-field"><div class="wf-label">🎯 This Week\'s Focus</div><div class="wf-content">' + data.obj + '</div></div>';
+    html += '<div class="wc-field"><div class="wf-label">💡 Listen For</div><div class="wf-content">' + data.trigger + '</div></div>';
+    html += '<div class="wc-field"><div class="wf-label">🗣 When You Hear It, Say</div><div class="wf-content">' + data.position + '</div></div>';
+    html += '<div class="wc-field" style="background:var(--green-l)"><div class="wf-label" style="color:var(--green)">✅ Key Takeaway</div><div class="wf-content" style="font-weight:600;color:var(--green)">' + data.takeaway + '</div></div>';
+  } else {
+    html += '<div class="wc-field script"><div class="wf-label">📜 Opening Script (read aloud)</div><div class="wf-content">' + data.script + '</div></div>';
+    html += '<div class="wc-field"><div class="wf-label">📖 Teaching Points</div><div class="wf-content">' + data.teaching + '</div></div>';
+    html += '<div class="wc-field"><div class="wf-label">👂 Referral Triggers to Teach</div><div class="wf-content">' + data.trigger + '</div></div>';
+    html += '<div class="wc-field"><div class="wf-label">💬 Position the Referral</div><div class="wf-content">' + data.position + '</div></div>';
+    html += '<div class="wc-field"><div class="wf-label">🎲 Activity</div><div class="wf-content">' + data.activity + '</div></div>';
+    html += '<div class="wc-field takeaway"><div class="wf-label">✅ Close With This Takeaway</div><div class="wf-content">' + data.takeaway + '</div></div>';
+  }
+
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function buildSelect() {
+  var sel = document.getElementById('weekSelect');
+  for (var i = 0; i < WEEKS.length; i++) {
+    var o = document.createElement('option');
+    o.value = WEEKS[i].w;
+    o.textContent = 'Week ' + WEEKS[i].w + ' — ' + WEEKS[i].title;
+    sel.appendChild(o);
+  }
+}
+
+function buildOverview() {
+  var tbl = document.getElementById('overviewTable');
+  var html = '<div class="ot-row header"><div class="ot-cell wk">Wk</div><div class="ot-cell">Topic</div><div class="ot-cell">Objective</div></div>';
+  for (var i = 0; i < WEEKS.length; i++) {
+    var isSpot = WEEKS[i].title.indexOf('Spotlight') !== -1;
+    html += '<div class="ot-row" style="cursor:pointer" onclick="jumpTo(' + WEEKS[i].w + ')">';
+    html += '<div class="ot-cell wk">' + WEEKS[i].w + '</div>';
+    html += '<div class="ot-cell" style="font-weight:' + (isSpot?'700':'400') + ';color:' + (isSpot?'var(--navy)':'var(--text)') + '">' + WEEKS[i].title + '</div>';
+    html += '<div class="ot-cell" style="color:var(--text-l)">' + WEEKS[i].obj + '</div>';
+    html += '</div>';
+  }
+  tbl.innerHTML = html;
+}
+
+function jumpTo(n) {
+  currentWeek = n;
+  document.getElementById('weekSelect').value = n;
+  renderWeek(n);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+window.onload = function() {
+  buildSelect();
+  buildOverview();
+  renderWeek(1);
+};
+</script>
+</body></html>

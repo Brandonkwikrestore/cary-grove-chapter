@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1a2f5e">
+<title>Guest Invite Builder — AmSpirit Cary-Grove</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1a2f5e;--navy-d:#0f1d3c;--navy-l:#2a4580;
+  --red:#c8102e;--white:#fff;--off:#f5f7fa;--gray:#6b7280;--gray-l:#e8ecf0;
+  --text:#1f2937;--text-l:#4b5563;
+  --sh:0 4px 24px rgba(26,47,94,.12);
+  --fh:'Montserrat',sans-serif;--fb:'Source Sans 3',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--fb);background:var(--off);color:var(--text);min-height:100vh;padding-bottom:80px}
+.hdr{background:linear-gradient(135deg,var(--navy-d) 0%,var(--navy) 60%,var(--navy-l) 100%);
+  padding:14px 16px;display:flex;align-items:center;gap:10px;
+  box-shadow:0 2px 16px rgba(0,0,0,.25);position:sticky;top:0;z-index:100}
+.logo{width:38px;height:38px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lam{font-family:var(--fh);font-weight:800;color:var(--navy);font-size:10px;line-height:1}
+.lsp{font-family:var(--fh);font-weight:800;color:var(--red);font-size:10px;line-height:1}
+.hdr-t h1{font-family:var(--fh);font-size:13px;font-weight:700;color:#fff;line-height:1.2}
+.hdr-t p{font-size:11px;color:rgba(255,255,255,.7);margin-top:1px}
+.back-link{margin-left:auto;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);
+  color:rgba(255,255,255,.9);font-family:var(--fh);font-size:10px;font-weight:700;padding:5px 10px;
+  border-radius:14px;text-decoration:none;white-space:nowrap}
+.wrap{max-width:680px;margin:0 auto;padding:18px 13px 40px}
+.page-title{font-family:var(--fh);font-size:20px;font-weight:800;color:var(--navy);margin-bottom:4px}
+.page-sub{font-size:13px;color:var(--text-l);margin-bottom:20px;line-height:1.5}
+.card{background:var(--white);border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:var(--sh)}
+.opt-group{margin-bottom:16px}
+.opt-label{font-family:var(--fh);font-size:11px;font-weight:700;color:var(--navy);
+  text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;display:block}
+.opt-row{display:flex;gap:8px;flex-wrap:wrap}
+.opt{padding:8px 14px;border-radius:20px;border:1.5px solid var(--gray-l);background:var(--white);
+  cursor:pointer;font-size:12px;font-family:var(--fb);font-weight:600;color:var(--text-l);
+  transition:all .15s;user-select:none}
+.opt:hover{border-color:var(--navy);color:var(--navy)}
+.opt.active{background:var(--navy);border-color:var(--navy);color:#fff}
+.script-box{background:var(--navy);border-radius:12px;padding:18px;color:#fff;
+  font-size:14px;line-height:1.85;min-height:100px;margin-top:16px;font-family:var(--fb)}
+.script-placeholder{color:rgba(255,255,255,.5);font-style:italic}
+.copy-btn{width:100%;padding:12px;border-radius:8px;background:var(--red);color:#fff;
+  border:none;font-family:var(--fh);font-size:13px;font-weight:700;cursor:pointer;margin-top:10px;
+  transition:opacity .2s}
+.copy-btn:hover{opacity:.9}
+.foot{text-align:center;padding:12px;font-size:11px;color:var(--gray);
+  border-top:1px solid var(--gray-l);background:var(--white);position:fixed;bottom:0;left:0;right:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="logo"><div><div class="lam">Am</div><div class="lsp">Spirit</div></div></div>
+  <div class="hdr-t"><h1>Guest Invite Builder</h1><p>Word-for-word invitation scripts</p></div>
+  <a href="scripts.html" class="back-link">← Back</a>
+</header>
+<div class="wrap">
+  <div class="page-title">📨 Guest Invite Builder</div>
+  <div class="page-sub">Select your options below and a personalized invitation script builds itself in real time. Tap to copy when ready.</div>
+
+  <div class="card">
+    <div class="opt-group">
+      <span class="opt-label">How do you know them?</span>
+      <div class="opt-row">
+        <div class="opt" onclick="sel(this,'rel','client')">Client</div>
+        <div class="opt" onclick="sel(this,'rel','friend')">Friend</div>
+        <div class="opt" onclick="sel(this,'rel','colleague')">Colleague</div>
+        <div class="opt" onclick="sel(this,'rel','neighbor')">Neighbor</div>
+        <div class="opt" onclick="sel(this,'rel','contact')">New contact</div>
+      </div>
+    </div>
+    <div class="opt-group">
+      <span class="opt-label">How are you inviting them?</span>
+      <div class="opt-row">
+        <div class="opt" onclick="sel(this,'method','text')">Text message</div>
+        <div class="opt" onclick="sel(this,'method','email')">Email</div>
+        <div class="opt" onclick="sel(this,'method','call')">Phone call</div>
+        <div class="opt" onclick="sel(this,'method','linkedin')">LinkedIn</div>
+        <div class="opt" onclick="sel(this,'method','inperson')">In person</div>
+      </div>
+    </div>
+    <div class="opt-group">
+      <span class="opt-label">What's their situation?</span>
+      <div class="opt-row">
+        <div class="opt" onclick="sel(this,'sit','growing')">Growing their business</div>
+        <div class="opt" onclick="sel(this,'sit','networking')">Looking to network</div>
+        <div class="opt" onclick="sel(this,'sit','newbiz')">New to area / business</div>
+        <div class="opt" onclick="sel(this,'sit','referrals')">Wants more referrals</div>
+      </div>
+    </div>
+    <div class="script-box" id="scriptOutput">
+      <span class="script-placeholder">Select your options above and your invitation script will appear here.</span>
+    </div>
+    <button class="copy-btn" onclick="copyScript()">📋 Copy Script</button>
+  </div>
+</div>
+<footer class="foot">AmSpirit Business Connections · Cary-Grove Chapter</footer>
+
+<script>
+var selState = {};
+
+var OPENS = {
+  client: "Hi [Name], I was thinking about you and wanted to reach out.",
+  friend: "Hey [Name], hope you're doing well — I have something I think you'd find really valuable.",
+  colleague: "Hi [Name], I wanted to share something with you that has been great for my business.",
+  neighbor: "Hi [Name], I've been meaning to tell you about something I'm involved in.",
+  contact: "Hi [Name], great connecting with you recently — I wanted to follow up with something I think would be a fit."
+};
+
+var MIDDLES = {
+  growing: "I'm part of a professional referral group called AmSpirit Business Connections. It's a structured chapter where business professionals actively refer clients to each other every week. It's been one of the best things I've done for growing my business.",
+  networking: "I'm part of a referral networking group that meets every Tuesday. It's not a typical networking event — it's a structured chapter where members are genuinely committed to sending each other business on a consistent basis.",
+  newbiz: "I'm part of a local professional group that could be a great fit for someone building their presence in the area. We meet every Tuesday and actively refer business to each other.",
+  referrals: "I'm part of a referral group where members are expected to bring each other business every month. It's completely different from typical networking — the referrals are warm, qualified, and consistent."
+};
+
+var CLOSES = {
+  text: "Would you want to come as my guest this Tuesday? It's at 255 Briargate Rd in Cary, 11:45 AM. No obligation — just come see it for yourself.",
+  email: "I'd love to have you join me as my guest this Tuesday at 11:45 AM — 255 Briargate Rd, Cary, IL. There's no obligation, just come experience it firsthand and meet the group. Let me know if you have any questions.",
+  call: "I'd love for you to come as my guest this Tuesday. We meet at 11:45 at 255 Briargate in Cary. Takes about 90 minutes and I think you'd get a lot out of it. What do you think?",
+  linkedin: "I'd love to have you join me as my guest at our next meeting — every Tuesday at 11:45 AM, 255 Briargate Rd, Cary, IL. No pressure at all, just come and see if it's a fit. Feel free to message me with any questions.",
+  inperson: "Would you want to come as my guest this Tuesday? We meet right up the road at 255 Briargate in Cary at 11:45. It's about 90 minutes and I think you'd really enjoy the group."
+};
+
+function sel(el, group, val) {
+  var siblings = el.parentElement.querySelectorAll('.opt');
+  for (var i = 0; i < siblings.length; i++) {
+    siblings[i].classList.remove('active');
+  }
+  el.classList.add('active');
+  selState[group] = val;
+  buildScript();
+}
+
+function buildScript() {
+  var open = OPENS[selState['rel']] || '';
+  var mid = MIDDLES[selState['sit']] || '';
+  var close = CLOSES[selState['method']] || '';
+  var box = document.getElementById('scriptOutput');
+  if (!open && !mid && !close) {
+    box.innerHTML = '<span class="script-placeholder">Select your options above and your invitation script will appear here.</span>';
+    return;
+  }
+  var parts = [];
+  if (open) parts.push(open);
+  if (mid) parts.push(mid);
+  if (close) parts.push(close);
+  box.textContent = parts.join(' ');
+}
+
+function copyScript() {
+  var box = document.getElementById('scriptOutput');
+  var text = box.textContent.trim();
+  if (!text || text === 'Select your options above and your invitation script will appear here.') {
+    alert('Please select your options first.');
+    return;
+  }
+  navigator.clipboard.writeText(text).then(function() {
+    alert('Script copied to clipboard!');
+  }).catch(function() {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    alert('Script copied!');
+  });
+}
+</script>
+</body></html>

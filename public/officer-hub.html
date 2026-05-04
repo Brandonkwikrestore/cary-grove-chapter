@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1a2f5e">
+<title>Officer Hub — AmSpirit Cary-Grove</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1a2f5e;--navy-d:#0f1d3c;--navy-l:#2a4580;
+  --red:#c8102e;--green:#2e7d32;--green-l:#e8f5e9;
+  --amber:#b45309;--amber-l:#fff8e1;--blue:#1565c0;--blue-l:#e3f2fd;
+  --white:#fff;--off:#f5f7fa;--gray:#6b7280;--gray-l:#e8ecf0;
+  --text:#1f2937;--text-l:#4b5563;
+  --r:10px;--sh:0 4px 24px rgba(26,47,94,.12);
+  --fh:'Montserrat',sans-serif;--fb:'Source Sans 3',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--off);color:var(--text);min-height:100vh;padding-bottom:80px}
+.hdr{background:linear-gradient(135deg,var(--navy-d) 0%,var(--navy) 60%,var(--navy-l) 100%);
+  padding:16px 18px 12px;display:flex;align-items:center;gap:11px;
+  box-shadow:0 2px 16px rgba(0,0,0,.25);position:sticky;top:0;z-index:100}
+.logo{width:44px;height:44px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lam{font-family:var(--fh);font-weight:800;color:var(--navy);font-size:11px;line-height:1}
+.lsp{font-family:var(--fh);font-weight:800;color:var(--red);font-size:11px;line-height:1}
+.hdr-t h1{font-family:var(--fh);font-size:14px;font-weight:700;color:var(--white);line-height:1.2}
+.hdr-t p{font-size:11px;color:rgba(255,255,255,.7);margin-top:2px}
+.back-link{margin-left:auto;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);
+  color:rgba(255,255,255,.9);font-family:var(--fh);font-size:10px;font-weight:700;padding:5px 10px;
+  border-radius:14px;text-decoration:none;white-space:nowrap}
+.wrap{max-width:680px;margin:0 auto;padding:18px 13px 40px}
+.section-label{font-family:var(--fh);font-size:10px;font-weight:700;color:var(--gray);
+  text-transform:uppercase;letter-spacing:.8px;margin:20px 0 10px;
+  display:flex;align-items:center;gap:10px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--gray-l)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:16px}
+@media(max-width:420px){.grid{grid-template-columns:1fr}}
+.oc{background:var(--white);border-radius:14px;box-shadow:var(--sh);overflow:hidden;transition:all .2s}
+.oc:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(26,47,94,.18)}
+.oc.full{grid-column:1/-1}
+.oc-hdr{padding:14px 16px 10px;display:flex;align-items:center;gap:10px}
+.oc-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.oc-info h3{font-family:var(--fh);font-size:12px;font-weight:700;color:var(--navy);line-height:1.3}
+.oc-info p{font-size:10px;color:var(--gray);margin-top:2px}
+.oc-btns{padding:0 14px 14px;display:flex;flex-direction:column;gap:7px}
+.oc-btn{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;
+  border:1.5px solid var(--gray-l);background:var(--off);text-decoration:none;
+  font-family:var(--fh);font-size:11px;font-weight:700;color:var(--navy);transition:all .15s}
+.oc-btn:hover{border-color:var(--navy);background:var(--blue-l)}
+.oc-btn.dl{background:var(--navy);color:var(--white);border-color:var(--navy)}
+.oc-btn.dl:hover{background:var(--navy-d)}
+.oc-btn.sc{border-color:var(--red);color:var(--red);background:#fff5f5}
+.oc-btn.sc:hover{background:#ffe8e8}
+.quick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.q-btn{display:flex;align-items:center;gap:8px;padding:12px 14px;border-radius:10px;
+  border:1.5px solid var(--gray-l);background:var(--white);text-decoration:none;
+  font-family:var(--fh);font-size:12px;font-weight:700;color:var(--navy);
+  box-shadow:var(--sh);transition:all .2s}
+.q-btn:hover{transform:translateY(-1px)}
+.q-btn.primary{background:var(--navy);color:var(--white);border-color:var(--navy)}
+.foot{text-align:center;padding:12px;font-size:11px;color:var(--gray);border-top:1px solid var(--gray-l);background:var(--white);position:fixed;bottom:0;left:0;right:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="logo"><div><div class="lam">Am</div><div class="lsp">Spirit</div></div></div>
+  <div class="hdr-t"><h1>AmSpirit Cary-Grove</h1><p>Officer Hub</p></div>
+  <a href="index.html" class="back-link">← Portal</a>
+</header>
+<div class="wrap">
+
+<div class="section-label">Quick Access</div>
+<div class="quick">
+  <a href="scripts.html" class="q-btn primary"><span style="font-size:16px">📝</span><span>Scripts &amp; Playbooks</span></a>
+  <a href="index.html" class="q-btn"><span style="font-size:16px">🏠</span><span>Member Portal</span></a>
+</div>
+
+<div class="section-label">Substitution Plan</div>
+<div style="background:var(--white);border-radius:14px;padding:16px;margin-bottom:16px;box-shadow:var(--sh);border-left:4px solid var(--amber)">
+  <div style="font-family:var(--fh);font-size:13px;font-weight:700;color:var(--navy);margin-bottom:10px">🔄 If an Officer is Absent</div>
+  <div style="overflow-x:auto">
+  <table style="width:100%;border-collapse:collapse;font-size:11px">
+    <thead><tr>
+      <th style="text-align:left;padding:6px 8px;background:var(--navy);color:#fff;font-family:var(--fh);font-size:10px">OFFICER</th>
+      <th style="text-align:left;padding:6px 8px;background:var(--navy);color:#fff;font-family:var(--fh);font-size:10px">PRIMARY BACKUP</th>
+      <th style="text-align:left;padding:6px 8px;background:var(--navy);color:#fff;font-family:var(--fh);font-size:10px">SECONDARY BACKUP</th>
+    </tr></thead>
+    <tbody>
+      <tr><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l);font-weight:600;color:var(--navy)">👑 President</td><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l)">Vice President</td><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l);color:var(--text-l)">Secretary</td></tr>
+      <tr style="background:var(--off)"><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l);font-weight:600;color:var(--navy)">🤝 Vice President</td><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l)">President</td><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l);color:var(--text-l)">Membership Chair</td></tr>
+      <tr><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l);font-weight:600;color:var(--navy)">💡 Mentorship Chair</td><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l)">Membership Chair</td><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l);color:var(--text-l)">President</td></tr>
+      <tr style="background:var(--off)"><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l);font-weight:600;color:var(--navy)">🙋 Membership Chair</td><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l)">Vice President</td><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l);color:var(--text-l)">Secretary</td></tr>
+      <tr><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l);font-weight:600;color:var(--navy)">📋 Secretary</td><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l)">Treasurer</td><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l);color:var(--text-l)">President</td></tr>
+      <tr style="background:var(--off)"><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l);font-weight:600;color:var(--navy)">💰 Treasurer</td><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l)">President</td><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l);color:var(--text-l)">Vice President</td></tr>
+      <tr><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l);font-weight:600;color:var(--navy)">📚 Program Chair</td><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l)">Sgt. at Arms</td><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l);color:var(--text-l)">Vice President</td></tr>
+      <tr style="background:var(--off)"><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l);font-weight:600;color:var(--navy)">🎉 Social Chair</td><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l)">Hospitality Chair</td><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l);color:var(--text-l)">Membership Chair</td></tr>
+      <tr><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l);font-weight:600;color:var(--navy)">🤗 Hospitality Chair</td><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l)">Social Chair</td><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l);color:var(--text-l)">Sgt. at Arms</td></tr>
+      <tr style="background:var(--off)"><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l);font-weight:600;color:var(--navy)">📣 Publicity Chair</td><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l)">Social Chair</td><td style="padding:6px 8px;border-bottom:1px solid var(--gray-l);color:var(--text-l)">Secretary</td></tr>
+      <tr><td style="padding:6px 8px;font-weight:600;color:var(--navy)">⚔️ Sgt. at Arms</td><td style="padding:6px 8px">Program Chair</td><td style="padding:6px 8px;color:var(--text-l)">Social Chair</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div style="font-size:11px;color:var(--gray);margin-top:9px;font-style:italic">Backups should tap their officer card below → View My Script before the meeting begins.</div>
+</div>
+
+<div class="section-label">All 11 Officer Binders</div>
+<div class="grid" id="grid"></div>
+
+</div>
+<footer class="foot">AmSpirit Business Connections · Cary-Grove Chapter · Officer Hub</footer>
+<script>
+var officers=[
+  {icon:'👑',name:'President',sub:'Full 15-step meeting script',bg:'#fff0f0',file:'president-binder.docx',role:'president'},
+  {icon:'🤝',name:'Vice President',sub:'Attendance + officer reports',bg:'#eff4ff',file:'vice-president-binder.docx',role:'vp'},
+  {icon:'💡',name:'Mentorship Chair',sub:'Member development + coaching',bg:'#ede9fe',file:'mentorship-chair-binder.docx',role:'mentorship'},
+  {icon:'🙋',name:'Membership Chair',sub:'Guests + pipeline + onboarding',bg:'#e8f5e9',file:'membership-chair-binder.docx',role:'membership'},
+  {icon:'📋',name:'Secretary',sub:'Referral tracking + minutes',bg:'#fff8e1',file:'secretary-binder.docx',role:'secretary'},
+  {icon:'💰',name:'Treasurer',sub:'Dues + banking + expenses',bg:'#e3f2fd',file:'treasurer-binder.docx',role:'treasurer'},
+  {icon:'📚',name:'Program Chair',sub:'Speakers + education + training',bg:'#e0f2f1',file:'program-chair-binder.docx',role:'program'},
+  {icon:'🎉',name:'Social Chair',sub:'Events + lunch assignments',bg:'#fff3e0',file:'social-chair-binder.docx',role:'social'},
+  {icon:'🤗',name:'Hospitality Chair',sub:'Guest welcome + room setup',bg:'#f3e5f5',file:'hospitality-chair-binder.docx',role:'hospitality'},
+  {icon:'📣',name:'Publicity Chair',sub:'Social media + press + memberfolio',bg:'#e1f5fe',file:'publicity-chair-binder.docx',role:'publicity'},
+  {icon:'⚔️',name:'Sgt. at Arms',sub:'Timers + fees + order',bg:'#fff0f0',file:'sergeant-at-arms-binder.docx',role:'saa'},
+  {icon:'🎓',name:'Program Chair / Education',sub:'52-week curriculum + speaker rotation',bg:'#e0f2f1',file:'education-playbook-binder.docx',role:'education',full:true},
+];
+
+function render(){
+  var g=document.getElementById('grid');
+  officers.forEach(function(o){
+    var div=document.createElement('div');
+    div.className='oc'+(o.full?' full':'');
+    var scriptLabel = o.role==='education' ? 'View Curriculum' : 'View My Script';
+    var scriptTab   = o.role==='education' ? 'education' : 'officer';
+    div.innerHTML=
+      '<div class="oc-hdr">'+
+        '<div class="oc-icon" style="background:'+o.bg+'">'+o.icon+'</div>'+
+        '<div class="oc-info"><h3>'+o.name+'</h3><p>'+o.sub+'</p></div>'+
+      '</div>'+
+      '<div class="oc-btns">'+
+        '<a href="binders/'+o.file+'" class="oc-btn dl" download>'+
+          '<span style="font-size:14px">📥</span><span style="flex:1">Download Binder</span><span>↓</span>'+
+        '</a>'+
+        '<a href="scripts.html?role='+o.role+'&tab='+scriptTab+'" class="oc-btn sc">'+
+          '<span style="font-size:14px">🎙</span><span style="flex:1">'+scriptLabel+'</span><span>→</span>'+
+        '</a>'+
+      '</div>';
+    g.appendChild(div);
+  });
+}
+
+function cp(btn,text){
+  navigator.clipboard.writeText(text).then(function(){
+    var o=btn.textContent;btn.textContent='Copied';
+    setTimeout(function(){btn.textContent=o},1500);
+  }).catch(function(){btn.textContent='copy manually'});
+}
+
+render();
+</script>
+</body>
+</html>

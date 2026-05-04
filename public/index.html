@@ -1,0 +1,1752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-title" content="AmSpirit Portal">
+<meta name="application-name" content="AmSpirit Portal">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#1a2f5e">
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<!-- jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script>
+const _supa = supabase.createClient(
+  'https://tlcaeddeytsjgojyogjc.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRsY2FlZGRleXRzamdvanlvZ2pjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwMDQ2OTQsImV4cCI6MjA5MTU4MDY5NH0.yxrxU4dflAGa9Qngxz6UXH6emFe7mxO-v5BsFDRzzQE'
+);
+const CHAPTER_ID = 'a137cf6c-ac7d-4b9e-bbf3-8f6f2e1e2c92';
+</script>
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTgwIiB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCI+CiAgPCEtLSBOYXZ5IGJhY2tncm91bmQgY2lyY2xlIC0tPgogIDxjaXJjbGUgY3g9IjkwIiBjeT0iOTAiIHI9IjkwIiBmaWxsPSIjMWEyZjVlIi8+CiAgPCEtLSBSZWQgYWNjZW50IGJhciBhdCBib3R0b20gLS0+CiAgPHJlY3QgeD0iMCIgeT0iMTQ1IiB3aWR0aD0iMTgwIiBoZWlnaHQ9IjM1IiBmaWxsPSIjYzgxMDJlIi8+CiAgPHBhdGggZD0iTTAgMTQ1IFE5MCAxMzggMTgwIDE0NSIgZmlsbD0iI2M4MTAyZSIvPgogIDwhLS0gQW0gdGV4dCAtLT4KICA8dGV4dCB4PSI5MCIgeT0iODIiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI1MiIgZm9udC13ZWlnaHQ9IjcwMCIKICAgICAgICBmaWxsPSIjZmZmZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIgogICAgICAgIGxldHRlci1zcGFjaW5nPSItMSI+QW08L3RleHQ+CiAgPCEtLSBTcGlyaXQgdGV4dCBpbiByZWQvZ29sZCAtLT4KICA8dGV4dCB4PSI5MCIgeT0iMTI4IiBmb250LWZhbWlseT0iR2VvcmdpYSwgc2VyaWYiIGZvbnQtc2l6ZT0iMzAiIGZvbnQtd2VpZ2h0PSI3MDAiCiAgICAgICAgZmlsbD0iI2Y0YTI2MSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIKICAgICAgICBmb250LXN0eWxlPSJpdGFsaWMiIGxldHRlci1zcGFjaW5nPSIxIj5TcGlyaXQ8L3RleHQ+CiAgPCEtLSBUaHJlZSBzdGFycyBhYm92ZSBBbSAtLT4KICA8dGV4dCB4PSI2MiIgeT0iMzgiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iI2Y0YTI2MSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+4piFPC90ZXh0PgogIDx0ZXh0IHg9IjkwIiB5PSIzNCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjZjRhMjYxIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7imIU8L3RleHQ+CiAgPHRleHQgeD0iMTE4IiB5PSIzOCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjZjRhMjYxIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7imIU8L3RleHQ+Cjwvc3ZnPgo=">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTgwIiB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCI+CiAgPCEtLSBOYXZ5IGJhY2tncm91bmQgY2lyY2xlIC0tPgogIDxjaXJjbGUgY3g9IjkwIiBjeT0iOTAiIHI9IjkwIiBmaWxsPSIjMWEyZjVlIi8+CiAgPCEtLSBSZWQgYWNjZW50IGJhciBhdCBib3R0b20gLS0+CiAgPHJlY3QgeD0iMCIgeT0iMTQ1IiB3aWR0aD0iMTgwIiBoZWlnaHQ9IjM1IiBmaWxsPSIjYzgxMDJlIi8+CiAgPHBhdGggZD0iTTAgMTQ1IFE5MCAxMzggMTgwIDE0NSIgZmlsbD0iI2M4MTAyZSIvPgogIDwhLS0gQW0gdGV4dCAtLT4KICA8dGV4dCB4PSI5MCIgeT0iODIiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSI1MiIgZm9udC13ZWlnaHQ9IjcwMCIKICAgICAgICBmaWxsPSIjZmZmZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIgogICAgICAgIGxldHRlci1zcGFjaW5nPSItMSI+QW08L3RleHQ+CiAgPCEtLSBTcGlyaXQgdGV4dCBpbiByZWQvZ29sZCAtLT4KICA8dGV4dCB4PSI5MCIgeT0iMTI4IiBmb250LWZhbWlseT0iR2VvcmdpYSwgc2VyaWYiIGZvbnQtc2l6ZT0iMzAiIGZvbnQtd2VpZ2h0PSI3MDAiCiAgICAgICAgZmlsbD0iI2Y0YTI2MSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIKICAgICAgICBmb250LXN0eWxlPSJpdGFsaWMiIGxldHRlci1zcGFjaW5nPSIxIj5TcGlyaXQ8L3RleHQ+CiAgPCEtLSBUaHJlZSBzdGFycyBhYm92ZSBBbSAtLT4KICA8dGV4dCB4PSI2MiIgeT0iMzgiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iI2Y0YTI2MSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+4piFPC90ZXh0PgogIDx0ZXh0IHg9IjkwIiB5PSIzNCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjZjRhMjYxIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7imIU8L3RleHQ+CiAgPHRleHQgeD0iMTE4IiB5PSIzOCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjZjRhMjYxIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7imIU8L3RleHQ+Cjwvc3ZnPgo=">
+
+<title>AmSpirit Portal — Cary-Grove</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1a2f5e;--navy-d:#0f1d3c;--navy-l:#2a4580;
+  --red:#c8102e;--red-d:#a00e25;
+  --green:#2e7d32;--green-l:#e8f5e9;
+  --teal:#00695c;--teal-l:#e0f2f1;
+  --amber:#b45309;--amber-l:#fff8e1;
+  --purple:#7c3aed;--purple-l:#ede9fe;
+  --orange:#e65100;--orange-l:#fff3e0;
+  --blue:#1565c0;--blue-l:#e3f2fd;
+  --white:#fff;--off:#f5f7fa;
+  --gray:#6b7280;--gray-l:#e8ecf0;
+  --text:#1f2937;--text-l:#4b5563;
+  --r:10px;--sh:0 4px 24px rgba(26,47,94,.12);
+  --fh:'Montserrat',sans-serif;--fb:'Source Sans 3',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--off);color:var(--text);min-height:100vh;font-size:16px;padding-bottom:80px}
+
+/* HEADER */
+.hdr{background:linear-gradient(135deg,var(--navy-d) 0%,var(--navy) 60%,var(--navy-l) 100%);
+  padding:16px 18px 12px;display:flex;align-items:center;gap:11px;
+  box-shadow:0 2px 16px rgba(0,0,0,.25);position:sticky;top:0;z-index:100}
+.logo{width:44px;height:44px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.lam{font-family:var(--fh);font-weight:800;color:var(--navy);font-size:11px;line-height:1}
+.lsp{font-family:var(--fh);font-weight:800;color:var(--red);font-size:11px;line-height:1}
+.hdr-t h1{font-family:var(--fh);font-size:14px;font-weight:700;color:var(--white);line-height:1.2}
+.hdr-t p{font-size:11px;color:rgba(255,255,255,.7);margin-top:2px}
+.badge{margin-left:auto;background:var(--red);color:var(--white);font-family:var(--fh);font-size:10px;font-weight:700;padding:5px 10px;border-radius:20px;letter-spacing:.5px;white-space:nowrap}
+
+/* CONTAINER */
+.wrap{max-width:680px;margin:0 auto;padding:18px 13px 40px}
+
+/* VIEWS */
+.view{display:none}.view.active{display:block}
+
+/* BACK */
+.back{display:flex;align-items:center;gap:5px;background:none;border:none;color:var(--gray);font-family:var(--fb);font-size:13px;cursor:pointer;margin-bottom:13px;padding:3px 0}
+.back:hover{color:var(--navy)}
+
+/* LANDING CARDS */
+.l-banner{background:var(--white);border-radius:14px;padding:20px;margin-bottom:16px;
+  box-shadow:var(--sh);border-left:5px solid var(--red)}
+.l-banner h2{font-family:var(--fh);font-size:16px;font-weight:700;color:var(--navy);margin-bottom:5px}
+.l-date{font-size:19px;font-weight:800;color:var(--red);font-family:var(--fh)}
+.l-sub{font-size:12px;color:var(--gray);margin-top:3px}
+.l-name{margin-top:10px}
+.l-name input{border:1.5px solid var(--gray-l);border-radius:7px;padding:8px 12px;font-size:14px;
+  font-family:var(--fb);background:var(--off);width:100%}
+.l-name input:focus{outline:none;border-color:var(--navy);background:var(--white)}
+.l-name label{font-size:11px;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:4px}
+
+.nav-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+@media(max-width:420px){.nav-grid{grid-template-columns:1fr}}
+.nc{background:var(--white);border-radius:var(--r);padding:16px;box-shadow:var(--sh);
+  display:flex;flex-direction:column;gap:7px;cursor:pointer;
+  border:2px solid transparent;transition:all .2s;text-align:left;width:100%}
+.nc:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(26,47,94,.18)}
+.nc-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.nc h3{font-family:var(--fh);font-size:13px;font-weight:700;color:var(--navy);line-height:1.3}
+.nc p{font-size:11px;color:var(--text-l);line-height:1.4}
+.ic-r{background:#fff0f0}.ic-n{background:#eff4ff}.ic-g{background:#e8f5e9}
+.ic-t{background:#e0f2f1}.ic-b{background:#e3f2fd}.ic-o{background:#fff3e0}.ic-p{background:#ede9fe}
+
+/* SECTION CARD */
+.sc{background:var(--white);border-radius:var(--r);padding:18px;margin-bottom:13px;box-shadow:var(--sh)}
+.sh{display:flex;align-items:center;gap:8px;margin-bottom:13px;padding-bottom:9px;border-bottom:2px solid var(--gray-l)}
+.sh h3{font-family:var(--fh);font-size:12px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.5px}
+.step-t{margin-bottom:14px}
+.step-t h2{font-family:var(--fh);font-size:18px;font-weight:800;color:var(--navy)}
+.step-t p{font-size:13px;color:var(--text-l);margin-top:3px}
+
+/* FIELDS */
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:12px}
+.fr.s{grid-template-columns:1fr}.fr.t{grid-template-columns:1fr 1fr 1fr}
+@media(max-width:480px){.fr,.fr.t{grid-template-columns:1fr}}
+.f{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.f label{font-size:11px;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:.5px}
+.f input,.f textarea,.f select{border:1.5px solid var(--gray-l);border-radius:7px;padding:8px 11px;
+  font-size:14px;font-family:var(--fb);color:var(--text);background:var(--off);
+  transition:border-color .15s,box-shadow .15s;width:100%}
+.f input:focus,.f textarea:focus,.f select:focus{outline:none;border-color:var(--navy);
+  box-shadow:0 0 0 3px rgba(26,47,94,.1);background:var(--white)}
+.f textarea{resize:vertical;min-height:66px}
+.hint{font-size:11px;color:var(--gray);font-style:italic;margin-top:-8px;margin-bottom:10px}
+.divider{height:1px;background:var(--gray-l);margin:13px 0}
+
+/* MEMBER ITEM (attendance) */
+.mi{display:flex;align-items:center;gap:11px;padding:10px 13px;border-radius:8px;
+  background:var(--off);margin-bottom:7px;border:1.5px solid var(--gray-l);transition:background .15s}
+.mi-info{flex:1;min-width:0}
+.mi-name{font-weight:600;font-size:14px;color:var(--text);line-height:1.2}
+.mi-meta{font-size:11px;color:var(--gray);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-wrap{display:flex;gap:5px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
+.sb{padding:5px 10px;border-radius:20px;border:1.5px solid var(--gray-l);background:var(--white);
+  cursor:pointer;font-size:11px;font-weight:600;font-family:var(--fb);transition:all .15s;white-space:nowrap}
+.sb.present.active{background:var(--green-l);border-color:var(--green);color:var(--green)}
+.sb.absent.active{background:#fff0f0;border-color:#c62828;color:#c62828}
+.sb.excused.active{background:var(--amber-l);border-color:var(--amber);color:var(--amber)}
+.sb.sub.active{background:var(--purple-l);border-color:var(--purple);color:var(--purple)}
+.sb:hover:not(.active){border-color:var(--navy);color:var(--navy)}
+.sub-wrap{display:none;margin-top:7px;padding:0 2px}
+.sub-wrap input{border:1.5px solid var(--purple);border-radius:7px;padding:7px 10px;
+  font-size:13px;font-family:var(--fb);width:100%;background:#faf5ff}
+.sub-wrap input:focus{outline:none;border-color:#5b21b6}
+
+/* STATUS BAR */
+.stat-bar{display:flex;gap:8px;padding:11px 13px;background:var(--navy);
+  border-radius:8px;margin-bottom:14px;flex-wrap:wrap}
+.chip{display:flex;align-items:center;gap:5px;font-size:11px;font-family:var(--fh);font-weight:700}
+.dot{width:9px;height:9px;border-radius:50%}
+.dg{background:#4caf50}.dr{background:#ef5350}.da{background:#ffa726}
+.dp{background:#9c27b0}.dgr{background:#90a4ae}
+.chip .cnt{color:var(--white)}.chip .lbl{color:rgba(255,255,255,.7);font-weight:400}
+
+/* GUEST ROWS */
+.add-g{width:100%;padding:9px;border:2px dashed var(--gray-l);border-radius:8px;
+  background:none;color:var(--gray);font-family:var(--fb);font-size:13px;cursor:pointer;
+  transition:all .2s;margin-top:3px}
+.add-g:hover{border-color:var(--navy);color:var(--navy)}
+.g-row{display:grid;grid-template-columns:1fr 1fr auto;gap:7px;margin-bottom:7px;align-items:start}
+.g-row input{border:1.5px solid var(--gray-l);border-radius:7px;padding:7px 9px;font-size:13px;font-family:var(--fb);width:100%;background:var(--off)}
+.g-row input:focus{outline:none;border-color:var(--navy)}
+.rm-g{background:none;border:none;color:var(--gray);cursor:pointer;font-size:18px;padding:5px;line-height:1}
+.rm-g:hover{color:var(--red)}
+
+/* TIMER SECTION */
+.timer-settings{background:var(--navy);border-radius:10px;padding:14px;margin-bottom:14px;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.timer-settings label{color:rgba(255,255,255,.8);font-size:12px;font-weight:600;font-family:var(--fh);text-transform:uppercase;letter-spacing:.5px}
+.secs-select{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);color:var(--white);
+  border-radius:7px;padding:7px 12px;font-size:14px;font-weight:700;font-family:var(--fh);cursor:pointer}
+.secs-select option{background:var(--navy);color:var(--white)}
+.timer-hint{color:rgba(255,255,255,.6);font-size:11px;margin-left:auto}
+
+.tm-row{display:flex;align-items:center;gap:10px;padding:10px 13px;border-radius:8px;
+  background:var(--off);margin-bottom:7px;border:1.5px solid var(--gray-l);cursor:pointer;
+  transition:all .15s;user-select:none}
+.tm-row:hover{border-color:var(--navy-l);background:var(--white)}
+.tm-row.running{background:#eff6ff;border-color:var(--blue);border-width:2px}
+.tm-row.done{background:var(--green-l);border-color:var(--green)}
+.tm-row.warning{background:#fff3e0;border-color:var(--orange);animation:pulse .5s ease-in-out infinite alternate}
+@keyframes pulse{from{border-color:var(--orange)}to{border-color:#ef5350}}
+.tm-name{flex:1}
+.tm-name .n{font-weight:600;font-size:14px;color:var(--text)}
+.tm-name .s{font-size:11px;color:var(--gray);margin-top:1px}
+.tm-clock{font-family:var(--fh);font-size:22px;font-weight:800;color:var(--navy);min-width:48px;text-align:right}
+.tm-row.running .tm-clock{color:var(--blue)}
+.tm-row.warning .tm-clock{color:var(--orange)}
+.tm-row.done .tm-clock{color:var(--green);font-size:16px}
+.tm-status{font-size:11px;color:var(--gray);min-width:36px;text-align:center}
+
+/* RADIO PILLS */
+.pill-group{display:flex;flex-direction:column;gap:7px;margin-top:5px}
+.pill-row{display:flex;gap:7px;flex-wrap:wrap}
+.pill{flex:1;min-width:120px;padding:9px 12px;border-radius:8px;border:2px solid var(--gray-l);
+  background:var(--white);text-align:center;cursor:pointer;transition:all .15s;
+  font-size:13px;font-family:var(--fb);font-weight:600;color:var(--text-l)}
+.pill:hover:not(.active){border-color:var(--navy)}
+.pill.active.g{background:var(--green-l);border-color:var(--green);color:var(--green)}
+.pill.active.r{background:#fff0f0;border-color:#c62828;color:#c62828}
+.pill.active.a{background:var(--amber-l);border-color:var(--amber);color:var(--amber)}
+.pill.active.b{background:var(--blue-l);border-color:var(--blue);color:var(--blue)}
+.pill.active.n{background:#f0fdf4;border-color:var(--navy);color:var(--navy)}
+
+/* TIME INPUTS */
+.time-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:13px}
+@media(max-width:480px){.time-grid{grid-template-columns:1fr}}
+.tc{background:var(--off);border-radius:8px;padding:13px;border:1.5px solid var(--gray-l);text-align:center}
+.tc label{display:block;font-size:10px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px}
+.tc input[type="time"]{width:100%;border:none;background:none;font-size:20px;font-weight:700;color:var(--navy);font-family:var(--fh);text-align:center;cursor:pointer}
+.tc input[type="time"]:focus{outline:none}
+.now-btn{display:block;margin:5px auto 0;background:none;border:1px solid var(--gray-l);
+  border-radius:12px;padding:3px 9px;font-size:11px;color:var(--gray);cursor:pointer;font-family:var(--fb);transition:all .15s}
+.now-btn:hover{border-color:var(--navy);color:var(--navy)}
+.ou-display{margin-top:13px;padding:13px;border-radius:8px;text-align:center;
+  font-family:var(--fh);font-size:15px;font-weight:700;display:none}
+.ou-display.on{background:var(--green-l);color:var(--green)}
+.ou-display.ov{background:#fff0f0;color:#c62828}
+.ou-display.ea{background:var(--green-l);color:var(--green)}
+
+/* BUTTONS */
+.btn{padding:11px 24px;border-radius:8px;font-family:var(--fh);font-size:14px;font-weight:700;cursor:pointer;border:none;transition:all .2s;letter-spacing:.3px}
+.btn-p{background:var(--navy);color:var(--white)}.btn-p:hover{background:var(--navy-d);transform:translateY(-1px);box-shadow:0 4px 12px rgba(26,47,94,.3)}
+.btn-s{background:var(--white);color:var(--navy);border:2px solid var(--gray-l)}.btn-s:hover{border-color:var(--navy)}
+.btn-sub{background:var(--red);color:var(--white)}.btn-sub:hover{background:var(--red-d);transform:translateY(-1px);box-shadow:0 4px 12px rgba(200,16,46,.3)}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.nav-btns{display:flex;gap:9px;margin-top:18px;justify-content:flex-end}
+
+/* SUCCESS */
+.suc{background:var(--white);border-radius:14px;padding:40px 26px;text-align:center;box-shadow:var(--sh);border-top:4px solid #22c55e}
+.suc-circle{width:64px;height:64px;border-radius:50%;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 16px}
+.suc h2{font-family:var(--fh);font-size:20px;font-weight:700;color:var(--navy);margin-bottom:7px}
+.suc p{color:var(--text-l);line-height:1.6;font-size:14px;max-width:320px;margin:0 auto 20px}
+.suc-details{background:var(--off);border-radius:8px;padding:13px;margin-bottom:18px;text-align:left}
+.dr{display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-size:13px;border-bottom:1px solid var(--gray-l)}
+.dr:last-child{border-bottom:none}
+.dl{color:var(--gray);font-weight:600}.dv{color:var(--navy);font-weight:700}
+
+/* LOADING */
+.ld{display:none;position:fixed;inset:0;background:rgba(26,47,94,.6);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:11px}
+.ld.on{display:flex}
+.spin{width:38px;height:38px;border:4px solid rgba(255,255,255,.3);border-top-color:var(--white);border-radius:50%;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.ld p{color:var(--white);font-family:var(--fh);font-weight:600;font-size:13px}
+.foot{text-align:center;padding:12px;font-size:11px;color:var(--gray);border-top:1px solid var(--gray-l);background:var(--white);position:fixed;bottom:0;left:0;right:0}
+
+/* SEGMENT TIMERS */
+.seg-timer-row{display:flex;align-items:center;gap:11px;padding:12px 14px;border-radius:10px;
+  background:var(--off);border:2px solid var(--gray-l);cursor:pointer;transition:all .2s;user-select:none}
+.seg-timer-row:hover{border-color:var(--navy-l);background:var(--white)}
+.seg-timer-row.seg-running{background:#eff6ff;border-color:var(--blue)}
+.seg-timer-row.seg-warning{background:#fff3e0;border-color:var(--orange);animation:pulse .5s ease-in-out infinite alternate}
+.seg-timer-row.seg-done{background:var(--green-l);border-color:var(--green)}
+.seg-icon{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.seg-info{flex:1}
+.seg-name{font-weight:700;font-size:14px;color:var(--text)}
+.seg-label{font-size:11px;color:var(--gray);margin-top:1px}
+.seg-status{font-size:13px;color:var(--gray);min-width:20px;text-align:center}
+.seg-clock{font-family:var(--fh);font-size:24px;font-weight:800;color:var(--navy);min-width:56px;text-align:right}
+.seg-timer-row.seg-running .seg-clock{color:var(--blue)}
+.seg-timer-row.seg-warning .seg-clock{color:var(--orange)}
+.seg-timer-row.seg-done .seg-clock{color:var(--green);font-size:16px}
+
+/* SIGN-IN SCREEN */
+#signInScreen{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:100vh;padding:24px;background:linear-gradient(135deg,var(--navy-d) 0%,var(--navy) 100%)}
+.si-card{background:var(--white);border-radius:18px;padding:36px 28px;max-width:360px;width:100%;text-align:center}
+.si-logo{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:8px}
+.si-am{font-family:var(--fh);font-weight:800;color:var(--navy);font-size:28px;line-height:1}
+.si-sp{font-family:var(--fh);font-weight:800;color:var(--red);font-size:28px;line-height:1;font-style:italic}
+.si-card h2{font-family:var(--fh);font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.si-card p{font-size:13px;color:var(--gray);margin-bottom:28px;line-height:1.5}
+.si-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:13px 20px;
+  border-radius:10px;border:1.5px solid var(--gray-l);background:var(--white);cursor:pointer;
+  font-family:var(--fh);font-size:14px;font-weight:700;color:var(--text);transition:all .2s}
+.si-btn:hover{border-color:var(--navy)}
+.si-btn svg{width:20px;height:20px;flex-shrink:0}
+.si-err{margin-top:14px;font-size:12px;color:var(--red);display:none}
+/* HEADER USER */
+.hdr-user{margin-left:auto;display:flex;align-items:center;gap:8px;flex-shrink:0}
+.hdr-name{font-family:var(--fh);font-size:10px;font-weight:700;color:rgba(255,255,255,.85);white-space:nowrap;max-width:80px;overflow:hidden;text-overflow:ellipsis}
+.sign-out{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.8);
+  font-family:var(--fh);font-size:9px;font-weight:700;padding:4px 8px;border-radius:14px;cursor:pointer}
+.sign-out:hover{background:rgba(255,255,255,.25)}
+</style>
+</head>
+<body>
+
+<!-- SIGN-IN SCREEN -->
+<div id="signInScreen">
+  <div class="si-card">
+    <div class="si-logo"><span class="si-am">Am</span><span class="si-sp">Spirit</span></div>
+    <h2>AmSpirit Portal</h2>
+    <p>Cary-Grove Chapter<br>Enter your chapter access code to continue</p>
+    <div style="margin-bottom:16px">
+      <input type="password" id="accessCodeInput"
+        placeholder="Enter access code"
+        onkeydown="if(event.key==='Enter')checkCode()"
+        style="width:100%;padding:13px 16px;border:1.5px solid var(--gray-l);border-radius:10px;
+          font-size:16px;font-family:var(--fb);text-align:center;letter-spacing:3px;
+          background:var(--off);color:var(--text)">
+    </div>
+    <button class="si-btn" onclick="checkCode()" style="justify-content:center;background:var(--navy);color:#fff;border-color:var(--navy)">
+      Enter Portal →
+    </button>
+    <div class="si-err" id="siErr" style="display:none;margin-top:12px;color:var(--red);font-size:12px;font-family:var(--fh);font-weight:700">
+      Incorrect code. Please try again or contact your SAA.
+    </div>
+    <p style="margin-top:16px;margin-bottom:0;font-size:11px;color:var(--gray)">
+      Don't have a code? Contact Brandon Bynum (SAA)
+    </p>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="mainApp" style="display:none">
+<div class="ld" id="ld"><div class="spin"></div><p>Saving…</p></div>
+
+<header class="hdr">
+  <div class="logo"><div><div class="lam">Am</div><div class="lsp">Spirit</div></div></div>
+  <div class="hdr-t"><h1>AmSpirit Cary-Grove</h1><p>AmSpirit Portal</p></div>
+  <div class="hdr-user"><span class="hdr-name" id="hdrName"></span><button class="sign-out" onclick="signOut()">Sign out</button></div>
+</header>
+
+<div class="wrap">
+
+<!-- ═══════════════════════ LANDING ═══════════════════════ -->
+<div class="view active" id="vHome">
+  <div class="l-banner">
+    <h2>Good morning — Tuesday meeting</h2>
+    <div class="l-date" id="todayDate">Loading…</div>
+    <div class="l-sub">📍 255 Briargate Rd, Cary, IL · 11:45 AM sharp</div>
+    <div class="l-name" style="margin-top:12px">
+      <label>Your Name (used on all logs today)</label>
+      <input type="text" id="globalName" placeholder="e.g. Your Name" oninput="saveGlobalName()">
+    </div>
+  </div>
+  <div class="nav-grid">
+    <button class="nc" onclick="go('vAttendance')" style="border-color:#fee2e2">
+      <div class="nc-icon ic-r">📋</div><h3>Attendance Tracker</h3><p>P / A / E / Sub with sub name</p>
+    </button>
+    <button class="nc" onclick="go('vTimeLog')" style="border-color:#dbeafe">
+      <div class="nc-icon ic-n">⏱️</div><h3>Meeting Time Log</h3><p>Live timer + meeting meta</p>
+    </button>
+    <button class="nc" onclick="go('vRefGiven')" style="border-color:#dcfce7">
+      <div class="nc-icon ic-g">🤝</div><h3>Referrals Given</h3><p>Log referrals you pass to members</p>
+    </button>
+    <button class="nc" onclick="go('vRefReceived')" style="border-color:#ccfbf1">
+      <div class="nc-icon ic-t">📥</div><h3>Referrals Received</h3><p>Track referrals coming your way</p>
+    </button>
+    <button class="nc" onclick="go('vGuests')" style="border-color:#bfdbfe">
+      <div class="nc-icon ic-b">👋</div><h3>Guest Visit Log</h3><p>Guests you bring to chapter</p>
+    </button>
+    <button class="nc" onclick="go('vCross')" style="border-color:#fed7aa">
+      <div class="nc-icon ic-o">🗺️</div><h3>Cross-Chapter Visits</h3><p>Other chapters you visit</p>
+    </button>
+    <button class="nc" onclick="go('vOneOnOne')" style="border-color:#e9d5ff;grid-column:1/-1">
+      <div class="nc-icon ic-p" style="display:inline-flex">☕</div>
+      <h3>One-on-Ones</h3><p>Log your monthly lunch assignments &amp; one-on-one meetings</p>
+    </button>
+    <a href="officer-hub.html" class="nc" style="border-color:#1a2f5e;background:var(--navy);text-decoration:none">
+      <div class="nc-icon" style="background:rgba(255,255,255,.15)">📁</div>
+      <h3 style="color:var(--white)">Officer Hub</h3><p style="color:rgba(255,255,255,.7)">Binders &amp; scripts for all 11 chairs</p>
+    </a>
+    <a href="scripts.html" class="nc" style="border-color:#c8102e;text-decoration:none">
+      <div class="nc-icon ic-r">📝</div>
+      <h3>Scripts &amp; Playbooks</h3><p>Meeting scripts, referral triggers &amp; commercial builder</p>
+    </a>
+    <a href="reports.html" class="nc" style="border-color:#2e7d32;text-decoration:none;grid-column:1/-1">
+      <div class="nc-icon ic-g">📊</div>
+      <h3>Chapter Reports</h3><p>Attendance, referrals, time logs, guests &amp; member activity — download as PDF or Word</p>
+    </a>
+    <a href="treasurer.html" class="nc" style="border-color:#b45309;text-decoration:none;grid-column:1/-1">
+      <div class="nc-icon" style="background:#fff8e1">💰</div>
+      <h3>Treasurer Hub</h3><p>Dues tracker, expenses, invoice storage &amp; financial reports — PIN protected</p>
+    </a>
+    <a href="guest.html" class="nc" style="border-color:#c8102e;text-decoration:none;grid-column:1/-1">
+      <div class="nc-icon" style="background:#fff0f0">🔗</div>
+      <h3>Guest Check-In Portal</h3><p>Share this link or QR code with guests — they fill out their info and save to Supabase</p>
+    </a>
+    <a href="rsvp.html" class="nc" style="border-color:#d4a017;text-decoration:none;grid-column:1/-1">
+      <div class="nc-icon" style="background:#fff8e1">📬</div>
+      <h3>Guest RSVP Page</h3><p>Send this link to a guest before the meeting — they confirm attendance, share their goals, and get a full meeting preview</p>
+    </a>
+    <a href="directory.html" class="nc" style="border-color:#1a2f5e;text-decoration:none;grid-column:1/-1">
+      <div class="nc-icon" style="background:#eff4ff">👥</div>
+      <h3>Member Directory</h3><p>Digital business cards for every member — tap to expand contact info, specialty, and referral trigger phrases</p>
+    </a>
+    <a href="attendance-log.html" class="nc" style="border-color:#2e7d32;text-decoration:none;grid-column:1/-1">
+      <div class="nc-icon" style="background:#e8f5e9">📋</div>
+      <h3>Attendance Log</h3><p>View stored attendance records — last 30 days by default with full history search</p>
+    </a>
+  </div>
+</div>
+
+<!-- ═══════════════════════ ATTENDANCE ═══════════════════════ -->
+<div class="view" id="vAttendance">
+  <button class="back" onclick="go('vHome')">← Home</button>
+  <div class="step-t"><h2>📋 Attendance Tracker</h2><p>Tap each member's status. Submit to Secretary within 24 hrs.</p></div>
+  <div class="sc">
+    <div class="sh"><span>📅</span><h3>Meeting Info</h3></div>
+    <div class="fr">
+      <div class="f"><label>Meeting Date</label><input type="date" id="att_date"></div>
+      <div class="f"><label>Logged By</label><input type="text" id="att_loggedBy" placeholder="Your name"></div>
+    </div>
+  </div>
+  <div class="stat-bar" id="statBar">
+    <div class="chip"><div class="dot dg"></div><span class="cnt" id="cP">0</span>&nbsp;<span class="lbl">Present</span></div>
+    <div class="chip"><div class="dot dr"></div><span class="cnt" id="cA">0</span>&nbsp;<span class="lbl">Absent</span></div>
+    <div class="chip"><div class="dot da"></div><span class="cnt" id="cE">0</span>&nbsp;<span class="lbl">Excused</span></div>
+    <div class="chip"><div class="dot dp"></div><span class="cnt" id="cS">0</span>&nbsp;<span class="lbl">Sub</span></div>
+    <div class="chip"><div class="dot dgr"></div><span class="cnt" id="cU">0</span>&nbsp;<span class="lbl">Not logged</span></div>
+  </div>
+  <div class="sc">
+    <div class="sh"><span>👥</span><h3>Chapter Members</h3></div>
+    <div id="memberList"></div>
+  </div>
+  <div class="sc">
+    <div class="sh"><span>🤝</span><h3>Guests Present Today</h3></div>
+    <p class="hint">Add any guests attending today</p>
+    <div id="guestRows"></div>
+    <button class="add-g" onclick="addGuest()">＋ Add a Guest</button>
+  </div>
+  <div class="nav-btns">
+    <button class="btn btn-s" onclick="go('vHome')">Cancel</button>
+    <button class="btn btn-sub" onclick="submitAttendance()">Submit Attendance ✓</button>
+  </div>
+  <div id="attSuc" style="display:none;margin-top:18px">
+    <div class="suc"><div class="suc-circle">✓</div><h2>Attendance Logged!</h2>
+      <div class="suc-details" id="attSucD"></div>
+      <p>Remember to submit to the Secretary within 24 hours.</p>
+      <button class="btn btn-sub" onclick="pdfAttendance()" style="margin-right:8px;margin-bottom:8px">📄 Download PDF</button>
+      <button class="btn btn-p" onclick="resetAtt()" style="margin-right:8px">Log Another</button>
+      <button class="btn btn-s" onclick="go('vHome')">← Home</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ TIME LOG ═══════════════════════ -->
+<div class="view" id="vTimeLog">
+  <button class="back" onclick="go('vHome')">← Home</button>
+  <div class="step-t"><h2>⏱️ Meeting Time Log</h2><p>Tap a member name to start their timer. Tap again to stop.</p></div>
+  <div class="sc">
+    <div class="sh"><span>📅</span><h3>Meeting Info</h3></div>
+    <div class="fr">
+      <div class="f"><label>Meeting Date</label><input type="date" id="tl_date"></div>
+      <div class="f"><label>Logged By</label><input type="text" id="tl_loggedBy" placeholder="Your name"></div>
+    </div>
+  </div>
+
+  <!-- Segment Timers: Spotlight + Education -->
+  <div class="sc">
+    <div class="sh"><span>⏰</span><h3>Segment Timers</h3></div>
+    <p style="font-size:12px;color:var(--gray);margin-bottom:12px">Tap to start · Tap again to pause · Tap again to resume</p>
+    <!-- Spotlight Speaker -->
+    <div class="seg-timer-row" id="seg_spotlight" onclick="toggleSeg('spotlight')">
+      <div class="seg-icon" style="background:#eff4ff">🎤</div>
+      <div class="seg-info">
+        <div class="seg-name">Spotlight Speaker</div>
+        <div class="seg-label">10-minute member presentation</div>
+      </div>
+      <div class="seg-status" id="segst_spotlight">▶</div>
+      <div class="seg-clock" id="segcl_spotlight">10:00</div>
+    </div>
+    <!-- Education Segment -->
+    <div class="seg-timer-row" id="seg_education" onclick="toggleSeg('education')" style="margin-top:8px">
+      <div class="seg-icon" style="background:#f0fdf4">📚</div>
+      <div class="seg-info">
+        <div class="seg-name">Education Segment</div>
+        <div class="seg-label">5-minute education block</div>
+      </div>
+      <div class="seg-status" id="segst_education">▶</div>
+      <div class="seg-clock" id="segcl_education">5:00</div>
+    </div>
+  </div>
+
+  <!-- Member Commercial Timers -->
+  <div class="sc">
+    <div class="sh"><span>🎙️</span><h3>60-Second Commercials</h3></div>
+    <div class="timer-settings">
+      <label>Seconds per member:</label>
+      <select class="secs-select" id="secsSelect" onchange="updateSecs()">
+        <option value="45">45 sec</option>
+        <option value="60" selected>60 sec</option>
+        <option value="75">75 sec</option>
+        <option value="90">90 sec</option>
+        <option value="120">120 sec</option>
+      </select>
+      <span class="timer-hint">Tap a name to start · Tap again to stop</span>
+    </div>
+    <div id="timerList"></div>
+    <div style="margin-top:10px;font-size:12px;color:var(--gray);text-align:center">
+      Members timed: <strong id="timedCount">0</strong> of <strong id="totalCount">0</strong>
+    </div>
+  </div>
+
+  <!-- Meeting Times -->
+  <div class="sc">
+    <div class="sh"><span>🕐</span><h3>Meeting Times</h3></div>
+    <div class="time-grid">
+      <div class="tc"><label>You Arrived</label><input type="time" id="tl_arrived" value="11:30"><button class="now-btn" onclick="setNow('tl_arrived')">Set to now</button></div>
+      <div class="tc"><label>Called to Order</label><input type="time" id="tl_order" value="11:45"><button class="now-btn" onclick="setNow('tl_order')">Set to now</button></div>
+      <div class="tc" style="border:2px solid var(--red)"><label style="color:var(--red)">Adjourned At</label><input type="time" id="tl_adjourned" value="13:15" oninput="calcOU()"><button class="now-btn" onclick="setNow('tl_adjourned');calcOU()">Set to now</button></div>
+      <div class="tc"><label>Members Present</label><input type="number" id="tl_present" placeholder="Count" min="0" max="40" style="font-size:20px;font-weight:700;color:var(--navy);text-align:center;border:none;background:none;width:100%"></div>
+    </div>
+    <div class="ou-display" id="ouDisplay"></div>
+    <div class="divider"></div>
+    <div class="f"><label>Quorum Met?</label>
+      <div class="pill-row">
+        <div class="pill" onclick="selPill(this,'quorum','yes')" data-group="quorum" data-val="Yes">✅ Yes</div>
+        <div class="pill" onclick="selPill(this,'quorum','no')" data-group="quorum" data-val="No">❌ No</div>
+      </div>
+    </div>
+    <div class="f"><label>Notes</label><textarea id="tl_notes" placeholder="Timing issues, overruns, or anything for the record…" rows="3"></textarea></div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn btn-s" onclick="go('vHome')">Cancel</button>
+    <button class="btn btn-sub" onclick="submitTimeLog()">Save Time Log ✓</button>
+  </div>
+  <div id="tlSuc" style="display:none;margin-top:18px">
+    <div class="suc"><div class="suc-circle">✓</div><h2>Time Log Saved!</h2>
+      <div class="suc-details" id="tlSucD"></div>
+      <button class="btn btn-sub" onclick="pdfTimeLog()" style="margin-right:8px;margin-bottom:8px">📄 Download PDF</button>
+      <button class="btn btn-p" onclick="resetTL()" style="margin-right:8px">Log Another</button>
+      <button class="btn btn-s" onclick="go('vHome')">← Home</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ REFERRAL GIVEN ═══════════════════════ -->
+<div class="view" id="vRefGiven">
+  <button class="back" onclick="go('vHome')">← Home</button>
+  <div class="step-t"><h2>🤝 Referral Given</h2><p>Log a referral you passed to a chapter member.</p></div>
+  <div class="sc">
+    <div class="fr">
+      <div class="f"><label>Date</label><input type="date" id="rg_date"></div>
+      <div class="f"><label>Logged By</label><input type="text" id="rg_loggedBy" placeholder="Your name"></div>
+    </div>
+    <div class="f"><label>Referred To (Member)</label>
+      <select id="rg_to"><option value="">— Select member —</option></select>
+    </div>
+    <div class="fr">
+      <div class="f"><label>Person Referred</label><input type="text" id="rg_person" placeholder="Contact's name"></div>
+      <div class="f"><label>Their Company</label><input type="text" id="rg_company" placeholder="Optional"></div>
+    </div>
+    <div class="f"><label>Their Situation / Need</label><textarea id="rg_situation" placeholder="What do they need? Why is this member the right fit?"></textarea></div>
+    <div class="fr">
+      <div class="f"><label>Follow-Up Date</label><input type="date" id="rg_followup"></div>
+      <div class="f"><label>Outcome</label>
+        <select id="rg_outcome">
+          <option value="Open">Open</option>
+          <option value="Closed">Closed</option>
+          <option value="N/A">N/A</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn btn-s" onclick="go('vHome')">Cancel</button>
+    <button class="btn btn-sub" onclick="submitRefGiven()">Save Referral ✓</button>
+  </div>
+  <div id="rgSuc" style="display:none;margin-top:18px">
+    <div class="suc"><div class="suc-circle">✓</div><h2>Referral Logged!</h2>
+      <p>Your referral has been saved to the Referrals Given sheet.</p>
+      <button class="btn btn-sub" onclick="pdfLast('rg')" style="margin-right:8px;margin-bottom:8px">📄 Download PDF</button>
+      <button class="btn btn-p" onclick="resetRG()" style="margin-right:8px">Log Another</button>
+      <button class="btn btn-s" onclick="go('vHome')">← Home</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ REFERRAL RECEIVED ═══════════════════════ -->
+<div class="view" id="vRefReceived">
+  <button class="back" onclick="go('vHome')">← Home</button>
+  <div class="step-t"><h2>📥 Referral Received</h2><p>Log a referral a member passed to you.</p></div>
+  <div class="sc">
+    <div class="fr">
+      <div class="f"><label>Date</label><input type="date" id="rr_date"></div>
+      <div class="f"><label>Logged By</label><input type="text" id="rr_loggedBy" placeholder="Your name"></div>
+    </div>
+    <div class="f"><label>Referred By (Member)</label>
+      <select id="rr_by"><option value="">— Select member —</option></select>
+    </div>
+    <div class="fr">
+      <div class="f"><label>Person Referred to You</label><input type="text" id="rr_person" placeholder="Contact's name"></div>
+      <div class="f"><label>Their Company</label><input type="text" id="rr_company" placeholder="Optional"></div>
+    </div>
+    <div class="f"><label>Their Situation / Need</label><textarea id="rr_situation" placeholder="What do they need? Why were you recommended?"></textarea></div>
+    <div class="f"><label>Followed Up?</label>
+      <div class="pill-row">
+        <div class="pill" onclick="selPill(this,'rrfu','yes')" data-group="rrfu" data-val="Yes — within 24 hrs">✅ Yes — within 24 hrs</div>
+        <div class="pill" onclick="selPill(this,'rrfu','not')" data-group="rrfu" data-val="Not yet">⏳ Not yet</div>
+      </div>
+    </div>
+    <div class="f"><label>Outcome</label>
+      <select id="rr_outcome">
+        <option value="Open">Open</option>
+        <option value="Closed">Closed</option>
+        <option value="N/A">N/A</option>
+      </select>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn btn-s" onclick="go('vHome')">Cancel</button>
+    <button class="btn btn-sub" onclick="submitRefReceived()">Save Referral ✓</button>
+  </div>
+  <div id="rrSuc" style="display:none;margin-top:18px">
+    <div class="suc"><div class="suc-circle">✓</div><h2>Referral Received Logged!</h2>
+      <p>Saved to your Referrals Received sheet.</p>
+      <button class="btn btn-sub" onclick="pdfLast('rr')" style="margin-right:8px;margin-bottom:8px">📄 Download PDF</button>
+      <button class="btn btn-p" onclick="resetRR()" style="margin-right:8px">Log Another</button>
+      <button class="btn btn-s" onclick="go('vHome')">← Home</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ GUEST VISIT ═══════════════════════ -->
+<div class="view" id="vGuests">
+  <button class="back" onclick="go('vHome')">← Home</button>
+  <div class="step-t"><h2>👋 Guest Visit Log</h2><p>Track every guest you bring to the chapter.</p></div>
+  <div class="sc">
+    <div class="sh"><span>📅</span><h3>Visit Info</h3></div>
+    <div class="fr">
+      <div class="f"><label>Visit Date</label><input type="date" id="gv_date"></div>
+      <div class="f"><label>Logged By</label><input type="text" id="gv_loggedBy" placeholder="Your name"></div>
+    </div>
+    <div class="fr">
+      <div class="f"><label>Guest Full Name *</label><input type="text" id="gv_name" placeholder="Guest name"></div>
+      <div class="f"><label>Business / Company</label><input type="text" id="gv_company" placeholder="Company"></div>
+    </div>
+    <div class="fr">
+      <div class="f"><label>Title / Role</label><input type="text" id="gv_title" placeholder="Their role"></div>
+      <div class="f"><label>Email Address</label><input type="email" id="gv_email" placeholder="email@example.com"></div>
+    </div>
+    <div class="fr">
+      <div class="f"><label>Phone Number</label><input type="tel" id="gv_phone" placeholder="(555) 000-0000"></div>
+      <div class="f"><label>2nd Visit Date</label><input type="date" id="gv_second"></div>
+    </div>
+  </div>
+  <div class="sc">
+    <div class="sh"><span>💬</span><h3>Follow-Up & Interest</h3></div>
+    <div class="f"><label>Membership Interest Level</label>
+      <div class="pill-row" style="flex-wrap:wrap">
+        <div class="pill" onclick="selPill(this,'gvmi','vi')" data-group="gvmi" data-val="Very interested">🔥 Very interested</div>
+        <div class="pill" onclick="selPill(this,'gvmi','mb')" data-group="gvmi" data-val="Maybe">🤔 Maybe</div>
+        <div class="pill" onclick="selPill(this,'gvmi','ar')" data-group="gvmi" data-val="Asked to return">👋 Return</div>
+        <div class="pill" onclick="selPill(this,'gvmi','nf')" data-group="gvmi" data-val="Not a fit">❌ Not a fit</div>
+      </div>
+    </div>
+    <div class="f"><label>Your Follow-Up (within 24 hrs)</label><textarea id="gv_followup" placeholder="What did you say / send after the meeting?"></textarea></div>
+    <div class="f"><label>Referred to Membership Chair?</label>
+      <div class="pill-row">
+        <div class="pill" onclick="selPill(this,'gvmc','yes')" data-group="gvmc" data-val="Yes">✅ Yes</div>
+        <div class="pill" onclick="selPill(this,'gvmc','not')" data-group="gvmc" data-val="Not yet">⏳ Not yet</div>
+        <div class="pill" onclick="selPill(this,'gvmc','nf')" data-group="gvmc" data-val="Not a fit">❌ Not a fit</div>
+      </div>
+    </div>
+    <div class="f"><label>Outcome</label>
+      <select id="gv_outcome">
+        <option value="In pipeline">In pipeline</option>
+        <option value="Applied to join">Applied to join</option>
+        <option value="Declined">Declined</option>
+        <option value="Visit only">Visit only</option>
+      </select>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn btn-s" onclick="go('vHome')">Cancel</button>
+    <button class="btn btn-sub" onclick="submitGuestVisit()">Save Guest Log ✓</button>
+  </div>
+  <div id="gvSuc" style="display:none;margin-top:18px">
+    <div class="suc"><div class="suc-circle">✓</div><h2>Guest Visit Logged!</h2>
+      <p>Saved to your Guest Visit Log sheet.</p>
+      <button class="btn btn-sub" onclick="pdfLast('gv')" style="margin-right:8px;margin-bottom:8px">📄 Download PDF</button>
+      <button class="btn btn-p" onclick="resetGV()" style="margin-right:8px">Log Another</button>
+      <button class="btn btn-s" onclick="go('vHome')">← Home</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ CROSS-CHAPTER ═══════════════════════ -->
+<div class="view" id="vCross">
+  <button class="back" onclick="go('vHome')">← Home</button>
+  <div class="step-t"><h2>🗺️ Cross-Chapter Visit</h2><p>Log every chapter outside Cary–Grove that you visit.</p></div>
+  <div class="sc">
+    <div class="fr">
+      <div class="f"><label>Visit Date</label><input type="date" id="cc_date"></div>
+      <div class="f"><label>Logged By</label><input type="text" id="cc_loggedBy" placeholder="Your name"></div>
+    </div>
+    <div class="fr">
+      <div class="f"><label>Chapter Name / Location *</label><input type="text" id="cc_chapter" placeholder="e.g. Barrington Chapter"></div>
+      <div class="f"><label>Chapter President / Contact</label><input type="text" id="cc_contact" placeholder="Name"></div>
+    </div>
+    <div class="f"><label>Members Present</label><input type="number" id="cc_members" placeholder="Approx. count" min="0"></div>
+    <div class="f"><label>How Did Your Commercial Land?</label>
+      <div class="pill-row">
+        <div class="pill" onclick="selPill(this,'ccr','s')" data-group="ccr" data-val="Strong">💪 Strong</div>
+        <div class="pill" onclick="selPill(this,'ccr','g')" data-group="ccr" data-val="Good">👍 Good</div>
+        <div class="pill" onclick="selPill(this,'ccr','n')" data-group="ccr" data-val="Needs refinement">🔧 Needs work</div>
+      </div>
+    </div>
+    <div class="f"><label>New Connections Made</label><textarea id="cc_connections" placeholder="Names and professions of people you connected with…"></textarea></div>
+    <div class="f"><label>Referral Potential Identified</label><textarea id="cc_potential" placeholder="Anyone who could refer into your market?"></textarea></div>
+    <div class="f"><label>Best Practice to Bring Back</label><textarea id="cc_practice" placeholder="Energy, scripts, systems — anything worth sharing with Cary–Grove?"></textarea></div>
+    <div class="f"><label>Follow-Up Actions</label><textarea id="cc_followup" placeholder="Who will you follow up with and when?"></textarea></div>
+    <div class="f"><label>Cross-Chapter Referral Received?</label>
+      <div class="pill-row">
+        <div class="pill" onclick="selPill(this,'ccref','yes')" data-group="ccref" data-val="Yes">✅ Yes</div>
+        <div class="pill" onclick="selPill(this,'ccref','not')" data-group="ccref" data-val="Not yet">⏳ Not yet</div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn btn-s" onclick="go('vHome')">Cancel</button>
+    <button class="btn btn-sub" onclick="submitCross()">Save Visit ✓</button>
+  </div>
+  <div id="ccSuc" style="display:none;margin-top:18px">
+    <div class="suc"><div class="suc-circle">✓</div><h2>Cross-Chapter Visit Logged!</h2>
+      <p>Saved to your Cross-Chapter Visits sheet.</p>
+      <button class="btn btn-sub" onclick="pdfLast('cc')" style="margin-right:8px;margin-bottom:8px">📄 Download PDF</button>
+      <button class="btn btn-p" onclick="resetCC()" style="margin-right:8px">Log Another</button>
+      <button class="btn btn-s" onclick="go('vHome')">← Home</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ ONE-ON-ONE ═══════════════════════ -->
+<div class="view" id="vOneOnOne">
+  <button class="back" onclick="go('vHome')">← Home</button>
+  <div class="step-t"><h2>☕ One-on-One Meeting</h2><p>Log your monthly lunch assignments and one-on-one meetings.</p></div>
+  <div class="sc">
+    <div class="fr">
+      <div class="f"><label>Date</label><input type="date" id="oo_date"></div>
+      <div class="f"><label>Logged By</label><input type="text" id="oo_loggedBy" placeholder="Your name"></div>
+    </div>
+    <div class="f"><label>Met With (Member) *</label>
+      <select id="oo_with"><option value="">— Select member —</option></select>
+    </div>
+    <div class="f"><label>Location / Format</label>
+      <div class="pill-row" style="flex-wrap:wrap">
+        <div class="pill" onclick="selPill(this,'ooloc','lunch')" data-group="ooloc" data-val="Lunch">🍽️ Lunch</div>
+        <div class="pill" onclick="selPill(this,'ooloc','coffee')" data-group="ooloc" data-val="Coffee">☕ Coffee</div>
+        <div class="pill" onclick="selPill(this,'ooloc','virtual')" data-group="ooloc" data-val="Virtual">💻 Virtual</div>
+        <div class="pill" onclick="selPill(this,'ooloc','phone')" data-group="ooloc" data-val="Phone">📞 Phone</div>
+      </div>
+    </div>
+    <div class="f"><label>Key Takeaway</label><textarea id="oo_takeaway" placeholder="What did you learn about their business that you didn't know before?"></textarea></div>
+    <div class="f"><label>Referral Trigger Learned</label><textarea id="oo_trigger" placeholder="What specific situation or phrase means someone needs their help?"></textarea></div>
+    <div class="f"><label>Referral Opportunities Identified</label><textarea id="oo_opps" placeholder="Did any referral ideas come up during the meeting?"></textarea></div>
+    <div class="f"><label>Follow-Up Needed</label><textarea id="oo_followup" placeholder="Any actions or commitments from this meeting?"></textarea></div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn btn-s" onclick="go('vHome')">Cancel</button>
+    <button class="btn btn-sub" onclick="submitOneOnOne()">Save One-on-One ✓</button>
+  </div>
+  <div id="ooSuc" style="display:none;margin-top:18px">
+    <div class="suc"><div class="suc-circle">✓</div><h2>One-on-One Logged!</h2>
+      <p>Saved to your One-on-Ones sheet.</p>
+      <button class="btn btn-sub" onclick="pdfLast('oo')" style="margin-right:8px;margin-bottom:8px">📄 Download PDF</button>
+      <button class="btn btn-p" onclick="resetOO()" style="margin-right:8px">Log Another</button>
+      <button class="btn btn-s" onclick="go('vHome')">← Home</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- wrap -->
+</div><!-- mainApp -->
+<footer class="foot">AmSpirit Business Connections · Cary-Grove Chapter</footer>
+
+<script>
+// ─── ACCESS CODE ─────────────────────────────────────────────
+// To change the code: update the value below and redeploy
+var CHAPTER_CODE = 'CARYGROVE2026';
+var CODE_EXPIRY_DAYS = 30;
+
+function checkCode() {
+  var input = document.getElementById('accessCodeInput').value.trim().toUpperCase();
+  if(input === CHAPTER_CODE) {
+    // Store approval for 30 days
+    var expiry = new Date();
+    expiry.setDate(expiry.getDate() + CODE_EXPIRY_DAYS);
+    localStorage.setItem('cg_access', expiry.toISOString());
+    grantAccess();
+  } else {
+    document.getElementById('siErr').style.display = 'block';
+    document.getElementById('accessCodeInput').value = '';
+    document.getElementById('accessCodeInput').focus();
+  }
+}
+
+function grantAccess() {
+  document.getElementById('signInScreen').style.display = 'none';
+  document.getElementById('mainApp').style.display = 'block';
+  appStart();
+}
+
+function signOut() {
+  localStorage.removeItem('cg_access');
+  window.location.reload();
+}
+
+window.onload = function() {
+  // Check if already approved and not expired
+  var stored = localStorage.getItem('cg_access');
+  if(stored) {
+    var expiry = new Date(stored);
+    if(expiry > new Date()) {
+      grantAccess();
+      return;
+    }
+    localStorage.removeItem('cg_access');
+  }
+  // Show access code screen
+  document.getElementById('signInScreen').style.display = 'flex';
+  document.getElementById('mainApp').style.display = 'none';
+  setTimeout(function(){ document.getElementById('accessCodeInput').focus(); }, 300);
+};
+
+// ─── SUPABASE HELPERS ────────────────────────────────────────
+function sbInsert(table, data, onSuccess, onError) {
+  _supa.from(table).insert(data)
+    .then(function(r) {
+      if(r.error) { onError(r.error.message); return; }
+      onSuccess({success:true});
+    })
+    .catch(function(e){ onError(e.message||String(e)); });
+}
+
+function callFn(name, data, onSuccess, onError) {
+  showLD();
+  var row;
+  if(name==='submitAttendance'){
+    row={chapter_id:CHAPTER_ID,meeting_date:data.meetingDate,logged_by:data.loggedBy,
+      records:JSON.parse(data.records||'[]'),guests:JSON.parse(data.guests||'[]'),
+      submitted_at:new Date().toISOString()};
+    sbInsert('attendance',row,function(r){hideLD();onSuccess(r);},function(e){hideLD();onError(e);});
+  } else if(name==='submitTimeLog'){
+    row={chapter_id:CHAPTER_ID,meeting_date:data.meetingDate,logged_by:data.loggedBy,
+      arrived_at:data.arrivedAt,called_to_order:data.calledToOrder,adjourned_at:data.adjournedAt,
+      secs_per_member:data.secsPerMember,members_timed:data.membersTimed,
+      quorum_met:data.quorumMet,notes:data.notes};
+    sbInsert('time_logs',row,function(r){hideLD();onSuccess(r);},function(e){hideLD();onError(e);});
+  } else if(name==='submitReferralGiven'){
+    row={chapter_id:CHAPTER_ID,type:'given',date:data.date,logged_by:data.loggedBy,
+      referred_to:data.referredTo,referred_person:data.referredPerson,
+      referred_company:data.referredCompany,situation:data.situation,
+      follow_up_date:data.followUpDate||null,outcome:data.outcome};
+    sbInsert('referrals',row,function(r){hideLD();onSuccess(r);},function(e){hideLD();onError(e);});
+  } else if(name==='submitReferralReceived'){
+    row={chapter_id:CHAPTER_ID,type:'received',date:data.date,logged_by:data.loggedBy,
+      referred_by:data.referredBy,referred_person:data.referredPerson,
+      referred_company:data.referredCompany,situation:data.situation,
+      followed_up:data.followedUp,outcome:data.outcome};
+    sbInsert('referrals',row,function(r){hideLD();onSuccess(r);},function(e){hideLD();onError(e);});
+  } else if(name==='submitGuestVisit'){
+    row={chapter_id:CHAPTER_ID,visit_date:data.visitDate,logged_by:data.loggedBy,
+      guest_name:data.guestName,company:data.company,title:data.title,
+      email:data.email,phone:data.phone,second_visit_date:data.secondVisitDate||null,
+      membership_interest:data.membershipInterest,follow_up:data.followUp,
+      referred_to_membership:data.referredToMembership,outcome:data.outcome};
+    sbInsert('guests',row,function(r){hideLD();onSuccess(r);},function(e){hideLD();onError(e);});
+  } else if(name==='submitCrossChapter'){
+    row={chapter_id:CHAPTER_ID,visit_date:data.visitDate,logged_by:data.loggedBy,
+      chapter_name:data.chapterName,chapter_contact:data.chapterContact,
+      members_present:data.membersPresent,commercial_rating:data.commercialRating,
+      new_connections:data.newConnections,referral_potential:data.referralPotential,
+      best_practice:data.bestPractice,follow_up:data.followUp,
+      referral_received:data.referralReceived};
+    sbInsert('cross_chapter_visits',row,function(r){hideLD();onSuccess(r);},function(e){hideLD();onError(e);});
+  } else if(name==='submitOneOnOne'){
+    row={chapter_id:CHAPTER_ID,date:data.date,logged_by:data.loggedBy,
+      met_with:data.metWith,specialty:data.specialty,location:data.location,
+      key_takeaway:data.keyTakeaway,referral_trigger:data.referralTrigger,
+      referral_opportunities:data.referralOpportunities,follow_up:data.followUp};
+    sbInsert('one_on_ones',row,function(r){hideLD();onSuccess(r);},function(e){hideLD();onError(e);});
+  } else {
+    hideLD(); onError('Unknown function: '+name);
+  }
+}
+
+// ─── STATE ───────────────────────────────────────────────────
+let members = [];
+let attendance = {};
+let guestCount = 0;
+let pillState = {};
+let timerState = {}; // { memberName: { remaining, interval, done } }
+let secsPerMember = 60;
+let timedMembers = new Set();
+let activeTimer = null; // name of currently running timer
+
+// ─── INIT ────────────────────────────────────────────────────
+function appStart() {
+  const today = new Date();
+  document.getElementById('todayDate').textContent =
+    today.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  const iso = today.toISOString().split('T')[0];
+  ['att_date','tl_date','rg_date','rr_date','gv_date','cc_date','oo_date'].forEach(id => {
+    const el = document.getElementById(id); if(el) el.value = iso;
+  });
+  const saved = localStorage.getItem('portal_name') || '';
+  if(saved) document.getElementById('globalName').value = saved;
+
+  const FALLBACK = [
+    {name:'Traci Emond',specialty:'Mortgage',company:'Guild Mortgage'},
+    {name:'Jakob Kolodziej',specialty:'Insurance',company:'Comparion Insurance'},
+    {name:'Vicki Genz',specialty:'Real Estate',company:'New View Group – Realty One'},
+    {name:'Ryan Johnson',specialty:'Roofing',company:'Pink Roofing'},
+    {name:'Sean Fergus',specialty:'Legal',company:'Law Offices of Sean P Fergus'},
+    {name:'Jeremy Juhl',specialty:'Commercial Interiors',company:'Rieke Office Interiors'},
+    {name:'Jim Heim',specialty:'Auto Repair',company:'Tuffy Auto Repair'},
+    {name:'Tim Matta',specialty:'Financial Planning',company:'Edward Jones'},
+    {name:'Dr. Brett Rappenecker',specialty:'Chiropractic',company:'Horizon Chiropractic'},
+    {name:'Dan Kern',specialty:'Home Maintenance',company:'Ace Handyman Services'},
+    {name:'Brandon Bynum',specialty:'Restoration',company:'ServiceMaster KWIK Restore'},
+    {name:'Scot Bemus',specialty:'Signs & Marketing',company:'FastSigns'},
+  ];
+  _supa.from('members').select('*').eq('chapter_id', CHAPTER_ID).eq('active', true).order('name')
+    .then(function(r) {
+      members = (r.data && r.data.length) ? r.data.map(function(m){ return {name:m.name,specialty:m.specialty,company:m.company}; }) : FALLBACK;
+      initMemberData();
+    })
+    .catch(function(){ members = FALLBACK; initMemberData(); });
+};
+
+function initMemberData() {
+  buildMemberList();
+  buildTimerList();
+  buildDropdowns();
+  updateStatBar();
+  document.getElementById('totalCount').textContent = members.length;
+}
+
+function saveGlobalName() {
+  const n = document.getElementById('globalName').value;
+  localStorage.setItem('portal_name', n);
+  ['att_loggedBy','tl_loggedBy','rg_loggedBy','rr_loggedBy',
+   'gv_loggedBy','cc_loggedBy','oo_loggedBy'].forEach(id => {
+    const el = document.getElementById(id); if(el && !el.value) el.value = n;
+  });
+}
+
+// ─── NAV ─────────────────────────────────────────────────────
+function go(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  // Pre-fill logged by from global name
+  const gn = document.getElementById('globalName').value;
+  if(gn) {
+    ['att_loggedBy','tl_loggedBy','rg_loggedBy','rr_loggedBy',
+     'gv_loggedBy','cc_loggedBy','oo_loggedBy'].forEach(id2 => {
+      const el = document.getElementById(id2); if(el && !el.value) el.value = gn;
+    });
+  }
+}
+
+// ─── MEMBER LIST (Attendance) ────────────────────────────────
+function safeName(n){ return n.replace(/\W+/g,'_'); }
+
+function buildMemberList() {
+  const c = document.getElementById('memberList'); c.innerHTML = '';
+  members.forEach(m => {
+    const d = document.createElement('div');
+    d.className = 'mi'; d.id = 'mi_' + safeName(m.name);
+    d.innerHTML = `
+      <div class="mi-info">
+        <div class="mi-name">${m.name}</div>
+        <div class="mi-meta">${m.specialty} · ${m.company}</div>
+      </div>
+      <div class="sb-wrap">
+        <button class="sb present" onclick="setAtt('${m.name}','Present',this)">✓ P</button>
+        <button class="sb absent"  onclick="setAtt('${m.name}','Absent',this)">✗ A</button>
+        <button class="sb excused" onclick="setAtt('${m.name}','Excused',this)">~ E</button>
+        <button class="sb sub"     onclick="setAtt('${m.name}','Sub',this)">⇄ Sub</button>
+      </div>
+      <div class="sub-wrap" id="sw_${safeName(m.name)}">
+        <input type="text" placeholder="Substitute's name" data-member="${m.name}">
+      </div>`;
+    c.appendChild(d);
+  });
+}
+
+function setAtt(name, status, btn) {
+  attendance[name] = status;
+  const row = document.getElementById('mi_' + safeName(name));
+  row.querySelectorAll('.sb').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const colors = {
+    Present:['var(--green-l)','var(--green)'],
+    Absent:['#fff0f0','#c62828'],
+    Excused:['var(--amber-l)','var(--amber)'],
+    Sub:['var(--purple-l)','var(--purple)']
+  };
+  row.style.background = colors[status]?.[0] || '';
+  row.style.borderColor = colors[status]?.[1] || '';
+  const sw = document.getElementById('sw_' + safeName(name));
+  if(sw) sw.style.display = status === 'Sub' ? 'block' : 'none';
+  updateStatBar();
+}
+
+function updateStatBar() {
+  let p=0,a=0,e=0,s=0,u=0;
+  members.forEach(m => {
+    const st = attendance[m.name];
+    if(st==='Present') p++;
+    else if(st==='Absent') a++;
+    else if(st==='Excused') e++;
+    else if(st==='Sub') s++;
+    else u++;
+  });
+  document.getElementById('cP').textContent=p;
+  document.getElementById('cA').textContent=a;
+  document.getElementById('cE').textContent=e;
+  document.getElementById('cS').textContent=s;
+  document.getElementById('cU').textContent=u;
+}
+
+// Guest rows
+function addGuest() {
+  guestCount++;
+  const d = document.createElement('div');
+  d.className = 'g-row'; d.id = 'gr_' + guestCount;
+  d.innerHTML = `
+    <input type="text" placeholder="Guest name" data-field="name">
+    <input type="text" placeholder="Invited by (member)" data-field="invitedBy">
+    <button class="rm-g" onclick="rmGuest(${guestCount})">×</button>`;
+  document.getElementById('guestRows').appendChild(d);
+}
+function rmGuest(id) { const e = document.getElementById('gr_'+id); if(e) e.remove(); }
+
+// ─── AUDIO ALERTS ────────────────────────────────────────────
+function playAlertSound(type) {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    if(type === 'warning') {
+      // Short single beep at 1-min warning
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type = 'sine'; o.frequency.setValueAtTime(880, ctx.currentTime);
+      g.gain.setValueAtTime(0.4, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+      o.start(ctx.currentTime); o.stop(ctx.currentTime + 0.4);
+    } else if(type === 'member') {
+      // Two quick beeps for member commercial end
+      [0, 0.25].forEach(offset => {
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.connect(g); g.connect(ctx.destination);
+        o.type = 'sine'; o.frequency.setValueAtTime(660, ctx.currentTime + offset);
+        g.gain.setValueAtTime(0.5, ctx.currentTime + offset);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + offset + 0.2);
+        o.start(ctx.currentTime + offset); o.stop(ctx.currentTime + offset + 0.2);
+      });
+    } else {
+      // Segment end — three-tone chime (C-E-G ascending)
+      const freqs = [523, 659, 784];
+      freqs.forEach((freq, i) => {
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.connect(g); g.connect(ctx.destination);
+        o.type = 'sine'; o.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.18);
+        g.gain.setValueAtTime(0.5, ctx.currentTime + i * 0.18);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.18 + 0.5);
+        o.start(ctx.currentTime + i * 0.18);
+        o.stop(ctx.currentTime + i * 0.18 + 0.5);
+      });
+    }
+  } catch(e) { /* audio not supported — vibration only */ }
+}
+
+// ─── SEGMENT TIMERS (Spotlight 10min, Education 5min) ────────
+const SEG_DURATIONS = { spotlight: 600, education: 300 }; // seconds
+let segState = {
+  spotlight: { remaining: 600, interval: null, done: false, running: false },
+  education: { remaining: 300, interval: null, done: false, running: false }
+};
+
+function toggleSeg(name) {
+  const state = segState[name];
+  if(state.done) return;
+  const row  = document.getElementById('seg_' + name);
+  const clk  = document.getElementById('segcl_' + name);
+  const st   = document.getElementById('segst_' + name);
+
+  if(state.running) {
+    // Pause
+    clearInterval(state.interval);
+    state.interval = null;
+    state.running = false;
+    row.className = 'seg-timer-row';
+    st.textContent = '▶';
+  } else {
+    // Start / Resume
+    state.running = true;
+    row.className = 'seg-timer-row seg-running';
+    st.textContent = '■';
+    state.interval = setInterval(() => {
+      state.remaining--;
+      clk.textContent = formatSecs(state.remaining);
+      const warningAt = name === 'spotlight' ? 60 : 30; // 1min / 30sec warning
+      if(state.remaining === warningAt) {
+        row.className = 'seg-timer-row seg-warning';
+        playAlertSound('warning');
+        if(navigator.vibrate) navigator.vibrate([100,50,100]);
+      }
+      if(state.remaining <= 0) {
+        clearInterval(state.interval);
+        state.interval = null;
+        state.running = false;
+        state.done = true;
+        row.className = 'seg-timer-row seg-done';
+        clk.textContent = 'Done ✓';
+        st.textContent = '✓';
+        playAlertSound('segment');
+        if(navigator.vibrate) navigator.vibrate([300,100,300,100,300]);
+      }
+    }, 1000);
+  }
+}
+
+function resetSegTimers() {
+  ['spotlight','education'].forEach(name => {
+    clearInterval(segState[name].interval);
+    segState[name] = { remaining: SEG_DURATIONS[name], interval: null, done: false, running: false };
+    const row = document.getElementById('seg_' + name);
+    const clk = document.getElementById('segcl_' + name);
+    const st  = document.getElementById('segst_' + name);
+    if(row) row.className = 'seg-timer-row';
+    if(clk) clk.textContent = formatSecs(SEG_DURATIONS[name]);
+    if(st)  st.textContent  = '▶';
+  });
+}
+function buildTimerList() {
+  const c = document.getElementById('timerList'); c.innerHTML = '';
+  members.forEach(m => {
+    const d = document.createElement('div');
+    d.className = 'tm-row'; d.id = 'tr_' + safeName(m.name);
+    d.setAttribute('onclick', `toggleTimer('${m.name}')`);
+    d.innerHTML = `
+      <div class="tm-name">
+        <div class="n">${m.name}</div>
+        <div class="s">${m.specialty}</div>
+      </div>
+      <div class="tm-status" id="ts_${safeName(m.name)}">▶</div>
+      <div class="tm-clock" id="tc_${safeName(m.name)}">${formatSecs(secsPerMember)}</div>`;
+    c.appendChild(d);
+    timerState[m.name] = { remaining: secsPerMember, interval: null, done: false };
+  });
+}
+
+function updateSecs() {
+  secsPerMember = parseInt(document.getElementById('secsSelect').value);
+  // Reset all timers
+  stopAllTimers();
+  timedMembers.clear();
+  document.getElementById('timedCount').textContent = 0;
+  members.forEach(m => {
+    timerState[m.name] = { remaining: secsPerMember, interval: null, done: false };
+    const cl = document.getElementById('tc_' + safeName(m.name));
+    const st = document.getElementById('ts_' + safeName(m.name));
+    const row = document.getElementById('tr_' + safeName(m.name));
+    if(cl) cl.textContent = formatSecs(secsPerMember);
+    if(st) st.textContent = '▶';
+    if(row) row.className = 'tm-row';
+  });
+}
+
+function stopAllTimers() {
+  members.forEach(m => {
+    if(timerState[m.name]?.interval) {
+      clearInterval(timerState[m.name].interval);
+      timerState[m.name].interval = null;
+    }
+  });
+  activeTimer = null;
+}
+
+function toggleTimer(name) {
+  const state = timerState[name];
+  if(state.done) return; // already finished, ignore tap
+
+  if(state.interval) {
+    // Currently running — stop it
+    clearInterval(state.interval);
+    state.interval = null;
+    activeTimer = null;
+    const row = document.getElementById('tr_' + safeName(name));
+    const st = document.getElementById('ts_' + safeName(name));
+    if(row) row.className = 'tm-row';
+    if(st) st.textContent = '▶';
+  } else {
+    // Stop any currently running timer first
+    if(activeTimer && activeTimer !== name) {
+      const prev = timerState[activeTimer];
+      if(prev?.interval) {
+        clearInterval(prev.interval);
+        prev.interval = null;
+        const pRow = document.getElementById('tr_' + safeName(activeTimer));
+        const pSt = document.getElementById('ts_' + safeName(activeTimer));
+        if(pRow) pRow.className = timerState[activeTimer].done ? 'tm-row done' : 'tm-row';
+        if(pSt) pSt.textContent = timerState[activeTimer].done ? '✓' : '▶';
+      }
+    }
+    // Start this timer
+    activeTimer = name;
+    const row = document.getElementById('tr_' + safeName(name));
+    if(row) row.className = 'tm-row running';
+    const st = document.getElementById('ts_' + safeName(name));
+    if(st) st.textContent = '■';
+
+    state.interval = setInterval(() => {
+      state.remaining--;
+      const cl = document.getElementById('tc_' + safeName(name));
+      if(cl) cl.textContent = formatSecs(state.remaining);
+
+      const r = document.getElementById('tr_' + safeName(name));
+
+      if(state.remaining <= 10 && state.remaining > 0) {
+        if(r) r.className = 'tm-row warning';
+      }
+      if(state.remaining <= 0) {
+        clearInterval(state.interval);
+        state.interval = null;
+        state.done = true;
+        activeTimer = null;
+        timedMembers.add(name);
+        document.getElementById('timedCount').textContent = timedMembers.size;
+        if(r) r.className = 'tm-row done';
+        if(cl) cl.textContent = 'Done ✓';
+        if(st) st.textContent = '✓';
+        playAlertSound('member');
+        if(navigator.vibrate) navigator.vibrate([200,100,200]);
+        playAlertSound('member');
+      }
+    }, 1000);
+  }
+}
+
+function formatSecs(s) {
+  const m = Math.floor(s/60), sec = s%60;
+  return m + ':' + String(sec).padStart(2,'0');
+}
+
+// ─── TIME LOG HELPERS ────────────────────────────────────────
+function setNow(id) {
+  const now = new Date();
+  document.getElementById(id).value =
+    String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+  if(id === 'tl_adjourned') calcOU();
+}
+
+function calcOU() {
+  const val = document.getElementById('tl_adjourned').value;
+  if(!val) return;
+  const [h,m] = val.split(':').map(Number);
+  const diff = (h*60+m) - (13*60+15);
+  const d = document.getElementById('ouDisplay');
+  d.style.display = 'block';
+  if(diff===0){ d.className='ou-display on'; d.textContent='✓ Adjourned exactly on time at 1:15 PM'; }
+  else if(diff>0){ d.className='ou-display ov'; d.textContent='⚠️ '+diff+' min over — adjourned at '+fmtTime(val); }
+  else { d.className='ou-display ea'; d.textContent='✓ '+Math.abs(diff)+' min early — great meeting!'; }
+}
+
+function fmtTime(val) {
+  if(!val) return '';
+  const [h,m] = val.split(':').map(Number);
+  return (h%12||12)+':'+String(m).padStart(2,'0')+(h>=12?' PM':' AM');
+}
+
+// ─── PILL SELECTOR ───────────────────────────────────────────
+function selPill(el, group, val) {
+  pillState[group] = el.dataset.val;
+  document.querySelectorAll(`[data-group="${group}"]`).forEach(p => p.classList.remove('active','g','r','a','b','n'));
+  el.classList.add('active');
+  // Color by value type
+  const colorMap = {
+    yes:'g', vi:'g', s:'g', mb:'a', not:'a', ar:'b', nf:'r', no:'r',
+    g:'g', n:'r', lunch:'n', coffee:'n', virtual:'n', phone:'n'
+  };
+  el.classList.add(colorMap[val] || 'n');
+}
+
+// ─── DROPDOWNS ───────────────────────────────────────────────
+function buildDropdowns() {
+  ['rg_to','rr_by','oo_with'].forEach(id => {
+    const sel = document.getElementById(id);
+    if(!sel) return;
+    members.forEach(m => {
+      const o = document.createElement('option');
+      o.value = m.name;
+      o.textContent = m.name + ' — ' + m.specialty;
+      sel.appendChild(o);
+    });
+  });
+}
+
+// ─── SUBMIT: ATTENDANCE ──────────────────────────────────────
+function submitAttendance() {
+  const date = document.getElementById('att_date').value;
+  if(!date){ alert('Please select a meeting date.'); return; }
+  const records = members.map(m => {
+    const status = attendance[m.name] || 'Not Logged';
+    let notes = '';
+    if(status === 'Sub') {
+      const inp = document.querySelector(`#sw_${safeName(m.name)} input`);
+      notes = inp?.value.trim() ? 'Sub: ' + inp.value.trim() : 'Sub: name not recorded';
+    }
+    return { name:m.name, specialty:m.specialty, company:m.company, status, notes };
+  });
+  const guests = [];
+  document.querySelectorAll('#guestRows .g-row').forEach(row => {
+    const n = row.querySelector('[data-field="name"]')?.value.trim();
+    const i = row.querySelector('[data-field="invitedBy"]')?.value.trim();
+    if(n) guests.push({ name:n, invitedBy:i||'' });
+  });
+  const presentCount = records.filter(r=>r.status==='Present').length;
+  showLD();
+  callFn('submitAttendance',
+    { meetingDate:date, loggedBy:document.getElementById('att_loggedBy').value||'Member',
+      records:JSON.stringify(records), guests:JSON.stringify(guests) },
+    res => {
+      if(res.success) {
+        hideAttForm();
+        _lastSubmit.attendance = {date:date, loggedBy:document.getElementById('att_loggedBy').value||'Member', records:records, guests:guests};
+        document.getElementById('attSucD').innerHTML = `
+          <div class="dr"><span class="dl">Date</span><span class="dv">${fmtDate(date)}</span></div>
+          <div class="dr"><span class="dl">Members Present</span><span class="dv" style="color:var(--green)">${presentCount} of ${members.length}</span></div>
+          <div class="dr"><span class="dl">Guests</span><span class="dv">${guests.length}</span></div>`;
+        document.getElementById('attSuc').style.display = 'block';
+      } else alert('Error saving. Please try again.');
+    },
+    e => alert('Error: '+e)
+  );
+}
+
+// ─── SUBMIT: TIME LOG ────────────────────────────────────────
+function submitTimeLog() {
+  const date = document.getElementById('tl_date').value;
+  if(!date){ alert('Please select a meeting date.'); return; }
+  const adj = document.getElementById('tl_adjourned').value;
+  showLD();
+  callFn('submitTimeLog', {
+      meetingDate:date,
+      arrivedAt:fmtTime(document.getElementById('tl_arrived').value),
+      calledToOrder:fmtTime(document.getElementById('tl_order').value),
+      adjournedAt:fmtTime(adj),
+      secsPerMember:secsPerMember,
+      membersTimed:timedMembers.size + ' of ' + members.length,
+      quorumMet:pillState['quorum']||'Not recorded',
+      notes: [
+        document.getElementById('tl_notes').value,
+        segState.spotlight.done ? '' : segState.spotlight.remaining < SEG_DURATIONS.spotlight ? 'Spotlight: stopped at '+formatSecs(segState.spotlight.remaining) : '',
+        segState.education.done ? '' : segState.education.remaining < SEG_DURATIONS.education ? 'Education: stopped at '+formatSecs(segState.education.remaining) : ''
+      ].filter(Boolean).join(' | '),
+      loggedBy:document.getElementById('tl_loggedBy').value||'Member'
+    },
+    res => {
+      if(res.success) {
+        hideTLForm();
+        _lastSubmit.timelog = {meetingDate:date, calledToOrder:fmtTime(document.getElementById('tl_order').value), adjournedAt:fmtTime(adj), membersTimed:timedMembers.size+' of '+members.length, quorumMet:pillState['quorum']||'—', notes:document.getElementById('tl_notes').value, loggedBy:document.getElementById('tl_loggedBy').value||'Member'};
+        document.getElementById('tlSucD').innerHTML = `
+          <div class="dr"><span class="dl">Date</span><span class="dv">${fmtDate(date)}</span></div>
+          <div class="dr"><span class="dl">Called to Order</span><span class="dv">${fmtTime(document.getElementById('tl_order').value)}</span></div>
+          <div class="dr"><span class="dl">Adjourned</span><span class="dv">${fmtTime(adj)}</span></div>
+          <div class="dr"><span class="dl">Members Timed</span><span class="dv">${timedMembers.size} of ${members.length}</span></div>`;
+        document.getElementById('tlSuc').style.display = 'block';
+      } else alert('Error saving.');
+    },
+    e => alert('Error: '+e)
+  );
+}
+
+// ─── SUBMIT: REFERRAL GIVEN ──────────────────────────────────
+function submitRefGiven() {
+  const to = document.getElementById('rg_to').value;
+  const person = document.getElementById('rg_person').value.trim();
+  if(!to){ alert('Please select a member to refer to.'); return; }
+  if(!person){ alert('Please enter the referred person\'s name.'); return; }
+  showLD();
+  callFn('submitReferralGiven',
+    { date:document.getElementById('rg_date').value, referredTo:to, referredPerson:person,
+      referredCompany:document.getElementById('rg_company').value,
+      situation:document.getElementById('rg_situation').value,
+      followUpDate:document.getElementById('rg_followup').value,
+      outcome:document.getElementById('rg_outcome').value,
+      loggedBy:document.getElementById('rg_loggedBy').value||'Member' },
+    res => {
+      if(res.success) {
+        _lastSubmit.rg = {date:document.getElementById('rg_date').value, loggedBy:document.getElementById('rg_loggedBy').value||'Member', referredTo:document.getElementById('rg_to').value, referredPerson:document.getElementById('rg_person').value, referredCompany:document.getElementById('rg_company').value, situation:document.getElementById('rg_situation').value, outcome:document.getElementById('rg_outcome').value};
+        document.getElementById('vRefGiven').querySelectorAll('.sc,.nav-btns,.step-t,.back').forEach(e=>e.style.display='none');
+        document.getElementById('rgSuc').style.display='block';
+      } else alert('Error saving.');
+    }, e => alert('Error: '+e)
+  );
+}
+
+// ─── SUBMIT: REFERRAL RECEIVED ───────────────────────────────
+function submitRefReceived() {
+  const by = document.getElementById('rr_by').value;
+  const person = document.getElementById('rr_person').value.trim();
+  if(!by){ alert('Please select the member who gave you the referral.'); return; }
+  if(!person){ alert('Please enter the referred person\'s name.'); return; }
+  showLD();
+  callFn('submitReferralReceived',
+    { date:document.getElementById('rr_date').value, referredBy:by, referredPerson:person,
+      referredCompany:document.getElementById('rr_company').value,
+      situation:document.getElementById('rr_situation').value,
+      followedUp:pillState['rrfu']||'',
+      outcome:document.getElementById('rr_outcome').value,
+      loggedBy:document.getElementById('rr_loggedBy').value||'Member' },
+    res => {
+      if(res.success) {
+        _lastSubmit.rr = {date:document.getElementById('rr_date').value, loggedBy:document.getElementById('rr_loggedBy').value||'Member', referredBy:by, referredPerson:person, referredCompany:document.getElementById('rr_company').value, situation:document.getElementById('rr_situation').value, followedUp:pillState['rrfu']||'', outcome:document.getElementById('rr_outcome').value};
+        document.getElementById('vRefReceived').querySelectorAll('.sc,.nav-btns,.step-t,.back').forEach(e=>e.style.display='none');
+        document.getElementById('rrSuc').style.display='block';
+      } else alert('Error saving.');
+    }, e => alert('Error: '+e)
+  );
+}
+
+// ─── SUBMIT: GUEST VISIT ─────────────────────────────────────
+function submitGuestVisit() {
+  if(!document.getElementById('gv_name').value.trim()){ alert('Please enter the guest\'s name.'); return; }
+  showLD();
+  callFn('submitGuestVisit',
+    { visitDate:document.getElementById('gv_date').value,
+      guestName:document.getElementById('gv_name').value,
+      company:document.getElementById('gv_company').value,
+      title:document.getElementById('gv_title').value,
+      email:document.getElementById('gv_email').value,
+      phone:document.getElementById('gv_phone').value,
+      secondVisitDate:document.getElementById('gv_second').value,
+      membershipInterest:pillState['gvmi']||'',
+      followUp:document.getElementById('gv_followup').value,
+      referredToMembership:pillState['gvmc']||'',
+      outcome:document.getElementById('gv_outcome').value,
+      loggedBy:document.getElementById('gv_loggedBy').value||'Member' },
+    res => {
+      if(res.success) {
+        _lastSubmit.gv = {visitDate:document.getElementById('gv_date').value, loggedBy:document.getElementById('gv_loggedBy').value||'Member', guestName:document.getElementById('gv_name').value, company:document.getElementById('gv_company').value, title:document.getElementById('gv_title').value, email:document.getElementById('gv_email').value, phone:document.getElementById('gv_phone').value, membershipInterest:pillState['gvmi']||'', outcome:document.getElementById('gv_outcome').value};
+        document.getElementById('vGuests').querySelectorAll('.sc,.nav-btns,.step-t,.back').forEach(e=>e.style.display='none');
+        document.getElementById('gvSuc').style.display='block';
+      } else alert('Error saving.');
+    }, e => alert('Error: '+e)
+  );
+}
+
+// ─── SUBMIT: CROSS-CHAPTER ───────────────────────────────────
+function submitCross() {
+  if(!document.getElementById('cc_chapter').value.trim()){ alert('Please enter the chapter name.'); return; }
+  showLD();
+  callFn('submitCrossChapter',
+    { visitDate:document.getElementById('cc_date').value,
+      chapterName:document.getElementById('cc_chapter').value,
+      chapterContact:document.getElementById('cc_contact').value,
+      membersPresent:document.getElementById('cc_members').value,
+      commercialRating:pillState['ccr']||'',
+      newConnections:document.getElementById('cc_connections').value,
+      referralPotential:document.getElementById('cc_potential').value,
+      bestPractice:document.getElementById('cc_practice').value,
+      followUp:document.getElementById('cc_followup').value,
+      referralReceived:pillState['ccref']||'Not yet',
+      loggedBy:document.getElementById('cc_loggedBy').value||'Member' },
+    res => {
+      if(res.success) {
+        _lastSubmit.cc = {visitDate:document.getElementById('cc_date').value, loggedBy:document.getElementById('cc_loggedBy').value||'Member', chapterName:document.getElementById('cc_chapter').value, chapterContact:document.getElementById('cc_contact').value, membersPresent:document.getElementById('cc_members').value, commercialRating:pillState['ccr']||'', newConnections:document.getElementById('cc_connections').value, referralPotential:document.getElementById('cc_potential').value, bestPractice:document.getElementById('cc_practice').value, followUp:document.getElementById('cc_followup').value, referralReceived:pillState['ccref']||'Not yet'};
+        document.getElementById('vCross').querySelectorAll('.sc,.nav-btns,.step-t,.back').forEach(e=>e.style.display='none');
+        document.getElementById('ccSuc').style.display='block';
+      } else alert('Error saving.');
+    }, e => alert('Error: '+e)
+  );
+}
+
+// ─── SUBMIT: ONE-ON-ONE ──────────────────────────────────────
+function submitOneOnOne() {
+  const w = document.getElementById('oo_with').value;
+  if(!w){ alert('Please select the member you met with.'); return; }
+  const spec = members.find(m=>m.name===w)?.specialty || '';
+  showLD();
+  callFn('submitOneOnOne',
+    { date:document.getElementById('oo_date').value, metWith:w, specialty:spec,
+      location:pillState['ooloc']||'',
+      keyTakeaway:document.getElementById('oo_takeaway').value,
+      referralTrigger:document.getElementById('oo_trigger').value,
+      referralOpportunities:document.getElementById('oo_opps').value,
+      followUp:document.getElementById('oo_followup').value,
+      loggedBy:document.getElementById('oo_loggedBy').value||'Member' },
+    res => {
+      if(res.success) {
+        _lastSubmit.oo = {date:document.getElementById('oo_date').value, loggedBy:document.getElementById('oo_loggedBy').value||'Member', metWith:w, specialty:spec, location:pillState['ooloc']||'', keyTakeaway:document.getElementById('oo_takeaway').value, referralTrigger:document.getElementById('oo_trigger').value, referralOpportunities:document.getElementById('oo_opps').value, followUp:document.getElementById('oo_followup').value};
+        document.getElementById('vOneOnOne').querySelectorAll('.sc,.nav-btns,.step-t,.back').forEach(e=>e.style.display='none');
+        document.getElementById('ooSuc').style.display='block';
+      } else alert('Error saving.');
+    }, e => alert('Error: '+e)
+  );
+}
+
+// ─── RESET HELPERS ───────────────────────────────────────────
+function hideAttForm() {
+  document.querySelector('#vAttendance .step-t').style.display='none';
+  document.querySelectorAll('#vAttendance .sc').forEach(e=>e.style.display='none');
+  document.querySelectorAll('#vAttendance .nav-btns').forEach(e=>e.style.display='none');
+  document.querySelector('#vAttendance .back').style.display='none';
+  document.getElementById('statBar').style.display='none';
+}
+function hideTLForm() {
+  document.querySelector('#vTimeLog .step-t').style.display='none';
+  document.querySelectorAll('#vTimeLog .sc').forEach(e=>e.style.display='none');
+  document.querySelectorAll('#vTimeLog .nav-btns').forEach(e=>e.style.display='none');
+  document.querySelector('#vTimeLog .back').style.display='none';
+}
+function resetAtt() {
+  attendance={}; guestCount=0;
+  document.getElementById('guestRows').innerHTML='';
+  buildMemberList(); updateStatBar();
+  document.getElementById('attSuc').style.display='none';
+  document.querySelector('#vAttendance .step-t').style.display='';
+  document.querySelectorAll('#vAttendance .sc').forEach(e=>e.style.display='');
+  document.querySelectorAll('#vAttendance .nav-btns').forEach(e=>e.style.display='');
+  document.querySelector('#vAttendance .back').style.display='';
+  document.getElementById('statBar').style.removeProperty('display');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function resetTL() {
+  stopAllTimers(); timedMembers.clear(); pillState['quorum']='';
+  resetSegTimers();
+  document.getElementById('tl_notes').value='';
+  document.getElementById('ouDisplay').style.display='none';
+  document.getElementById('timedCount').textContent='0';
+  document.querySelectorAll('[data-group="quorum"]').forEach(p=>p.classList.remove('active','g','r','a','b','n'));
+  buildTimerList();
+  document.getElementById('tlSuc').style.display='none';
+  document.querySelector('#vTimeLog .step-t').style.display='';
+  document.querySelectorAll('#vTimeLog .sc').forEach(e=>e.style.display='');
+  document.querySelectorAll('#vTimeLog .nav-btns').forEach(e=>e.style.display='');
+  document.querySelector('#vTimeLog .back').style.display='';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function resetRG() {
+  document.getElementById('rg_person').value='';
+  document.getElementById('rg_company').value='';
+  document.getElementById('rg_situation').value='';
+  document.getElementById('rg_to').value='';
+  document.getElementById('rgSuc').style.display='none';
+  document.getElementById('vRefGiven').querySelectorAll('.sc,.nav-btns,.step-t,.back').forEach(e=>e.style.display='');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function resetRR() {
+  document.getElementById('rr_person').value='';
+  document.getElementById('rr_company').value='';
+  document.getElementById('rr_situation').value='';
+  document.getElementById('rr_by').value='';
+  document.getElementById('rrSuc').style.display='none';
+  document.getElementById('vRefReceived').querySelectorAll('.sc,.nav-btns,.step-t,.back').forEach(e=>e.style.display='');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function resetGV() {
+  ['gv_name','gv_company','gv_title','gv_email','gv_phone','gv_followup'].forEach(id=>{ const e=document.getElementById(id); if(e) e.value=''; });
+  document.getElementById('gvSuc').style.display='none';
+  document.getElementById('vGuests').querySelectorAll('.sc,.nav-btns,.step-t,.back').forEach(e=>e.style.display='');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function resetCC() {
+  ['cc_chapter','cc_contact','cc_members','cc_connections','cc_potential','cc_practice','cc_followup'].forEach(id=>{ const e=document.getElementById(id); if(e) e.value=''; });
+  document.getElementById('ccSuc').style.display='none';
+  document.getElementById('vCross').querySelectorAll('.sc,.nav-btns,.step-t,.back').forEach(e=>e.style.display='');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function resetOO() {
+  ['oo_takeaway','oo_trigger','oo_opps','oo_followup'].forEach(id=>{ const e=document.getElementById(id); if(e) e.value=''; });
+  document.getElementById('oo_with').value='';
+  document.getElementById('ooSuc').style.display='none';
+  document.getElementById('vOneOnOne').querySelectorAll('.sc,.nav-btns,.step-t,.back').forEach(e=>e.style.display='');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ─── DATE FORMAT ─────────────────────────────────────────────
+function fmtDate(iso) {
+  if(!iso) return '';
+  return new Date(iso+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+}
+
+// ─── LOADING ─────────────────────────────────────────────────
+// ─── SOUND ALERT ─────────────────────────────────────────────
+// Stored last submission data for immediate PDF download
+var _lastSubmit = {};
+
+function pdfBase(title, rows, cols, extras) {
+  var jsPDF = window.jspdf.jsPDF;
+  var doc = new jsPDF({orientation:'portrait', unit:'mm', format:'letter'});
+  var NAVY=[26,47,94], RED=[200,16,46], GRAY=[245,247,250], DARK=[31,41,55];
+  var now = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  // Header
+  doc.setFillColor(NAVY[0],NAVY[1],NAVY[2]);
+  doc.rect(0,0,215.9,28,'F');
+  doc.setFillColor(RED[0],RED[1],RED[2]);
+  doc.rect(0,27,215.9,3,'F');
+  doc.setTextColor(255,255,255);
+  doc.setFont('helvetica','normal'); doc.setFontSize(9);
+  doc.text('AmSpirit Business Connections — Cary-Grove Chapter', 15, 10);
+  doc.setFont('helvetica','bold'); doc.setFontSize(16);
+  doc.text(title, 15, 21);
+  doc.setFont('helvetica','normal'); doc.setFontSize(9);
+  doc.setTextColor(DARK[0],DARK[1],DARK[2]);
+  doc.text('Generated: '+now, 15, 38);
+  if(extras) doc.text(extras, 15, 45);
+  var startY = extras ? 50 : 44;
+  // Table
+  doc.autoTable({
+    startY: startY, margin:{left:15,right:15},
+    head:[cols],
+    body: rows,
+    headStyles:{fillColor:NAVY, textColor:[255,255,255], fontStyle:'bold', fontSize:9},
+    bodyStyles:{fontSize:9, textColor:DARK},
+    alternateRowStyles:{fillColor:GRAY},
+  });
+  // Footer
+  var pages=doc.internal.getNumberOfPages();
+  for(var i=1;i<=pages;i++){
+    doc.setPage(i);
+    doc.setFillColor(NAVY[0],NAVY[1],NAVY[2]);
+    doc.rect(0,270,215.9,10,'F');
+    doc.setTextColor(255,255,255); doc.setFontSize(8);
+    doc.text('AmSpirit Business Connections · Cary-Grove Chapter · Confidential', 15, 276);
+    doc.text('Page '+i+' of '+pages, 200, 276, {align:'right'});
+  }
+  return doc;
+}
+
+function pdfAttendance() {
+  var d = _lastSubmit.attendance;
+  if(!d){ alert('No attendance data available. Please submit attendance first.'); return; }
+  var rows = d.records.map(function(r){
+    return [r.name, r.specialty||'', r.company||'', r.status||'Not Logged', r.notes||''];
+  });
+  // Status summary
+  var p=d.records.filter(function(r){return r.status==='Present'}).length;
+  var a=d.records.filter(function(r){return r.status==='Absent'}).length;
+  var e=d.records.filter(function(r){return r.status==='Excused'}).length;
+  var s=d.records.filter(function(r){return r.status==='Sub'}).length;
+  var extras = 'Meeting: '+fmtDate(d.date)+'  |  Logged by: '+(d.loggedBy||'—')+'  |  Present: '+p+'  Absent: '+a+'  Excused: '+e+'  Sub: '+s+'  Guests: '+d.guests.length;
+  var doc = pdfBase('Weekly Attendance Report',rows,['Member','Category','Company','Status','Notes'],extras);
+  // Add guests if any
+  if(d.guests.length>0){
+    var gy = doc.lastAutoTable.finalY+8;
+    doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor(26,47,94);
+    doc.text('Guests Present', 15, gy);
+    doc.autoTable({
+      startY:gy+4, margin:{left:15,right:15},
+      head:[['Guest Name','Invited By']],
+      body:d.guests.map(function(g){return [g.name||'—',g.invitedBy||'—'];}),
+      headStyles:{fillColor:[26,47,94],textColor:[255,255,255],fontStyle:'bold',fontSize:9},
+      bodyStyles:{fontSize:9},
+    });
+  }
+  doc.save('attendance_'+d.date+'.pdf');
+}
+
+function pdfTimeLog() {
+  var d = _lastSubmit.timelog;
+  if(!d){ alert('No time log available. Please submit a time log first.'); return; }
+  var rows = [[
+    fmtDate(d.meetingDate), d.calledToOrder||'—', d.adjournedAt||'—',
+    d.membersTimed||'—', d.quorumMet||'—', d.notes||''
+  ]];
+  var extras = 'Meeting: '+fmtDate(d.meetingDate)+'  |  Logged by: '+(d.loggedBy||'—');
+  pdfBase('Meeting Time Log',rows,['Date','Called to Order','Adjourned','Members Timed','Quorum','Notes'],extras)
+    .save('timelog_'+d.meetingDate+'.pdf');
+}
+
+function pdfLast(type) {
+  var d = _lastSubmit[type];
+  if(!d){ alert('No data available. Please submit the form first.'); return; }
+  var doc, rows, cols, extras, filename;
+
+  if(type==='rg'){
+    extras = 'Date: '+fmtDate(d.date)+'  |  Logged by: '+(d.loggedBy||'—');
+    rows=[[d.loggedBy||'—',d.referredTo||'—',d.referredPerson||'—',d.referredCompany||'—',d.outcome||'—']];
+    cols=['Logged By','Referred To','Person Referred','Their Company','Outcome'];
+    doc=pdfBase('Referral Given',rows,cols,extras);
+    // Situation detail
+    if(d.situation){
+      var sy=doc.lastAutoTable.finalY+8;
+      doc.setFont('helvetica','bold'); doc.setFontSize(10); doc.setTextColor(26,47,94);
+      doc.text('Situation / Need:', 15, sy);
+      doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(31,41,55);
+      var lines=doc.splitTextToSize(d.situation, 180);
+      doc.text(lines, 15, sy+6);
+    }
+    filename='referral_given_'+d.date+'.pdf';
+  }
+  else if(type==='rr'){
+    extras = 'Date: '+fmtDate(d.date)+'  |  Logged by: '+(d.loggedBy||'—');
+    rows=[[d.loggedBy||'—',d.referredBy||'—',d.referredPerson||'—',d.referredCompany||'—',d.followedUp||'—',d.outcome||'—']];
+    cols=['Logged By','Referred By','Person Referred','Their Company','Followed Up','Outcome'];
+    doc=pdfBase('Referral Received',rows,cols,extras);
+    if(d.situation){
+      var sy=doc.lastAutoTable.finalY+8;
+      doc.setFont('helvetica','bold'); doc.setFontSize(10); doc.setTextColor(26,47,94);
+      doc.text('Situation / Need:', 15, sy);
+      doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(31,41,55);
+      doc.text(doc.splitTextToSize(d.situation, 180), 15, sy+6);
+    }
+    filename='referral_received_'+d.date+'.pdf';
+  }
+  else if(type==='gv'){
+    extras = 'Visit: '+fmtDate(d.visitDate)+'  |  Logged by: '+(d.loggedBy||'—');
+    rows=[[d.guestName||'—',d.company||'—',d.title||'—',d.email||'—',d.phone||'—',d.membershipInterest||'—',d.outcome||'—']];
+    cols=['Guest','Company','Title','Email','Phone','Interest','Outcome'];
+    doc=pdfBase('Guest Visit Log',rows,cols,extras);
+    filename='guest_visit_'+d.visitDate+'.pdf';
+  }
+  else if(type==='cc'){
+    extras = 'Visit: '+fmtDate(d.visitDate)+'  |  Logged by: '+(d.loggedBy||'—');
+    rows=[[d.chapterName||'—',d.chapterContact||'—',d.membersPresent||'—',d.commercialRating||'—',d.referralReceived||'—']];
+    cols=['Chapter','Contact','Members Present','Commercial Rating','Referral Received'];
+    doc=pdfBase('Cross-Chapter Visit',rows,cols,extras);
+    var fields=[['New Connections',d.newConnections],['Referral Potential',d.referralPotential],
+                ['Best Practice',d.bestPractice],['Follow-Up Actions',d.followUp]];
+    var fy=doc.lastAutoTable.finalY+8;
+    fields.forEach(function(f){
+      if(f[1]){
+        doc.setFont('helvetica','bold'); doc.setFontSize(10); doc.setTextColor(26,47,94);
+        doc.text(f[0]+':', 15, fy);
+        doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(31,41,55);
+        var lines=doc.splitTextToSize(f[1], 180);
+        doc.text(lines, 15, fy+6);
+        fy += 6 + (lines.length*5) + 4;
+      }
+    });
+    filename='cross_chapter_'+d.visitDate+'.pdf';
+  }
+  else if(type==='oo'){
+    extras = 'Date: '+fmtDate(d.date)+'  |  Logged by: '+(d.loggedBy||'—');
+    rows=[[d.loggedBy||'—',d.metWith||'—',d.specialty||'—',d.location||'—']];
+    cols=['Logged By','Met With','Their Category','Format'];
+    doc=pdfBase('One-on-One Meeting',rows,cols,extras);
+    var fields=[['Key Takeaway',d.keyTakeaway],['Referral Trigger Learned',d.referralTrigger],
+                ['Referral Opportunities',d.referralOpportunities],['Follow-Up Needed',d.followUp]];
+    var fy=doc.lastAutoTable.finalY+8;
+    fields.forEach(function(f){
+      if(f[1]){
+        doc.setFont('helvetica','bold'); doc.setFontSize(10); doc.setTextColor(26,47,94);
+        doc.text(f[0]+':', 15, fy);
+        doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(31,41,55);
+        var lines=doc.splitTextToSize(f[1], 180);
+        doc.text(lines, 15, fy+6);
+        fy += 6 + (lines.length*5) + 4;
+      }
+    });
+    filename='one_on_one_'+d.date+'.pdf';
+  }
+
+  if(doc && filename) doc.save(filename);
+}
+
+function showLD(){ document.getElementById('ld').classList.add('on'); }
+function hideLD(){ document.getElementById('ld').classList.remove('on'); }
+</script>
+</body>
+</html>

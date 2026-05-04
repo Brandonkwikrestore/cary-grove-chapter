@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1a2f5e">
+<title>Treasurer Hub — AmSpirit Cary-Grove</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1a2f5e;--navy-d:#0f1d3c;--navy-l:#2a4580;
+  --red:#c8102e;--green:#2e7d32;--green-l:#e8f5e9;
+  --amber:#b45309;--amber-l:#fff8e1;--blue:#1565c0;--blue-l:#e3f2fd;
+  --white:#fff;--off:#f5f7fa;--gray:#6b7280;--gray-l:#e8ecf0;
+  --text:#1f2937;--text-l:#4b5563;
+  --sh:0 4px 24px rgba(26,47,94,.12);
+  --fh:'Montserrat',sans-serif;--fb:'Source Sans 3',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--off);color:var(--text);min-height:100vh;padding-bottom:80px}
+
+/* PIN SCREEN */
+#pinScreen{display:flex;align-items:center;justify-content:center;min-height:100vh;
+  padding:24px;background:linear-gradient(135deg,var(--navy-d),var(--navy))}
+.pin-card{background:var(--white);border-radius:18px;padding:36px 28px;max-width:340px;width:100%;text-align:center}
+.pin-logo{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:8px}
+.pin-am{font-family:var(--fh);font-weight:800;color:var(--navy);font-size:24px}
+.pin-sp{font-family:var(--fh);font-weight:800;color:var(--red);font-size:24px;font-style:italic}
+.pin-card h2{font-family:var(--fh);font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.pin-card p{font-size:13px;color:var(--gray);margin-bottom:24px}
+.pin-dots{display:flex;justify-content:center;gap:12px;margin-bottom:20px}
+.pin-dot{width:14px;height:14px;border-radius:50%;background:var(--gray-l);transition:background .15s}
+.pin-dot.filled{background:var(--navy)}
+.pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:220px;margin:0 auto 16px}
+.pin-btn{background:var(--off);border:1.5px solid var(--gray-l);border-radius:12px;padding:14px;
+  font-family:var(--fh);font-size:18px;font-weight:700;color:var(--navy);cursor:pointer;transition:all .15s}
+.pin-btn:hover{background:var(--blue-l);border-color:var(--blue)}
+.pin-btn:active{transform:scale(.95)}
+.pin-clear{background:none;border:none;color:var(--gray);font-family:var(--fh);font-size:12px;
+  font-weight:600;cursor:pointer;margin-top:4px}
+.pin-err{color:var(--red);font-size:12px;margin-top:8px;min-height:18px;font-family:var(--fh);font-weight:600}
+
+/* HEADER */
+.hdr{background:linear-gradient(135deg,var(--navy-d) 0%,var(--navy) 60%,var(--navy-l) 100%);
+  padding:16px 18px 12px;display:flex;align-items:center;gap:11px;
+  box-shadow:0 2px 16px rgba(0,0,0,.25);position:sticky;top:0;z-index:100}
+.logo{width:44px;height:44px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lam{font-family:var(--fh);font-weight:800;color:var(--navy);font-size:11px;line-height:1}
+.lsp{font-family:var(--fh);font-weight:800;color:var(--red);font-size:11px;line-height:1}
+.hdr-t h1{font-family:var(--fh);font-size:14px;font-weight:700;color:var(--white);line-height:1.2}
+.hdr-t p{font-size:11px;color:rgba(255,255,255,.7);margin-top:2px}
+.back-link{margin-left:auto;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);
+  color:rgba(255,255,255,.9);font-family:var(--fh);font-size:10px;font-weight:700;padding:5px 10px;
+  border-radius:14px;text-decoration:none;white-space:nowrap}
+
+/* TABS */
+.wrap{max-width:680px;margin:0 auto;padding:18px 13px 40px}
+.tabs{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap}
+.tab{padding:8px 14px;border-radius:20px;font-family:var(--fh);font-size:11px;font-weight:700;
+  cursor:pointer;border:1.5px solid var(--gray-l);background:var(--white);color:var(--gray);transition:all .15s;white-space:nowrap}
+.tab.active{background:var(--navy);color:var(--white);border-color:var(--navy)}
+.tab:hover:not(.active){border-color:var(--navy);color:var(--navy)}
+.section{display:none}.section.active{display:block}
+
+/* CARDS */
+.card{background:var(--white);border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:var(--sh)}
+.card-title{font-family:var(--fh);font-size:13px;font-weight:700;color:var(--navy);margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;padding-bottom:9px;border-bottom:2px solid var(--gray-l)}
+
+/* SUMMARY CHIPS */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.chip{background:var(--navy);color:#fff;border-radius:20px;padding:5px 12px;
+  font-family:var(--fh);font-size:11px;font-weight:700}
+.chip span{color:rgba(255,255,255,.7);font-weight:400;margin-left:3px}
+.chip.green{background:var(--green)}.chip.red{background:var(--red)}.chip.amber{background:var(--amber)}
+
+/* FORM FIELDS */
+.f{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.f label{font-size:10px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.5px}
+.f input,.f select,.f textarea{border:1.5px solid var(--gray-l);border-radius:7px;padding:8px 11px;
+  font-size:14px;font-family:var(--fb);color:var(--text);background:var(--off);width:100%}
+.f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:var(--navy);background:var(--white)}
+.f textarea{resize:vertical;min-height:60px}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+@media(max-width:480px){.fr{grid-template-columns:1fr}}
+
+/* BUTTONS */
+.btn{padding:10px 20px;border-radius:8px;font-family:var(--fh);font-size:13px;font-weight:700;
+  cursor:pointer;border:none;transition:all .2s}
+.btn-p{background:var(--navy);color:var(--white)}.btn-p:hover{background:var(--navy-d)}
+.btn-s{background:var(--white);color:var(--navy);border:1.5px solid var(--gray-l)}.btn-s:hover{border-color:var(--navy)}
+.btn-red{background:var(--red);color:var(--white)}.btn-red:hover{background:#a00e25}
+.btn-green{background:var(--green);color:var(--white)}
+.btn-row{display:flex;gap:9px;margin-top:12px;flex-wrap:wrap}
+
+/* DUES TABLE */
+.dues-table{width:100%;border-collapse:collapse;font-size:13px}
+.dues-table th{background:var(--navy);color:#fff;padding:8px 10px;text-align:left;
+  font-family:var(--fh);font-size:10px;letter-spacing:.5px}
+.dues-table td{padding:8px 10px;border-bottom:1px solid var(--gray-l)}
+.dues-table tr:nth-child(even) td{background:var(--off)}
+.dues-table tr:hover td{background:var(--blue-l)}
+.status-badge{display:inline-block;padding:3px 8px;border-radius:10px;font-family:var(--fh);
+  font-size:10px;font-weight:700;cursor:pointer;transition:all .15s}
+.badge-paid{background:var(--green-l);color:var(--green)}
+.badge-unpaid{background:#fff0f0;color:var(--red)}
+.badge-partial{background:var(--amber-l);color:var(--amber)}
+
+/* EXPENSE & INVOICE ROWS */
+.exp-row,.inv-row{display:flex;align-items:center;gap:10px;padding:10px 13px;border-radius:8px;
+  background:var(--off);margin-bottom:7px;border:1.5px solid var(--gray-l)}
+.exp-cat{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.exp-info,.inv-info{flex:1;min-width:0}
+.exp-desc,.inv-name{font-size:13px;font-weight:600;color:var(--text)}
+.exp-meta,.inv-meta{font-size:11px;color:var(--gray);margin-top:1px}
+.exp-amount{font-family:var(--fh);font-size:14px;font-weight:700;color:var(--red);white-space:nowrap}
+.inv-amount{font-family:var(--fh);font-size:14px;font-weight:700;color:var(--navy);white-space:nowrap}
+
+/* BALANCE */
+.balance-display{text-align:center;padding:24px;background:linear-gradient(135deg,var(--navy-d),var(--navy));
+  border-radius:12px;margin-bottom:16px}
+.balance-label{font-family:var(--fh);font-size:11px;font-weight:700;color:rgba(255,255,255,.7);
+  text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.balance-amount{font-family:var(--fh);font-size:48px;font-weight:800;color:#fff}
+.balance-date{font-size:11px;color:rgba(255,255,255,.6);margin-top:6px}
+
+/* LOADING */
+.ld{display:none;position:fixed;inset:0;background:rgba(26,47,94,.6);z-index:999;
+  align-items:center;justify-content:center;flex-direction:column;gap:11px}
+.ld.on{display:flex}
+.spin{width:38px;height:38px;border:4px solid rgba(255,255,255,.3);border-top-color:#fff;
+  border-radius:50%;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.ld p{color:#fff;font-family:var(--fh);font-weight:600;font-size:13px}
+.foot{text-align:center;padding:12px;font-size:11px;color:var(--gray);
+  border-top:1px solid var(--gray-l);background:var(--white);position:fixed;bottom:0;left:0;right:0}
+.empty{text-align:center;padding:24px;color:var(--gray);font-size:13px;font-style:italic}
+</style>
+</head>
+<body>
+
+<div class="ld" id="ld"><div class="spin"></div><p>Saving…</p></div>
+
+<!-- PIN SCREEN -->
+<div id="pinScreen">
+  <div class="pin-card">
+    <div class="pin-logo"><span class="pin-am">Am</span><span class="pin-sp">Spirit</span></div>
+    <h2>Treasurer Hub</h2>
+    <p>Cary-Grove Chapter · Enter your PIN to continue</p>
+    <div class="pin-dots" id="pinDots">
+      <div class="pin-dot" id="d0"></div>
+      <div class="pin-dot" id="d1"></div>
+      <div class="pin-dot" id="d2"></div>
+      <div class="pin-dot" id="d3"></div>
+    </div>
+    <div class="pin-pad">
+      <button class="pin-btn" onclick="pinKey('1')">1</button>
+      <button class="pin-btn" onclick="pinKey('2')">2</button>
+      <button class="pin-btn" onclick="pinKey('3')">3</button>
+      <button class="pin-btn" onclick="pinKey('4')">4</button>
+      <button class="pin-btn" onclick="pinKey('5')">5</button>
+      <button class="pin-btn" onclick="pinKey('6')">6</button>
+      <button class="pin-btn" onclick="pinKey('7')">7</button>
+      <button class="pin-btn" onclick="pinKey('8')">8</button>
+      <button class="pin-btn" onclick="pinKey('9')">9</button>
+      <button class="pin-btn" onclick="pinKey('0')" style="grid-column:2">0</button>
+    </div>
+    <button class="pin-clear" onclick="pinClear()">⌫ Clear</button>
+    <div class="pin-err" id="pinErr"></div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="mainApp" style="display:none">
+<header class="hdr">
+  <div class="logo"><div><div class="lam">Am</div><div class="lsp">Spirit</div></div></div>
+  <div class="hdr-t"><h1>AmSpirit Cary-Grove</h1><p>Treasurer Hub</p></div>
+  <a href="index.html" class="back-link">← Portal</a>
+</header>
+
+<div class="wrap">
+<div class="tabs">
+  <div class="tab active" onclick="showTab('balance',this)">💰 Balance</div>
+  <div class="tab" onclick="showTab('dues',this)">📋 Dues Tracker</div>
+  <div class="tab" onclick="showTab('expenses',this)">💸 Expenses</div>
+  <div class="tab" onclick="showTab('invoices',this)">📄 Invoices</div>
+  <div class="tab" onclick="showTab('report',this)">📊 Report</div>
+</div>
+
+<!-- ── BALANCE ─────────────────────────────── -->
+<div class="section active" id="sec-balance">
+  <div class="balance-display">
+    <div class="balance-label">Current Account Balance</div>
+    <div class="balance-amount" id="balDisplay">$0.00</div>
+    <div class="balance-date" id="balDate">Not yet updated</div>
+  </div>
+  <div class="card">
+    <div class="card-title">✏️ Update Balance</div>
+    <div class="f"><label>Balance Amount ($)</label>
+      <input type="number" id="bal_amount" placeholder="e.g. 1250.00" step="0.01" min="0">
+    </div>
+    <div class="f"><label>Notes</label>
+      <textarea id="bal_notes" placeholder="e.g. After collecting Q1 dues, paying venue invoice…"></textarea>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-p" onclick="saveBalance()">Save Balance</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── DUES TRACKER ───────────────────────── -->
+<div class="section" id="sec-dues">
+  <div class="chips" id="duesChips"></div>
+  <div class="card">
+    <div class="card-title">📋 Dues Tracker</div>
+    <div class="fr" style="margin-bottom:12px">
+      <div class="f"><label>Quarter</label>
+        <select id="dues_quarter">
+          <option value="Q1">Q1 (Jan–Mar)</option>
+          <option value="Q2">Q2 (Apr–Jun)</option>
+          <option value="Q3">Q3 (Jul–Sep)</option>
+          <option value="Q4">Q4 (Oct–Dec)</option>
+        </select>
+      </div>
+      <div class="f"><label>Year</label>
+        <input type="number" id="dues_year" value="2026" min="2024" max="2030">
+      </div>
+    </div>
+    <div class="f"><label>Dues Amount Per Member ($)</label>
+      <input type="number" id="dues_amount" placeholder="e.g. 150" step="0.01">
+    </div>
+    <div class="btn-row" style="margin-bottom:14px">
+      <button class="btn btn-p" onclick="loadDues()">Load / Refresh</button>
+    </div>
+    <table class="dues-table">
+      <thead><tr>
+        <th>Member</th><th>Company</th><th>Status</th><th>Notes</th>
+      </tr></thead>
+      <tbody id="duesTbody"></tbody>
+    </table>
+    <div class="btn-row">
+      <button class="btn btn-green" onclick="saveDues()">Save Dues Status</button>
+      <button class="btn btn-s" onclick="exportDuesPDF()">📄 Export PDF</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── EXPENSES ───────────────────────────── -->
+<div class="section" id="sec-expenses">
+  <div class="chips" id="expChips">
+    <div class="chip">Total <span id="expTotal">$0.00</span></div>
+  </div>
+  <div class="card">
+    <div class="card-title">➕ Log Expense</div>
+    <div class="fr">
+      <div class="f"><label>Date *</label><input type="date" id="exp_date"></div>
+      <div class="f"><label>Amount ($) *</label><input type="number" id="exp_amount" placeholder="0.00" step="0.01" min="0"></div>
+    </div>
+    <div class="fr">
+      <div class="f"><label>Category</label>
+        <select id="exp_category">
+          <option>Venue</option>
+          <option>Supplies</option>
+          <option>Marketing</option>
+          <option>Food & Beverage</option>
+          <option>Software</option>
+          <option>Awards & Recognition</option>
+          <option>Training</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="f"><label>Paid By</label>
+        <input type="text" id="exp_paidby" placeholder="Member name">
+      </div>
+    </div>
+    <div class="f"><label>Description *</label>
+      <input type="text" id="exp_desc" placeholder="What was this expense for?">
+    </div>
+    <div class="f"><label>Reimbursement Required?</label>
+      <select id="exp_reimb">
+        <option value="No">No</option>
+        <option value="Yes — pending">Yes — pending</option>
+        <option value="Yes — completed">Yes — completed</option>
+      </select>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-p" onclick="logExpense()">Save Expense</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">📋 Recent Expenses</div>
+    <div id="expenseList"><div class="empty">No expenses logged yet.</div></div>
+  </div>
+</div>
+
+<!-- ── INVOICES ───────────────────────────── -->
+<div class="section" id="sec-invoices">
+  <div class="card">
+    <div class="card-title">➕ Log Invoice</div>
+    <div class="fr">
+      <div class="f"><label>Date *</label><input type="date" id="inv_date"></div>
+      <div class="f"><label>Amount ($) *</label><input type="number" id="inv_amount" placeholder="0.00" step="0.01" min="0"></div>
+    </div>
+    <div class="fr">
+      <div class="f"><label>Vendor / From *</label><input type="text" id="inv_vendor" placeholder="Who issued this invoice?"></div>
+      <div class="f"><label>Category</label>
+        <select id="inv_category">
+          <option>Venue Rental</option>
+          <option>Dues</option>
+          <option>AmSpirit National</option>
+          <option>Supplies</option>
+          <option>Marketing</option>
+          <option>Software</option>
+          <option>Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="f"><label>Notes</label>
+      <textarea id="inv_notes" placeholder="Invoice number, payment terms, or any other details…"></textarea>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-p" onclick="logInvoice()">Save Invoice</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">📋 Recent Invoices</div>
+    <div id="invoiceList"><div class="empty">No invoices logged yet.</div></div>
+  </div>
+</div>
+
+<!-- ── REPORT ─────────────────────────────── -->
+<div class="section" id="sec-report">
+  <div class="card">
+    <div class="card-title">📊 Generate Financial Report</div>
+    <div class="fr">
+      <div class="f"><label>From Date</label><input type="date" id="rep_from"></div>
+      <div class="f"><label>To Date</label><input type="date" id="rep_to"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-p" onclick="generateReport()">Generate Report</button>
+      <button class="btn btn-s" onclick="exportReportPDF()">📄 Export PDF</button>
+    </div>
+  </div>
+  <div id="reportOutput"></div>
+</div>
+
+</div><!-- wrap -->
+</div><!-- mainApp -->
+
+<footer class="foot">AmSpirit Business Connections · Cary-Grove Chapter · Treasurer Hub</footer>
+
+<script>
+// ── SUPABASE ──────────────────────────────────────────────────
+var _supa = supabase.createClient(
+  'https://tlcaeddeytsjgojyogjc.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRsY2FlZGRleXRzamdvanlvZ2pjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwMDQ2OTQsImV4cCI6MjA5MTU4MDY5NH0.yxrxU4dflAGa9Qngxz6UXH6emFe7mxO-v5BsFDRzzQE'
+);
+var CHAPTER_ID = 'a137cf6c-ac7d-4b9e-bbf3-8f6f2e1e2c92';
+
+// ── PIN ───────────────────────────────────────────────────────
+var PINS = ['4840','8521','6245'];
+var PIN_KEY = 'cg_treasurer_pin';
+var PIN_EXPIRY = 8 * 60 * 60 * 1000; // 8 hours
+var pinVal = '';
+
+// Check stored PIN session
+(function(){
+  var stored = localStorage.getItem(PIN_KEY);
+  if(stored && (Date.now() - parseInt(stored)) < PIN_EXPIRY){
+    unlockApp();
+  }
+})();
+
+function pinKey(k){
+  if(pinVal.length >= 4) return;
+  pinVal += k;
+  document.getElementById('d'+(pinVal.length-1)).classList.add('filled');
+  if(pinVal.length === 4) setTimeout(checkPin, 150);
+}
+
+function checkPin(){
+  if(PINS.indexOf(pinVal) >= 0){
+    localStorage.setItem(PIN_KEY, Date.now().toString());
+    unlockApp();
+  } else {
+    document.getElementById('pinErr').textContent = 'Incorrect PIN. Please try again.';
+    setTimeout(pinClear, 800);
+  }
+}
+
+function pinClear(){
+  pinVal = '';
+  for(var i=0;i<4;i++) document.getElementById('d'+i).classList.remove('filled');
+  document.getElementById('pinErr').textContent = '';
+}
+
+function unlockApp(){
+  document.getElementById('pinScreen').style.display = 'none';
+  document.getElementById('mainApp').style.display = 'block';
+  initDates();
+  loadBalance();
+  loadExpenses();
+  loadInvoices();
+}
+
+// ── TABS ──────────────────────────────────────────────────────
+function showTab(id, el){
+  document.querySelectorAll('.section').forEach(function(s){ s.classList.remove('active'); });
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+  document.getElementById('sec-'+id).classList.add('active');
+  if(el) el.classList.add('active');
+}
+
+// ── INIT ──────────────────────────────────────────────────────
+function initDates(){
+  var today = new Date().toISOString().split('T')[0];
+  ['exp_date','inv_date'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.value = today;
+  });
+  // Default report range: first of current month to today
+  var now = new Date();
+  var firstOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
+  document.getElementById('rep_from').value = firstOfMonth;
+  document.getElementById('rep_to').value = today;
+  // Default dues quarter
+  var q = Math.ceil((now.getMonth()+1)/3);
+  document.getElementById('dues_quarter').value = 'Q'+q;
+  document.getElementById('dues_year').value = now.getFullYear();
+}
+
+function fmtMoney(n){
+  return '$'+(parseFloat(n)||0).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+}
+function fmtDate(iso){
+  if(!iso) return '';
+  return new Date(iso+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+}
+
+function showLD(msg){ document.getElementById('ld').querySelector('p').textContent=msg||'Saving…'; document.getElementById('ld').classList.add('on'); }
+function hideLD(){ document.getElementById('ld').classList.remove('on'); }
+
+// ── BALANCE ───────────────────────────────────────────────────
+function loadBalance(){
+  _supa.from('chapters').select('balance,balance_notes,balance_updated_at').eq('id',CHAPTER_ID).single()
+    .then(function(r){
+      if(r.data && r.data.balance !== null){
+        document.getElementById('balDisplay').textContent = fmtMoney(r.data.balance);
+        document.getElementById('balDate').textContent = 'Last updated: ' + (r.data.balance_updated_at ? new Date(r.data.balance_updated_at).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}) : '—');
+        if(r.data.balance_notes) document.getElementById('bal_notes').value = r.data.balance_notes;
+      }
+    });
+}
+
+function saveBalance(){
+  var amt = parseFloat(document.getElementById('bal_amount').value);
+  if(isNaN(amt)){ alert('Please enter a valid balance amount.'); return; }
+  showLD('Saving balance…');
+  _supa.from('chapters').update({
+    balance: amt,
+    balance_notes: document.getElementById('bal_notes').value,
+    balance_updated_at: new Date().toISOString()
+  }).eq('id',CHAPTER_ID).then(function(r){
+    hideLD();
+    if(r.error){ alert('Error: '+r.error.message); return; }
+    document.getElementById('balDisplay').textContent = fmtMoney(amt);
+    document.getElementById('balDate').textContent = 'Last updated: ' + new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+    document.getElementById('bal_amount').value = '';
+  });
+}
+
+// ── DUES TRACKER ──────────────────────────────────────────────
+var duesData = {};
+
+function loadDues(){
+  var q = document.getElementById('dues_quarter').value;
+  var yr = document.getElementById('dues_year').value;
+  var key = q+'-'+yr;
+  showLD('Loading members…');
+  _supa.from('members').select('*').eq('chapter_id',CHAPTER_ID).eq('active',true).order('name')
+    .then(function(r){
+      hideLD();
+      if(r.error){ alert('Error loading members.'); return; }
+      var members = r.data || [];
+      var amt = parseFloat(document.getElementById('dues_amount').value)||0;
+      var paid=0, unpaid=0, partial=0;
+      var tbody = document.getElementById('duesTbody');
+      tbody.innerHTML = '';
+      members.forEach(function(m){
+        var status = (duesData[key] && duesData[key][m.name]) || 'Unpaid';
+        if(status==='Paid') paid++;
+        else if(status==='Partial') partial++;
+        else unpaid++;
+        var row = document.createElement('tr');
+        row.innerHTML = '<td style="font-weight:600">'+m.name+'</td>'
+          +'<td style="color:var(--gray);font-size:12px">'+m.company+'</td>'
+          +'<td><span class="status-badge badge-'+status.toLowerCase().replace(' ','').replace('—','').split('—')[0]+'" onclick="cycleDues(this,\''+m.name+'\',\''+key+'\')">'+(status==='Paid'?'✓ Paid':status==='Partial'?'~ Partial':'✗ Unpaid')+'</span></td>'
+          +'<td><input type="text" style="border:1px solid var(--gray-l);border-radius:5px;padding:4px 7px;font-size:12px;width:100%;background:var(--off)" placeholder="Notes…" id="dues_note_'+m.name.replace(/\W/g,'_')+'"></td>';
+        tbody.appendChild(row);
+      });
+      // Update chips
+      var chips = document.getElementById('duesChips');
+      chips.innerHTML = '<div class="chip">'+q+' '+yr+' <span>Dues</span></div>'
+        +(amt?'<div class="chip">Per member <span>'+fmtMoney(amt)+'</span></div>':'')
+        +'<div class="chip green">Paid <span>'+paid+'</span></div>'
+        +'<div class="chip red">Unpaid <span>'+unpaid+'</span></div>'
+        +(partial?'<div class="chip amber">Partial <span>'+partial+'</span></div>':'');
+    });
+}
+
+function cycleDues(el, name, key){
+  var states = ['Unpaid','Partial','Paid'];
+  var cur = el.textContent.trim().replace('✓ ','').replace('~ ','').replace('✗ ','');
+  var idx = states.indexOf(cur);
+  var next = states[(idx+1)%3];
+  if(!duesData[key]) duesData[key] = {};
+  duesData[key][name] = next;
+  el.textContent = next==='Paid'?'✓ Paid':next==='Partial'?'~ Partial':'✗ Unpaid';
+  el.className = 'status-badge badge-'+next.toLowerCase();
+}
+
+function saveDues(){
+  alert('Dues status saved locally. To persist across devices, contact the chapter administrator to enable dues persistence in Supabase.');
+}
+
+function exportDuesPDF(){
+  var jsPDF = window.jspdf ? window.jspdf.jsPDF : null;
+  if(!jsPDF){ alert('PDF library not loaded.'); return; }
+  var doc = new jsPDF();
+  var q = document.getElementById('dues_quarter').value;
+  var yr = document.getElementById('dues_year').value;
+  doc.setFontSize(16); doc.setFont('helvetica','bold');
+  doc.text('AmSpirit Cary-Grove — Dues Report', 14, 20);
+  doc.setFontSize(11); doc.setFont('helvetica','normal');
+  doc.text(q+' '+yr+' · Generated '+new Date().toLocaleDateString(), 14, 28);
+  var rows = [];
+  document.querySelectorAll('#duesTbody tr').forEach(function(r){
+    var cells = r.querySelectorAll('td');
+    rows.push([cells[0].textContent, cells[1].textContent, cells[2].textContent.trim()]);
+  });
+  doc.autoTable({head:[['Member','Company','Status']],body:rows,startY:34});
+  doc.save('dues-'+q+'-'+yr+'.pdf');
+}
+
+// ── EXPENSES ──────────────────────────────────────────────────
+function loadExpenses(){
+  _supa.from('expenses').select('*').eq('chapter_id',CHAPTER_ID)
+    .order('date',{ascending:false}).limit(50)
+    .then(function(r){
+      if(r.error) return;
+      var rows = r.data||[];
+      var total = rows.reduce(function(s,e){ return s+(parseFloat(e.amount)||0); },0);
+      document.getElementById('expTotal').textContent = fmtMoney(total);
+      var list = document.getElementById('expenseList');
+      if(!rows.length){ list.innerHTML='<div class="empty">No expenses logged yet.</div>'; return; }
+      list.innerHTML = rows.map(function(e){
+        return '<div class="exp-row">'
+          +'<div class="exp-cat" style="background:var(--red)"></div>'
+          +'<div class="exp-info">'
+          +'<div class="exp-desc">'+e.description+'</div>'
+          +'<div class="exp-meta">'+fmtDate(e.date)+' · '+e.category+(e.paid_by?' · '+e.paid_by:'')+(e.reimbursement&&e.reimbursement!=='No'?' · <span style="color:var(--amber);font-weight:700">Reimb: '+e.reimbursement+'</span>':'')+'</div>'
+          +'</div>'
+          +'<div class="exp-amount">'+fmtMoney(e.amount)+'</div>'
+          +'</div>';
+      }).join('');
+    });
+}
+
+function logExpense(){
+  var date = document.getElementById('exp_date').value;
+  var amount = document.getElementById('exp_amount').value;
+  var desc = document.getElementById('exp_desc').value.trim();
+  if(!date||!amount||!desc){ alert('Please fill in date, amount, and description.'); return; }
+  showLD('Saving expense…');
+  _supa.from('expenses').insert([{
+    chapter_id: CHAPTER_ID,
+    date: date,
+    amount: parseFloat(amount),
+    category: document.getElementById('exp_category').value,
+    description: desc,
+    paid_by: document.getElementById('exp_paidby').value.trim(),
+    reimbursement: document.getElementById('exp_reimb').value
+  }]).then(function(r){
+    hideLD();
+    if(r.error){ alert('Error: '+r.error.message); return; }
+    document.getElementById('exp_amount').value='';
+    document.getElementById('exp_desc').value='';
+    document.getElementById('exp_paidby').value='';
+    loadExpenses();
+  });
+}
+
+// ── INVOICES ──────────────────────────────────────────────────
+function loadInvoices(){
+  _supa.from('invoices').select('*').eq('chapter_id',CHAPTER_ID)
+    .order('date',{ascending:false}).limit(50)
+    .then(function(r){
+      if(r.error) return;
+      var rows = r.data||[];
+      var list = document.getElementById('invoiceList');
+      if(!rows.length){ list.innerHTML='<div class="empty">No invoices logged yet.</div>'; return; }
+      list.innerHTML = rows.map(function(i){
+        return '<div class="inv-row">'
+          +'<div class="inv-info">'
+          +'<div class="inv-name">'+i.vendor+'</div>'
+          +'<div class="inv-meta">'+fmtDate(i.date)+' · '+i.category+(i.notes?' · '+i.notes:'')+'</div>'
+          +'</div>'
+          +'<div class="inv-amount">'+fmtMoney(i.amount)+'</div>'
+          +'</div>';
+      }).join('');
+    });
+}
+
+function logInvoice(){
+  var date = document.getElementById('inv_date').value;
+  var amount = document.getElementById('inv_amount').value;
+  var vendor = document.getElementById('inv_vendor').value.trim();
+  if(!date||!amount||!vendor){ alert('Please fill in date, amount, and vendor.'); return; }
+  showLD('Saving invoice…');
+  _supa.from('invoices').insert([{
+    chapter_id: CHAPTER_ID,
+    date: date,
+    amount: parseFloat(amount),
+    vendor: vendor,
+    category: document.getElementById('inv_category').value,
+    notes: document.getElementById('inv_notes').value.trim()
+  }]).then(function(r){
+    hideLD();
+    if(r.error){ alert('Error: '+r.error.message); return; }
+    document.getElementById('inv_amount').value='';
+    document.getElementById('inv_vendor').value='';
+    document.getElementById('inv_notes').value='';
+    loadInvoices();
+  });
+}
+
+// ── REPORT ────────────────────────────────────────────────────
+var reportCache = {expenses:[], invoices:[]};
+
+function generateReport(){
+  var from = document.getElementById('rep_from').value;
+  var to = document.getElementById('rep_to').value;
+  if(!from||!to){ alert('Please select a date range.'); return; }
+  showLD('Generating report…');
+  Promise.all([
+    _supa.from('expenses').select('*').eq('chapter_id',CHAPTER_ID).gte('date',from).lte('date',to).order('date'),
+    _supa.from('invoices').select('*').eq('chapter_id',CHAPTER_ID).gte('date',from).lte('date',to).order('date')
+  ]).then(function(results){
+    hideLD();
+    var expenses = results[0].data||[];
+    var invoices = results[1].data||[];
+    reportCache = {expenses:expenses,invoices:invoices};
+    var totalExp = expenses.reduce(function(s,e){ return s+(parseFloat(e.amount)||0); },0);
+    var totalInv = invoices.reduce(function(s,i){ return s+(parseFloat(i.amount)||0); },0);
+
+    var html = '<div class="card">'
+      +'<div class="card-title">📊 Summary — '+fmtDate(from)+' to '+fmtDate(to)+'</div>'
+      +'<div class="chips">'
+      +'<div class="chip green">Income/Invoiced <span>'+fmtMoney(totalInv)+'</span></div>'
+      +'<div class="chip red">Expenses <span>'+fmtMoney(totalExp)+'</span></div>'
+      +'<div class="chip '+(totalInv-totalExp>=0?'green':'red')+'">Net <span>'+fmtMoney(totalInv-totalExp)+'</span></div>'
+      +'</div>';
+
+    if(expenses.length){
+      html+='<div style="margin-top:12px"><div style="font-family:var(--fh);font-size:11px;font-weight:700;color:var(--navy);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">Expenses ('+expenses.length+')</div>';
+      expenses.forEach(function(e){
+        html+='<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--gray-l);font-size:13px">'
+          +'<span><strong>'+e.description+'</strong> <span style="color:var(--gray)">· '+fmtDate(e.date)+'</span></span>'
+          +'<span style="color:var(--red);font-weight:700">'+fmtMoney(e.amount)+'</span></div>';
+      });
+      html+='</div>';
+    }
+    if(invoices.length){
+      html+='<div style="margin-top:12px"><div style="font-family:var(--fh);font-size:11px;font-weight:700;color:var(--navy);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">Invoices ('+invoices.length+')</div>';
+      invoices.forEach(function(i){
+        html+='<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--gray-l);font-size:13px">'
+          +'<span><strong>'+i.vendor+'</strong> <span style="color:var(--gray)">· '+fmtDate(i.date)+'</span></span>'
+          +'<span style="color:var(--green);font-weight:700">'+fmtMoney(i.amount)+'</span></div>';
+      });
+      html+='</div>';
+    }
+    html+='</div>';
+    document.getElementById('reportOutput').innerHTML = html;
+  });
+}
+
+function exportReportPDF(){
+  var jsPDF = window.jspdf ? window.jspdf.jsPDF : null;
+  if(!jsPDF){ alert('PDF library not loaded.'); return; }
+  var from = document.getElementById('rep_from').value;
+  var to = document.getElementById('rep_to').value;
+  var doc = new jsPDF();
+  doc.setFontSize(16); doc.setFont('helvetica','bold');
+  doc.text('AmSpirit Cary-Grove — Financial Report', 14, 20);
+  doc.setFontSize(11); doc.setFont('helvetica','normal');
+  doc.text(fmtDate(from)+' to '+fmtDate(to), 14, 28);
+  var y = 36;
+  if(reportCache.expenses.length){
+    doc.setFont('helvetica','bold'); doc.text('Expenses', 14, y); y+=6;
+    doc.autoTable({
+      head:[['Date','Description','Category','Amount']],
+      body: reportCache.expenses.map(function(e){ return [fmtDate(e.date),e.description,e.category,fmtMoney(e.amount)]; }),
+      startY: y, styles:{fontSize:9}
+    });
+    y = doc.lastAutoTable.finalY + 8;
+  }
+  if(reportCache.invoices.length){
+    doc.setFont('helvetica','bold'); doc.text('Invoices', 14, y); y+=6;
+    doc.autoTable({
+      head:[['Date','Vendor','Category','Amount']],
+      body: reportCache.invoices.map(function(i){ return [fmtDate(i.date),i.vendor,i.category,fmtMoney(i.amount)]; }),
+      startY: y, styles:{fontSize:9}
+    });
+  }
+  doc.save('treasurer-report-'+from+'-to-'+to+'.pdf');
+}
+</script>
+</body>
+</html>
