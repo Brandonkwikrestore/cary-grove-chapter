@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1a2f5e">
+<title>New Member Onboarding — AmSpirit Cary-Grove</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1a2f5e;--navy-d:#0f1d3c;--navy-l:#2a4580;
+  --red:#c8102e;--green:#2e7d32;--green-l:#e8f5e9;
+  --teal:#00695c;--teal-l:#e0f2f1;
+  --amber:#b45309;--amber-l:#fff8e1;--blue:#1565c0;--blue-l:#e3f2fd;
+  --white:#fff;--off:#f5f7fa;--gray:#6b7280;--gray-l:#e8ecf0;
+  --text:#1f2937;--text-l:#4b5563;
+  --sh:0 4px 24px rgba(26,47,94,.12);
+  --fh:'Montserrat',sans-serif;--fb:'Source Sans 3',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--fb);background:var(--off);color:var(--text);min-height:100vh;padding-bottom:80px}
+.hdr{background:linear-gradient(135deg,var(--navy-d) 0%,var(--navy) 60%,var(--navy-l) 100%);
+  padding:14px 16px;display:flex;align-items:center;gap:10px;
+  box-shadow:0 2px 16px rgba(0,0,0,.25);position:sticky;top:0;z-index:100}
+.logo{width:38px;height:38px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lam{font-family:var(--fh);font-weight:800;color:var(--navy);font-size:10px;line-height:1}
+.lsp{font-family:var(--fh);font-weight:800;color:var(--red);font-size:10px;line-height:1}
+.hdr-t h1{font-family:var(--fh);font-size:13px;font-weight:700;color:#fff;line-height:1.2}
+.hdr-t p{font-size:11px;color:rgba(255,255,255,.7);margin-top:1px}
+.back-link{margin-left:auto;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);
+  color:rgba(255,255,255,.9);font-family:var(--fh);font-size:10px;font-weight:700;padding:5px 10px;
+  border-radius:14px;text-decoration:none;white-space:nowrap}
+.wrap{max-width:700px;margin:0 auto;padding:18px 13px 40px}
+.page-title{font-family:var(--fh);font-size:20px;font-weight:800;color:var(--navy);margin-bottom:4px}
+.page-sub{font-size:13px;color:var(--text-l);margin-bottom:20px;line-height:1.5}
+
+/* Progress bar */
+.progress-bar{background:var(--white);border-radius:14px;padding:14px 16px;margin-bottom:14px;box-shadow:var(--sh)}
+.pb-label{font-family:var(--fh);font-size:10px;font-weight:700;color:var(--navy);
+  text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;display:flex;justify-content:space-between}
+.pb-track{height:8px;background:var(--gray-l);border-radius:4px;overflow:hidden}
+.pb-fill{height:100%;background:linear-gradient(90deg,var(--navy),var(--blue));border-radius:4px;transition:width .3s}
+
+/* View Toggle */
+.view-toggle{display:flex;gap:8px;margin-bottom:18px}
+.vt-btn{flex:1;padding:10px;border-radius:8px;border:2px solid var(--gray-l);background:var(--white);
+  cursor:pointer;font-family:var(--fh);font-size:12px;font-weight:700;color:var(--text-l);transition:all .15s}
+.vt-btn.active{background:var(--navy);border-color:var(--navy);color:#fff}
+
+/* Section selector */
+.sec-nav{background:var(--white);border-radius:14px;padding:14px;margin-bottom:14px;box-shadow:var(--sh);
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sn-label{font-family:var(--fh);font-size:11px;font-weight:700;color:var(--navy);
+  text-transform:uppercase;letter-spacing:.5px;flex-shrink:0}
+.sn-select{flex:1;min-width:180px;border:1.5px solid var(--gray-l);border-radius:8px;
+  padding:8px 11px;font-family:var(--fb);font-size:13px;color:var(--text);background:var(--off);cursor:pointer}
+.sn-select:focus{outline:none;border-color:var(--navy)}
+.sn-arrows{display:flex;gap:6px}
+.sn-btn{width:34px;height:34px;border-radius:8px;border:1.5px solid var(--gray-l);background:var(--white);
+  cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;
+  font-family:var(--fh);font-weight:700;color:var(--navy);transition:all .15s}
+.sn-btn:hover{border-color:var(--navy);background:var(--navy);color:#fff}
+
+/* Section card */
+.sec-card{background:var(--white);border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:var(--sh)}
+.sc-header{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--gray-l)}
+.sc-num{width:44px;height:44px;border-radius:10px;background:var(--navy);color:#fff;
+  font-family:var(--fh);font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sc-num.member-spot{background:var(--teal)}
+.sc-title{font-family:var(--fh);font-size:16px;font-weight:700;color:var(--navy)}
+.sc-obj{font-size:12px;color:var(--text-l);margin-top:2px;line-height:1.5}
+
+/* New member view */
+.member-view .sc-field{background:var(--off);border-radius:8px;padding:12px 14px;margin-bottom:8px}
+.member-view .sf-label{font-family:var(--fh);font-size:10px;font-weight:700;color:var(--navy);
+  text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.member-view .sf-content{font-size:13px;color:var(--text);line-height:1.7}
+
+/* Mentor view */
+.mentor-view .sc-field{background:var(--off);border-radius:8px;padding:12px 14px;margin-bottom:8px;
+  border-left:3px solid var(--navy)}
+.mentor-view .sc-field.script{border-left-color:var(--red);background:#fff5f5}
+.mentor-view .sc-field.takeaway{border-left-color:var(--green);background:var(--green-l)}
+.mentor-view .sf-label{font-family:var(--fh);font-size:10px;font-weight:700;color:var(--navy);
+  text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.mentor-view .sc-field.script .sf-label{color:var(--red)}
+.mentor-view .sc-field.takeaway .sf-label{color:var(--green)}
+.mentor-view .sf-content{font-size:13px;color:var(--text);line-height:1.7}
+.mentor-view .sc-field.script .sf-content{font-style:italic}
+
+/* Overview table */
+.overview-table{border-radius:10px;overflow:hidden;box-shadow:var(--sh)}
+.ot-row{display:grid;grid-template-columns:52px 1fr 2fr;background:var(--white)}
+.ot-row:nth-child(even){background:var(--off)}
+.ot-row.header{background:var(--navy);font-family:var(--fh);font-size:11px;font-weight:700;color:#fff}
+.ot-cell{padding:9px 12px;font-size:12px;color:var(--text);border-bottom:1px solid var(--gray-l)}
+.ot-row.header .ot-cell{color:#fff;border-bottom:none;font-size:11px}
+.ot-cell.wk{font-family:var(--fh);font-weight:700;color:var(--navy);text-align:center}
+.ot-row.header .ot-cell.wk{color:#fff}
+.ot-row.spot .ot-cell.wk{color:var(--teal)}
+.ot-row.spot .ot-cell:nth-child(2){color:var(--teal);font-weight:700}
+
+.q-header{font-family:var(--fh);font-size:12px;font-weight:700;color:var(--navy);
+  text-transform:uppercase;letter-spacing:.5px;padding:10px 0 6px;margin-top:6px}
+
+.foot{text-align:center;padding:12px;font-size:11px;color:var(--gray);
+  border-top:1px solid var(--gray-l);background:var(--white);position:fixed;bottom:0;left:0;right:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="logo"><div><div class="lam">Am</div><div class="lsp">Spirit</div></div></div>
+  <div class="hdr-t"><h1>New Member Onboarding</h1><p>18-section guide · dual view</p></div>
+  <a href="scripts.html" class="back-link">← Back</a>
+</header>
+<div class="wrap">
+  <div class="page-title">🌟 New Member Onboarding</div>
+  <div class="page-sub">Your complete guide to the first 90 days. Sections 1–6 cover how the chapter works. Sections 7–18 introduce every member — who they serve, what triggers a referral, and exactly what to say. Toggle New Member View for the essentials, or Mentor View for full facilitation notes.</div>
+
+  <div class="progress-bar">
+    <div class="pb-label"><span>Your Progress</span><span id="progressLabel">Section 1 of 18</span></div>
+    <div class="pb-track"><div class="pb-fill" id="progressFill" style="width:5.5%"></div></div>
+  </div>
+
+  <div class="view-toggle">
+    <button class="vt-btn active" id="btnMember" onclick="setView('member')">👤 New Member View</button>
+    <button class="vt-btn" id="btnMentor" onclick="setView('mentor')">🎤 Mentor View</button>
+  </div>
+
+  <div class="sec-nav">
+    <span class="sn-label">Section</span>
+    <select class="sn-select" id="secSelect" onchange="showSection(parseInt(this.value))"></select>
+    <div class="sn-arrows">
+      <button class="sn-btn" onclick="prevSection()">‹</button>
+      <button class="sn-btn" onclick="nextSection()">›</button>
+    </div>
+  </div>
+
+  <div id="secDisplay"></div>
+
+  <div class="q-header" style="margin-top:20px">📋 Full Onboarding Overview</div>
+  <div class="overview-table" id="overviewTable"></div>
+</div>
+<footer class="foot">AmSpirit Business Connections · Cary-Grove Chapter</footer>
+
+<script>
+var currentSection = 1;
+var currentView = 'member';
+
+var SECTIONS = [
+  {s:1, type:'foundation', title:"Welcome to the Chapter",
+   obj:"Understand what AmSpirit is, why you joined, and what success looks like in your first 30 days.",
+   script:"You joined a professional referral sales force — not just a networking group. Every person in this room has agreed to one thing: to actively look for opportunities to refer business to each other. The structure exists to make that happen systematically, not accidentally. Your first job is to become known, then liked, then trusted. Everything else follows from that.",
+   teaching:"AmSpirit operates on three pillars: Lead (generate referrals for others), Learn (understand every member's business deeply enough to refer them), Listen (hear the triggers in everyday conversation that create referral moments). Your first 30 days goal: complete one-on-ones with at least four members and give your first referral.",
+   trigger:"Any question starting with \"I need someone who...\" or \"Do you know a good...\" — these are the moments you are being trained to catch.",
+   position:"\"I'm actually in a referral group and I think I know exactly who can help you with that. Let me make an introduction.\"",
+   activity:"Write down three businesses you personally use that are not represented in this chapter. Those contacts are your first referral opportunities — for the members who serve those categories.",
+   takeaway:"You are not here to collect business cards. You are here to build a referral sales force. Start today."},
+
+  {s:2, type:'foundation', title:"How Meetings Work — Your First Tuesday",
+   obj:"Know exactly what happens each week so you can show up prepared and contribute from day one.",
+   script:"Every Tuesday from 11:45 AM to 1:15 PM at 255 Briargate Rd, Cary, IL. The format is consistent by design — consistency builds trust and rhythm. Here is what happens: networking opens at 11:30, the formal meeting begins at 11:45, commercials run from 12:00 to 12:20, a member spotlight runs 12:20–12:30, education is 12:30–12:35, the referral bucket is 12:35–12:45, guests are introduced at 12:45, and the meeting closes at 12:55.",
+   teaching:"The 60-second commercial is your weekly referral instruction: it tells every person in the room who your ideal client is and what trigger phrase to listen for. The referral bucket is the heart of the meeting — this is where you pass warm referrals to other members. Come with at least one referral ready. The member spotlight is your deep dive into one person's business — take notes.",
+   trigger:"Before each meeting, ask yourself: do I know someone who could use a member's services this week? If yes, bring that name to the referral bucket.",
+   position:"Not applicable — this section is orientation.",
+   activity:"Before your second meeting: review every member's 60-second commercial on the Member Commercials page. Arrive at your second meeting knowing at least three members' trigger phrases by memory.",
+   takeaway:"Prepared members give better referrals. Know what's coming each week and you'll never be caught without something to contribute."},
+
+  {s:3, type:'foundation', title:"Know, Like, Trust — The Referral Framework",
+   obj:"Internalize the three-stage relationship model so you understand why referrals happen — and how to accelerate them.",
+   script:"No one refers a stranger. Before someone sends business your way, they must Know what you do, Like who you are, and Trust that you will treat their contact well. The chapter meeting compresses the timeline it normally takes to move through those three stages. Weekly contact, one-on-ones, and referral history build Know, Like, Trust faster than any other method.",
+   teaching:"Know is built through clarity — a focused commercial, a strong LinkedIn profile, and consistent attendance. Like is built through genuine interest in others — asking questions, remembering details, showing up for people. Trust is the slow burn — it is built through follow-through, closed loops, and one referral that goes exactly as promised. You can accelerate all three, but you cannot skip any of them.",
+   trigger:"\"I've been looking for someone I can actually trust for...\" — this phrase signals a Know, Like, Trust gap in their network that you may be able to fill for a member.",
+   position:"\"Let me introduce you to someone in my chapter who I personally trust with this. I've seen how they work.\"",
+   activity:"Identify one member you currently Know, one you Like, and one you Trust. Schedule a one-on-one with the one you only Know. Move them forward.",
+   takeaway:"Trust is not given — it is earned through consistent, visible follow-through. Every Tuesday is a deposit."},
+
+  {s:4, type:'foundation', title:"Your 60-Second Commercial — First Draft",
+   obj:"Build a referral-ready 60-second commercial using the Problem / Guide / Outcome structure.",
+   script:"Your 60-second commercial is not a biography — it is a referral instruction manual. It answers three questions: What problem do you solve? Who do you solve it for? What does their life look like after working with you? Lead with the client's experience, not your credentials. The moment you say 'I'm a [title],' you've lost half the room. Lead with what they feel.",
+   teaching:"Structure: Problem (the situation your ideal client is in), Guide (how you help — one or two sentences), Outcome (the transformation). End with your trigger phrase: 'If you know anyone who [situation], I would love an introduction.' The trigger phrase is the most important sentence in your commercial. It tells everyone exactly what to listen for in their conversations this week.",
+   trigger:"Practice your commercial this week with someone outside the chapter. If they can tell you who to refer to you after hearing it — your commercial is working.",
+   position:"Not applicable — this session is about building your own commercial, not positioning others.",
+   activity:"Write your commercial using Problem / Guide / Outcome. Practice it until you can deliver it in exactly 60 seconds without notes. Deliver it to one person outside the chapter before the next meeting.",
+   takeaway:"Your commercial is a living document. The version you give today will be better than the one you gave last month — if you keep refining it."},
+
+  {s:5, type:'foundation', title:"One-on-Ones and Power Partners",
+   obj:"Learn why one-on-ones are the highest-value investment in your referral relationships and how to run them well.",
+   script:"The weekly meeting builds Know. One-on-ones build Like and Trust. A 30-minute coffee with one member will generate more referrals than six months of nodding at each other across the table. Your goal in your first 90 days: complete one-on-ones with every member. Start with the members whose businesses overlap most naturally with yours — those are your Power Partners.",
+   teaching:"One-on-one structure: First 10 minutes — listen to them fully. Who is your ideal client this month? What does a perfect referral look like? Second 10 minutes — share your own story and ideal client. Last 10 minutes — identify one specific way to help each other before you meet again. Power Partners are members whose clients regularly overlap with yours at different moments in their journey. Identify two or three. Invest heavily.",
+   trigger:"After any one-on-one where you learned something specific about a member's ideal client — that knowledge expires if you don't use it within a week.",
+   position:"Not applicable — this section is about your own relationship-building.",
+   activity:"Schedule your first four one-on-ones this week. Use the Chapter Directory to find contact info. Put them on the calendar before you leave today.",
+   takeaway:"One great Power Partnership can change your business. Find it in this room."},
+
+  {s:6, type:'foundation', title:"The Referral Bucket — How to Give Your First Referral",
+   obj:"Understand what a qualified referral is, how to pass one correctly, and the follow-up standard expected.",
+   script:"A qualified referral is a warm introduction to a specific person who has an expressed need — and who has been told to expect contact from a chapter member. It is not a name drop, a business card, or a 'maybe.' The referral bucket happens every week. Come with at least one. Your first referral does not have to be perfect — it has to happen.",
+   teaching:"The P.O.W.E.R. standard: Personal (use your name and endorsement), Opportunity (frame it as a gift to the contact), Win (everyone benefits), Effective (make the connection actually happen within 48 hours), Respect (close the loop with the referring member). Referral etiquette: contact the person within 24 hours, update the member who gave you the referral within a week, always say thank you — even if it doesn't convert.",
+   trigger:"Think of the last five conversations you had outside this room. Was there a moment where someone mentioned a challenge a chapter member could solve? That was a referral you may have missed. You won't miss it next time.",
+   position:"\"I have a referral for [member name]. [Contact name] mentioned [situation] and I told them [member name] would be the right call. I'm going to text [contact name] right now and introduce you.\"",
+   activity:"Before your next meeting, identify one person in your network who could benefit from a chapter member's service. Text the chapter member today with the name and context. That's your first referral.",
+   takeaway:"The referral you give this week creates the referral culture you receive next month. Start now."},
+
+  {s:7, type:'spotlight', title:"Meet Jim Heim — Tuffy Auto Repair",
+   obj:"Know exactly who Jim is, what he does, and the trigger phrases that should send business his way.",
+   script:"Jim Heim, Tuffy Auto Repair. Most people don't have a mechanic they actually trust — and when something goes wrong with their car, they panic. Jim gives honest diagnoses, explains what's actually needed, and doesn't upsell. That's rare. Everything from oil changes and brakes to diagnostics and major repairs. Your job is to make sure Jim's name is the first thing out of your mouth when you hear someone mention car trouble.",
+   teaching:"Ideal referral: anyone who mentions a weird noise, a warning light, car trouble, or being overdue for maintenance. Jim is also the go-to for anyone who just moved to the area and hasn't found a reliable mechanic. His differentiator: he tells you exactly what's wrong and what it actually costs — no surprises. Power partners: Brandon Bynum (vehicle damage after water or fire events), Jakob Kolodziej (auto insurance claims).",
+   trigger:"\"My car is making a weird noise\" · \"Something feels off with my car\" · \"Check engine light is on\" · \"Car trouble\" · \"I need to get my car looked at\" · \"I haven't had my oil changed in forever\" · \"I just moved here and I don't have a mechanic yet\"",
+   position:"\"Talk to Jim Heim at Tuffy Auto Repair. He'll tell you exactly what's wrong and what it actually needs — you can trust him. I'll send you his info right now.\"",
+   activity:"Go through your phone contacts. Who do you know who drives a car that's more than 5 years old and has never mentioned their mechanic? That's a Jim referral waiting to happen. Text them this week.",
+   takeaway:"Car trouble comes up in conversation constantly. Jim is the easiest referral to give — you just have to remember to say his name the moment you hear the trigger."},
+
+  {s:8, type:'spotlight', title:"Meet Tim Matta — Edward Jones",
+   obj:"Know exactly who Tim is, what he does, and the life events that signal a referral.",
+   script:"Tim Matta, Edward Jones. Financial planning is the kind of thing people always intend to do but rarely start. Tim's best clients are not necessarily wealthy — they are people who want a plan and someone to hold them to it. The trigger is not a balance sheet. The trigger is a life event: a new job, an inheritance, a child starting college, a divorce, a business exit.",
+   teaching:"Ideal clients: Someone who received an inheritance and doesn't know what to do with it; a 40- or 50-something who hasn't saved enough for retirement; a new parent who just realized they have no life insurance or college fund; a business owner approaching retirement with no succession plan. Power partners: Sean Fergus (estate planning coordination), Traci Emond (homebuyers often need financial planning guidance alongside a mortgage).",
+   trigger:"\"I just got a new job with a 401k\" · \"My mom passed and I don't know what to do with the money\" · \"We need to start thinking about college\" · \"I haven't touched my retirement account in years\" · \"We're thinking about selling the business\"",
+   position:"\"That's a conversation for Tim Matta at Edward Jones. He'll sit down with you, no pressure, and help you figure out exactly where you stand. I trust him completely.\"",
+   activity:"Identify one person in your network who recently experienced a major life transition — new job, inheritance, new baby, retirement approaching. That's a warm Tim referral. Reach out this week.",
+   takeaway:"Financial planning referrals come from life events, not bank balances. Pay attention to transitions."},
+
+  {s:9, type:'spotlight', title:"Meet Dr. Brett Rappenecker — Horizon Chiropractic",
+   obj:"Know exactly who Dr. Brett is, what he treats, and the everyday phrases that signal a referral.",
+   script:"Dr. Brett Rappenecker, Horizon Chiropractic. Chiropractic care is one of those services where the barrier is perception — people either think it's not for them, or they don't realize it can help what they're dealing with. Dr. Brett treats back pain, neck pain, headaches, and post-accident recovery. His patients describe him as someone who actually listens and explains the root cause rather than just treating symptoms.",
+   teaching:"Ideal patients: Anyone with chronic back or neck pain, desk workers dealing with posture and headache issues, anyone who was in a car accident, athletes or active people with repetitive stress injuries. Power partners: Jakob Kolodziej (auto accident insurance claims often precede chiropractic referrals), anyone who works with physical laborers. Brett's differentiator: he explains what's actually happening in your body so you understand the treatment.",
+   trigger:"\"My back has been killing me\" · \"I've had this headache for weeks\" · \"Neck pain from sitting at my desk all day\" · \"I was in a fender-bender and my neck has been stiff\" · \"I can't sleep because of the pain\"",
+   position:"\"You should see Dr. Brett. He's not just about adjustments — he'll figure out what's actually going on and explain it to you. I'd go to him before anyone else.\"",
+   activity:"Who in your life has mentioned back or neck pain in the last month? That's an active referral. Practice the handoff out loud right now so it feels natural when the moment comes.",
+   takeaway:"Back pain is one of the most common complaints in the world. Dr. Brett is the most accessible solution in your network. Say his name."},
+
+  {s:10, type:'spotlight', title:"Meet Dan Kern — Ace Handyman Services",
+   obj:"Know exactly who Dan is, what he handles, and the homeowner situations that signal a referral.",
+   script:"Dan Kern, Ace Handyman Services. Every homeowner has a list. Some of them have had the same items on that list for two years. Dan is the person who makes the list disappear — repairs, installations, improvements, and all the things that keep getting pushed back. His clients don't just get tasks completed — they get the relief of not having to think about it anymore.",
+   teaching:"Ideal clients: Homeowners with deferred maintenance, property managers with tenant turnovers, sellers preparing a home for listing, retirees who can no longer do the work themselves, new homeowners who've discovered a list of repairs. Power partners: Vicki Genz (pre-listing prep is a natural handoff), Ryan Johnson (small roof-adjacent repairs Dan can handle), Brandon Bynum (post-water-damage touch-ups after restoration). Dan's differentiator: he shows up when he says he will.",
+   trigger:"\"My honey-do list is out of control\" · \"I can never find a handyman who actually shows up\" · \"We're getting the house ready to sell and there's a list\" · \"Something broke and I've been meaning to fix it\" · \"I can't do the repairs myself anymore\"",
+   position:"\"Call Dan Kern at Ace Handyman. He's the person who actually shows up, does what he said, and charges a fair price. That combination is rare.\"",
+   activity:"Identify one homeowner in your network who mentioned a home project in the last three months. Draft the intro text to Dan right now — name, situation, and your personal endorsement.",
+   takeaway:"The most common complaint about home services is reliability. Dan's reputation is built on showing up. That's your entire pitch."},
+
+  {s:11, type:'spotlight', title:"Meet Brandon Bynum — ServiceMaster KWIK Restore",
+   obj:"Know exactly who Brandon is, what he handles, and why speed is the core of his referral.",
+   script:"Brandon Bynum, ServiceMaster KWIK Restore. Restoration is emergency services. When someone needs Brandon, they are in a stressful, often devastating situation — and the first 24 hours matter more than most people realize. Your job is to make sure Brandon's name comes out of your mouth before the person has finished describing the problem. He works directly with insurance companies so the client doesn't have to manage two conversations at once.",
+   teaching:"Ideal clients: Anyone with water, fire, storm, or mold damage — residential or commercial. Power partners: Ryan Johnson (storm damage often needs both roofing and restoration), Jakob Kolodziej (insurance claims process), Vicki Genz and Traci Emond (damaged properties affect real estate transactions in progress). Brandon's differentiator: he coordinates with the insurance adjuster so the client can focus on their family, not their paperwork.",
+   trigger:"\"Our basement flooded\" · \"We had a pipe burst\" · \"There's mold and we don't know what to do\" · \"The storm took out part of the roof and water got in\" · \"We had a fire\" · \"The insurance company is sending someone\"",
+   position:"\"Call Brandon Bynum right now. Before you call anyone else. He handles the insurance piece and he will get someone there fast. This is exactly what he does.\"",
+   activity:"Put Brandon's contact in your phone right now if it isn't there. His referral is the one that needs to happen in real time. You cannot look him up later — the moment passes in minutes.",
+   takeaway:"Brandon's referral is not a recommendation — it is an emergency resource. Have it ready before you need it."},
+
+  {s:12, type:'spotlight', title:"Meet Scot Bemus — FastSigns",
+   obj:"Know exactly who Scot is, what he produces, and the business events that signal a referral.",
+   script:"Scot Bemus, FastSigns. Every business needs to be seen — and most businesses underinvest in their visual presence. Scot does custom signs, vehicle wraps, trade show displays, banners, and branded marketing materials. His best referral is any business event, opening, or rebrand where visibility matters. He handles design and production in-house, which means faster turnaround and one person to call.",
+   teaching:"Ideal clients: Any business opening a new location, attending a trade show or community event, rebranding, wrapping a vehicle, or running a seasonal promotion. Power partners: Jeremy Juhl (office moves and refreshes often need signage), Sean Fergus (new business formations need branding from day one), anyone with commercial clients who are growing or launching. Scot's differentiator: design and production under one roof, faster than most expect.",
+   trigger:"\"We're opening a second location\" · \"We're going to a trade show next month\" · \"We redid our logo but haven't updated our signage\" · \"I want to wrap my work truck\" · \"Grand opening next month\" · \"We're rebranding\"",
+   position:"\"Before you go anywhere else for signage — talk to Scot at FastSigns. He handles design and production and he'll get it done faster than you'd expect.\"",
+   activity:"Who in your network has a business that's growing, moving, or rebranding this year? That's a Scot referral. Business announcements on LinkedIn are the easiest trigger to spot — watch for them.",
+   takeaway:"Visibility is not optional for a growing business. Scot is the shortcut to looking professional without the run-around."},
+
+  {s:13, type:'spotlight', title:"Meet Traci Emond — Guild Mortgage",
+   obj:"Know exactly who Traci is, what she does, and the conversations that signal a referral.",
+   script:"Traci Emond, Guild Mortgage. Her best client is someone buying a home, refinancing, or renting and starting to wonder if it's time to own. She gets clients pre-approved fast, locks in competitive rates, and closes on time. Her differentiator: she is reachable, she walks people through the entire process, and she does not disappear after the application is submitted.",
+   teaching:"Ideal clients: First-time homebuyers, move-up buyers, refinance candidates, investors. Power partners: Vicki Genz (real estate — Traci and Vicki are the core of the real estate referral chain), Jakob Kolodziej (homebuyers need insurance), Sean Fergus (some buyers need a closing attorney). Referral etiquette: always give Traci a heads-up before the contact reaches out so she's prepared.",
+   trigger:"\"We're renting and thinking about buying\" · \"I keep hearing rates might go back down\" · \"We want to get pre-approved before we start looking\" · \"We're thinking about refinancing\" · \"My rent just went up again\"",
+   position:"\"I want you to call Traci Emond at Guild Mortgage. She's the mortgage specialist I trust completely — she will walk you through the whole thing and make it simple.\"",
+   activity:"Who in your network is currently renting and has mentioned buying? Write their name down. That's a warm Traci referral. A text saying 'hey, have you thought about getting pre-approved? I know someone great' is all it takes.",
+   takeaway:"Traci's best referral is the one you give before the person even asks — because you were listening."},
+
+  {s:14, type:'spotlight', title:"Meet Jakob Kolodziej — Comparion Insurance",
+   obj:"Know exactly who Jakob is, what he covers, and the life events that make insurance referrals natural.",
+   script:"Jakob Kolodziej, Comparion Insurance. Most people overpay for insurance they don't fully understand — or worse, they're underprotected when they actually need it. Jakob shops multiple carriers to find the best coverage at the best price for home, auto, and business. His differentiator: he finds savings in one conversation, and he explains what you actually have.",
+   teaching:"Ideal clients: Homeowners whose renewal is coming up, new car buyers, business owners who've never reviewed their commercial coverage, anyone whose rates just went up without explanation, anyone who just moved or had a major life change. Power partners: Vicki Genz (homebuyers need insurance), Traci Emond (closings require insurance proof), Ryan Johnson (roof claims involve the insurance process), Dr. Brett Rappenecker (auto accident patients need insurance coordination).",
+   trigger:"\"My insurance renewal came and the price went up again\" · \"We just bought a new car\" · \"I started a business and I'm not sure what coverage I need\" · \"I don't even know what my policy covers\" · \"I haven't reviewed my insurance in years\"",
+   position:"\"Before your renewal hits — let me connect you with Jakob at Comparion Insurance. He shops multiple carriers and he almost always finds savings.\"",
+   activity:"Major life events always trigger insurance reviews. Who in your network has recently bought a car, started a business, gotten married, or moved? Each one is a warm Jakob referral.",
+   takeaway:"Insurance referrals hide inside every major life event. Once you know what to look for, you'll see them everywhere."},
+
+  {s:15, type:'spotlight', title:"Meet Vicki Genz — New View Group / Realty One",
+   obj:"Know exactly who Vicki is, what she does, and why real estate referrals reach more members than any other category.",
+   script:"Vicki Genz, New View Group at Realty ONE Group. Real estate is the single largest referral category in this chapter — nearly everyone knows someone who is thinking about buying or selling. Vicki's differentiator is her deep knowledge of the northwest suburbs and her ability to make the process feel manageable for clients who are intimidated by it.",
+   teaching:"Ideal clients: Anyone buying, selling, or investing in residential real estate in the northwest suburbs. Power partners: Traci Emond (mortgage), Jakob Kolodziej (insurance), Dan Kern (pre-sale prep), Brandon Bynum (damage remediation before listing), Ryan Johnson (roof issues before listing). The best Vicki referral: anyone saying 'we're thinking about it' — she is great at the education stage, not just the transaction stage.",
+   trigger:"\"We've been thinking about selling\" · \"We want to find something bigger\" · \"What do you think about the housing market right now?\" · \"We want to downsize\" · \"We're thinking about buying an investment property\"",
+   position:"\"You need to call Vicki. She knows this market cold and she makes the whole thing non-stressful. I'll send you her info right now.\"",
+   activity:"A real estate referral chain touches Vicki, Traci, Jakob, Dan, Brandon, Ryan — potentially six chapter members from one conversation. Who do you know who is thinking about a move? That one referral could fuel six.",
+   takeaway:"Real estate creates a referral chain through multiple members at once. Vicki is where that chain starts."},
+
+  {s:16, type:'spotlight', title:"Meet Ryan Johnson — Pink Roofing",
+   obj:"Know exactly who Ryan is, what he handles, and the storm and age-related triggers that generate referrals.",
+   script:"Ryan Johnson, Pink Roofing. Roofing is one of those services where people wait too long because they don't know who to call — and by the time they call, the problem is worse and the insurance window may have closed. Ryan works residential and commercial, handles insurance claims from estimate to approval, and does free inspections. Make Ryan the first call, not the last.",
+   teaching:"Ideal clients: Homeowners with a roof 15+ years old, anyone who had storm or hail damage, commercial building owners, anyone filing or thinking about an insurance claim on their roof, anyone getting ready to sell. Power partners: Brandon Bynum (storm damage needs both roofing and restoration), Jakob Kolodziej (insurance claim navigation), Vicki Genz (pre-listing roof inspections). Ryan's strength: he handles the insurance conversation so the homeowner doesn't have to.",
+   trigger:"\"We had that big hail storm and I haven't had anyone look at it\" · \"My roof is probably 20 years old\" · \"We're getting ready to sell and I know the roof is an issue\" · \"We filed a claim but the insurance company is fighting us\" · \"Leak after that last storm\"",
+   position:"\"Before you file a claim or list the house — call Ryan at Pink Roofing. He does a free inspection and he knows the insurance process front to back.\"",
+   activity:"Think about your neighborhood. Who on your street has a roof that looks old or has visible damage? That's a referral. Practice the conversation you'd have to bring it up naturally.",
+   takeaway:"Ryan's best referral comes from someone paying attention. You don't have to be a roofer to know when a roof needs work."},
+
+  {s:17, type:'spotlight', title:"Meet Sean Fergus — Law Offices of Sean P. Fergus",
+   obj:"Know exactly who Sean is, what he handles, and why every business owner in your network is a potential referral.",
+   script:"Sean Fergus, Law Offices of Sean P. Fergus. The legal world feels inaccessible to most people — they wait until they absolutely must hire an attorney. Your role is to normalize the idea that having a relationship with an attorney is smart, not a sign that something is wrong. Sean serves businesses and individuals in the northwest suburbs with formation, contracts, real estate closings, and estate planning.",
+   teaching:"Ideal clients: Anyone starting or structuring a business, property buyers and sellers needing a closing attorney, anyone with a will or estate plan more than five years old, contract review for any business owner, anyone in a business dispute. Power partners: Vicki Genz (real estate closings), Tim Matta (estate planning coordination). Sean's strength: he is practical, accessible, and explains things without jargon or intimidation.",
+   trigger:"\"I'm starting a business and not sure what structure to use\" · \"My partner and I need to formalize our agreement\" · \"I keep meaning to update my will\" · \"I need a contract reviewed\" · \"Real estate closing\" · \"I got a cease and desist\"",
+   position:"\"For that, you want an attorney — and I know exactly who to call. Sean Fergus is practical, responsive, and won't make you feel like you're bleeding money just by asking a question.\"",
+   activity:"Every business owner in your network needs an attorney. Identify one right now. That's a warm Sean referral. A text saying 'hey, do you have a business attorney you like?' followed by 'if not, I know someone great' is all it takes.",
+   takeaway:"Attorneys are not just for emergencies. Help Sean by changing that perception in your network — one conversation at a time."},
+
+  {s:18, type:'spotlight', title:"Meet Jeremy Juhl — Rieke Office Interiors",
+   obj:"Know exactly who Jeremy is, what he does, and the business announcements that trigger a referral.",
+   script:"Jeremy Juhl, Rieke Office Interiors. Every business eventually moves, expands, or needs to refresh its space. Jeremy's clients are companies that want their workspace to reflect who they are — and his work is often the first thing a client notices when they walk in the door. He handles everything from design concept to final installation, so clients have one person to call.",
+   teaching:"Ideal clients: Any business signing a new lease, expanding into a larger space, going through a rebrand, or noticing their workspace feels dated and unprofessional when clients visit. Power partners: Sean Fergus (new business formations often need a space shortly after), Brandon Bynum (water or fire damage often triggers a full renovation), Scot Bemus (new spaces need signage). Jeremy's differentiator: project management from first conversation to move-in day.",
+   trigger:"\"We just signed a lease on a new space\" · \"We're rebranding and our office doesn't match anymore\" · \"The conference room is embarrassing when clients come in\" · \"We need to furnish the new office\" · \"We're moving locations next quarter\"",
+   position:"\"Before you start ordering furniture or calling contractors — talk to Jeremy at Rieke Office Interiors. He will save you time and money and the end result will look like a real company.\"",
+   activity:"Office moves and expansions are announced publicly — LinkedIn, local news, press releases. Set up a Google Alert for 'Cary office expansion' or 'new location northwest suburbs.' Every announcement is a Jeremy referral.",
+   takeaway:"Office moves are public events. The announcement is your referral trigger. You just have to be paying attention."}
+];
+
+function setView(v) {
+  currentView = v;
+  document.getElementById('btnMember').classList.toggle('active', v === 'member');
+  document.getElementById('btnMentor').classList.toggle('active', v === 'mentor');
+  renderSection(currentSection);
+}
+
+function showSection(n) {
+  currentSection = n;
+  renderSection(n);
+  updateProgress(n);
+}
+
+function prevSection() {
+  if (currentSection > 1) { currentSection--; document.getElementById('secSelect').value = currentSection; renderSection(currentSection); updateProgress(currentSection); }
+}
+
+function nextSection() {
+  if (currentSection < SECTIONS.length) { currentSection++; document.getElementById('secSelect').value = currentSection; renderSection(currentSection); updateProgress(currentSection); }
+}
+
+function updateProgress(n) {
+  var pct = Math.round((n / SECTIONS.length) * 100);
+  document.getElementById('progressFill').style.width = Math.max(pct, 5.5) + '%';
+  document.getElementById('progressLabel').textContent = 'Section ' + n + ' of ' + SECTIONS.length;
+}
+
+function renderSection(n) {
+  var container = document.getElementById('secDisplay');
+  var data = SECTIONS[n - 1];
+  if (!data) { container.innerHTML = ''; return; }
+
+  var view = currentView;
+  var isSpot = data.type === 'spotlight';
+  var numClass = isSpot ? 'sc-num member-spot' : 'sc-num';
+
+  var html = '<div class="sec-card ' + view + '-view">';
+  html += '<div class="sc-header"><div class="' + numClass + '">' + n + '</div>';
+  html += '<div><div class="sc-title">' + data.title + '</div><div class="sc-obj">' + data.obj + '</div></div></div>';
+
+  if (view === 'member') {
+    html += '<div class="sc-field"><div class="sf-label">🎯 What This Section Covers</div><div class="sf-content">' + data.obj + '</div></div>';
+    if (isSpot) {
+      html += '<div class="sc-field"><div class="sf-label">👤 Who They Serve</div><div class="sf-content">' + data.script + '</div></div>';
+    } else {
+      html += '<div class="sc-field"><div class="sf-label">📖 The Core Idea</div><div class="sf-content">' + data.script + '</div></div>';
+    }
+    html += '<div class="sc-field"><div class="sf-label">👂 Listen For These Triggers</div><div class="sf-content">' + data.trigger + '</div></div>';
+    html += '<div class="sc-field"><div class="sf-label">🗣 What to Say</div><div class="sf-content">' + data.position + '</div></div>';
+    html += '<div class="sc-field" style="background:var(--green-l)"><div class="sf-label" style="color:var(--green)">✅ Your Action This Week</div><div class="sf-content" style="font-weight:600;color:var(--green)">' + data.activity + '</div></div>';
+    html += '<div class="sc-field" style="background:var(--amber-l)"><div class="sf-label" style="color:var(--amber)">💡 Key Takeaway</div><div class="sf-content" style="color:var(--amber)">' + data.takeaway + '</div></div>';
+  } else {
+    html += '<div class="sc-field script"><div class="sf-label">📜 ' + (isSpot ? 'Member Introduction Script' : 'Opening Script') + ' (read aloud)</div><div class="sf-content">' + data.script + '</div></div>';
+    html += '<div class="sc-field"><div class="sf-label">📖 ' + (isSpot ? 'Referral Coaching Points' : 'Teaching Points') + '</div><div class="sf-content">' + data.teaching + '</div></div>';
+    html += '<div class="sc-field"><div class="sf-label">👂 Trigger Phrases to Know</div><div class="sf-content">' + data.trigger + '</div></div>';
+    html += '<div class="sc-field"><div class="sf-label">💬 How to Position the Referral</div><div class="sf-content">' + data.position + '</div></div>';
+    html += '<div class="sc-field"><div class="sf-label">🎲 Onboarding Activity</div><div class="sf-content">' + data.activity + '</div></div>';
+    html += '<div class="sc-field takeaway"><div class="sf-label">✅ Close With This Takeaway</div><div class="sf-content">' + data.takeaway + '</div></div>';
+  }
+
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function buildSelect() {
+  var sel = document.getElementById('secSelect');
+  for (var i = 0; i < SECTIONS.length; i++) {
+    var o = document.createElement('option');
+    o.value = SECTIONS[i].s;
+    var prefix = SECTIONS[i].type === 'spotlight' ? '⭐ ' : '';
+    o.textContent = 'Section ' + SECTIONS[i].s + ' — ' + prefix + SECTIONS[i].title;
+    sel.appendChild(o);
+  }
+}
+
+function buildOverview() {
+  var tbl = document.getElementById('overviewTable');
+  var html = '<div class="ot-row header"><div class="ot-cell wk">#</div><div class="ot-cell">Section</div><div class="ot-cell">Objective</div></div>';
+  for (var i = 0; i < SECTIONS.length; i++) {
+    var isSpot = SECTIONS[i].type === 'spotlight';
+    html += '<div class="ot-row' + (isSpot ? ' spot' : '') + '" style="cursor:pointer" onclick="jumpTo(' + SECTIONS[i].s + ')">';
+    html += '<div class="ot-cell wk">' + SECTIONS[i].s + '</div>';
+    html += '<div class="ot-cell">' + SECTIONS[i].title + '</div>';
+    html += '<div class="ot-cell" style="color:var(--text-l)">' + SECTIONS[i].obj + '</div>';
+    html += '</div>';
+  }
+  tbl.innerHTML = html;
+}
+
+function jumpTo(n) {
+  currentSection = n;
+  document.getElementById('secSelect').value = n;
+  renderSection(n);
+  updateProgress(n);
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+window.onload = function() {
+  buildSelect();
+  buildOverview();
+  renderSection(1);
+};
+</script>
+</body></html>
