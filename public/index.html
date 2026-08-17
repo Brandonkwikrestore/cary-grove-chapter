@@ -895,14 +895,15 @@ function appStart() {
     {name:'Jakob Kolodziej',specialty:'Insurance',company:'Comparion Insurance'},
     {name:'Vicki Genz',specialty:'Real Estate',company:'New View Group – Realty One'},
     {name:'Ryan Johnson',specialty:'Roofing',company:'Pink Roofing'},
-    {name:'Sean Fergus',specialty:'Legal',company:'Law Offices of Sean P Fergus'},
     {name:'Jeremy Juhl',specialty:'Commercial Interiors',company:'Rieke Office Interiors'},
-    {name:'Jim Heim',specialty:'Auto Repair',company:'Tuffy Auto Repair'},
     {name:'Tim Matta',specialty:'Financial Planning',company:'Edward Jones'},
     {name:'Dr. Brett Rappenecker',specialty:'Chiropractic',company:'Horizon Chiropractic'},
     {name:'Dan Kern',specialty:'Home Maintenance',company:'Ace Handyman Services'},
     {name:'Brandon Bynum',specialty:'Restoration',company:'ServiceMaster KWIK Restore'},
     {name:'Scot Bemus',specialty:'Signs & Marketing',company:'FastSigns'},
+    {name:'Dennis Grabowski',specialty:'Small Business Banking',company:'BMO Harris Bank – Greater Chicago Area'},
+    {name:'Roman Corrado',specialty:'Electrical',company:'Corrado Electric LLC'},
+    {name:'Jackson Heim',specialty:'Auto Repair',company:'Tuffy Auto (Cary)'},
   ];
   _supa.from('members').select('*').eq('chapter_id', CHAPTER_ID).eq('active', true).order('name')
     .then(function(r) {
