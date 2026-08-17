@@ -7,7 +7,7 @@ const members = db.collection('members');
 
 const ADDITIONS = [
   { name: 'Roman Corrado', specialty: 'Electrical', company: 'Corrado Electric LLC' },
-  { name: 'Jackson Heim', specialty: 'Auto Repair', company: 'Tuffy Auto (Cary)' },
+  { name: 'Jackson Ramboldt', specialty: 'Auto Repair', company: 'Tuffy Tire & Auto Service' },
 ];
 
 const DENNIS_TITLE = 'Small Business Banking Officer';
