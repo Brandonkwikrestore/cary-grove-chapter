@@ -605,8 +605,9 @@ function fetchActivity(cb){
   var from=document.getElementById('ma_from').value;
   var to=document.getElementById('ma_to').value;
   var members=[
-    'Traci Emond','Jakob Kolodziej','Vicki Genz','Ryan Johnson','Sean Fergus',
-    'Jeremy Juhl','Theresa Lustig','Tim Matta','Dr. Brett Rappenecker','Dan Kern','Brandon Bynum'
+    'Traci Emond','Jakob Kolodziej','Vicki Genz','Ryan Johnson',
+    'Jeremy Juhl','Tim Matta','Dr. Brett Rappenecker','Dan Kern','Brandon Bynum',
+    'Scot Bemus','Dennis Grabowski','Roman Corrado','Jackson Heim'
   ];
   var attMap={}, givenMap={}, receivedMap={}, guestMap={};
   members.forEach(function(m){ attMap[m]={p:0,a:0,e:0,s:0}; givenMap[m]=0; receivedMap[m]=0; guestMap[m]=0; });
